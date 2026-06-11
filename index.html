@@ -1,424 +1,280 @@
 <!DOCTYPE html>
-
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aphinya Prasom | Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<!-- Tailwind -->
+<title>Aphinya Prasom | Portfolio</title>
+
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<!-- FontAwesome -->
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
-    *{
-        font-family:'Kanit',sans-serif;
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
 
-    html{
-        scroll-behavior:smooth;
-    }
+body{
+    background:#07010f;
+    color:white;
+    overflow-x:hidden;
+}
 
-    body{
-        background:#0a192f;
-        color:white;
-    }
+.hero-bg{
+    background:
+    radial-gradient(circle at top center,
+    rgba(168,85,247,.35),
+    transparent 40%),
 
-    .section-title{
-        font-size:2rem;
-        font-weight:700;
-        margin-bottom:2rem;
-    }
+    radial-gradient(circle at bottom center,
+    rgba(139,92,246,.25),
+    transparent 50%),
 
-    .glass{
-        background:rgba(255,255,255,.05);
-        backdrop-filter:blur(12px);
-        border:1px solid rgba(255,255,255,.1);
-    }
+    #07010f;
+}
 
-    .card-hover{
-        transition:.3s;
-    }
+.glass{
+    background:rgba(255,255,255,.03);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.08);
+}
 
-    .card-hover:hover{
-        transform:translateY(-10px);
-        box-shadow:0 0 30px rgba(100,255,218,.3);
-    }
+.glow-btn{
+    background:linear-gradient(
+    135deg,
+    #a855f7,
+    #c084fc
+    );
+}
+
+.glow-btn:hover{
+    box-shadow:
+    0 0 25px rgba(192,132,252,.6);
+}
+
+.project-card{
+    transition:.4s;
+}
+
+.project-card:hover{
+    transform:translateY(-12px);
+    box-shadow:
+    0 0 35px rgba(168,85,247,.35);
+}
+
+.blob{
+    position:absolute;
+    border-radius:9999px;
+    filter:blur(120px);
+    z-index:0;
+}
+
+.blob-1{
+    width:400px;
+    height:400px;
+    background:#9333ea;
+    top:-100px;
+    left:-100px;
+}
+
+.blob-2{
+    width:350px;
+    height:350px;
+    background:#7c3aed;
+    right:-100px;
+    top:150px;
+}
 
 </style>
-```
-
 </head>
 
 <body>
 
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
 <!-- NAVBAR -->
+<nav class="fixed top-0 left-0 w-full z-50">
 
-<nav class="fixed top-0 w-full bg-[#0a192f]/80 backdrop-blur-md z-50">
+<div class="max-w-7xl mx-auto px-6 pt-6">
 
-```
-<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between">
+<div class="glass rounded-full px-8 py-4 flex justify-between items-center">
 
-    <h1 class="font-bold text-cyan-400">
-        APHINYA
-    </h1>
+<div>
 
-    <div class="space-x-6">
-        <a href="#about">เกี่ยวกับฉัน</a>
-        <a href="#education">การศึกษา</a>
-        <a href="#skills">ทักษะ</a>
-        <a href="#projects">ผลงาน</a>
-        <a href="#contact">ติดต่อ</a>
-    </div>
+<h1 class="text-2xl font-bold">
+
+<span class="text-purple-400">&lt;</span>
+
+APHINYA
+
+<span class="text-purple-400">/&gt;</span>
+
+</h1>
 
 </div>
-```
+
+<div class="hidden md:flex gap-8 text-sm">
+
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#projects">Projects</a>
+
+</div>
+
+<a href="#contact"
+class="glow-btn px-6 py-3 rounded-full">
+
+Contact
+
+</a>
+
+</div>
+
+</div>
 
 </nav>
 
 <!-- HERO -->
-
 <section id="home"
-         class="min-h-screen flex items-center">
+class="hero-bg min-h-screen flex items-center relative">
 
-```
-<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10">
+<div class="max-w-7xl mx-auto px-6 w-full">
 
-    <div>
+<div class="text-center">
 
-        <p class="text-cyan-400 mb-3">
-            Portfolio
-        </p>
+<p class="uppercase tracking-[6px]
+text-purple-300 mb-6">
 
-        <h1 class="text-6xl font-bold">
-            อภิญญา ประสม
-        </h1>
+DIGITAL PORTFOLIO
 
-        <h2 class="text-2xl text-slate-300 mt-3">
-            Aphinya Prasom
-        </h2>
+</p>
 
-        <p class="mt-6 text-slate-400 leading-relaxed">
+<h1 class="text-6xl md:text-8xl
+font-extrabold leading-tight">
 
-            นักศึกษาชั้นปีที่ 4
-            สาขาธุรกิจดิจิทัลและระบบสารสนเทศ
-            คณะการบัญชีและการจัดการ
-            มหาวิทยาลัยมหาสารคาม
+อภิญญา
 
-        </p>
+<span class="text-purple-400">
 
-        <div class="mt-8 flex gap-4">
+ประสม
 
-            <a href="#projects"
-               class="bg-cyan-400 text-black px-6 py-3 rounded-xl">
-                ดูผลงาน
-            </a>
+</span>
 
-            <a href="#contact"
-               class="border border-cyan-400 text-cyan-400 px-6 py-3 rounded-xl">
-                ติดต่อฉัน
-            </a>
+</h1>
 
-        </div>
+<h2 class="text-2xl md:text-4xl
+mt-6 text-gray-300">
 
-    </div>
+Digital Business &
+Information Systems Student
 
-    <div class="flex justify-center">
+</h2>
 
-        <img src="images/profile.jpg"
-             class="w-80 h-80 rounded-full object-cover border-4 border-cyan-400">
+<p class="max-w-3xl mx-auto
+mt-8 text-gray-400 text-lg">
 
-    </div>
+นักศึกษาชั้นปีที่ 4
+สาขาธุรกิจดิจิทัลและระบบสารสนเทศ
+มหาวิทยาลัยมหาสารคาม
 
-</div>
-```
+สนใจด้านการพัฒนาเว็บไซต์
+ระบบสารสนเทศ
+การออกแบบดิจิทัล
+และเทคโนโลยีเพื่อธุรกิจ
 
-</section>
+</p>
 
-<!-- ABOUT -->
+<div class="flex flex-wrap
+justify-center gap-5 mt-12">
 
-<section id="about" class="py-24">
+<a href="#projects"
+class="glow-btn px-8 py-4 rounded-full">
 
-```
-<div class="max-w-6xl mx-auto px-6">
+ดูผลงาน
 
-    <h2 class="section-title">
-        เกี่ยวกับฉัน
-    </h2>
+</a>
 
-    <div class="glass rounded-3xl p-8">
+<a href="#contact"
+class="glass px-8 py-4 rounded-full">
 
-        <p>
+ติดต่อฉัน
 
-            ฉันเป็นนักศึกษาสาขาธุรกิจดิจิทัลและระบบสารสนเทศ
-            ที่มีความสนใจด้านการพัฒนาเว็บไซต์
-            ระบบสารสนเทศ
-            การออกแบบผลิตภัณฑ์
-            และการประยุกต์ใช้เทคโนโลยีเพื่อแก้ปัญหาทางธุรกิจ
-
-        </p>
-
-    </div>
+</a>
 
 </div>
-```
-
-</section>
-
-<!-- EDUCATION -->
-
-<section id="education" class="py-24">
-
-```
-<div class="max-w-6xl mx-auto px-6">
-
-    <h2 class="section-title">
-        การศึกษา
-    </h2>
-
-    <div class="glass p-8 rounded-3xl">
-
-        <h3 class="text-2xl font-semibold">
-            มหาวิทยาลัยมหาสารคาม
-        </h3>
-
-        <p class="text-slate-400 mt-2">
-            คณะการบัญชีและการจัดการ
-        </p>
-
-        <p class="text-slate-400">
-            สาขาธุรกิจดิจิทัลและระบบสารสนเทศ
-        </p>
-
-        <p class="mt-4">
-            ชั้นปีที่ 4
-        </p>
-
-    </div>
 
 </div>
-```
 
-</section>
+<!-- PROJECT PREVIEW -->
+<div class="grid md:grid-cols-3
+gap-8 mt-24">
 
-<!-- SKILLS -->
+<div class="project-card glass
+rounded-3xl overflow-hidden">
 
-<section id="skills" class="py-24">
+<img src="images/project1.jpg"
+class="aspect-video object-cover w-full">
 
-```
-<div class="max-w-6xl mx-auto px-6">
+<div class="p-5">
 
-    <h2 class="section-title">
-        ทักษะ
-    </h2>
+<h3 class="font-semibold">
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+KPOP-TPOP Store
 
-        <div class="glass p-6 rounded-3xl card-hover">
-            <h3 class="font-bold mb-3">
-                Programming
-            </h3>
-
-            PHP<br>
-            Python<br>
-            Java<br>
-            JavaScript<br>
-            SQL<br>
-            R
-        </div>
-
-        <div class="glass p-6 rounded-3xl card-hover">
-            <h3 class="font-bold mb-3">
-                Web Development
-            </h3>
-
-            HTML<br>
-            CSS<br>
-            JavaScript
-        </div>
-
-        <div class="glass p-6 rounded-3xl card-hover">
-            <h3 class="font-bold mb-3">
-                Automation
-            </h3>
-
-            n8n<br>
-            Workflow Design
-        </div>
-
-        <div class="glass p-6 rounded-3xl card-hover">
-            <h3 class="font-bold mb-3">
-                Microsoft Office
-            </h3>
-
-            Word<br>
-            Excel<br>
-            PowerPoint
-        </div>
-
-    </div>
+</h3>
 
 </div>
-```
-
-</section>
-
-<!-- PROJECTS -->
-
-<section id="projects" class="py-24">
-
-```
-<div class="max-w-6xl mx-auto px-6">
-
-    <h2 class="section-title">
-        ผลงานเด่น
-    </h2>
-
-    <div class="grid md:grid-cols-2 gap-8">
-
-        <div class="glass rounded-3xl overflow-hidden card-hover">
-
-            <img src="images/project1.jpg"
-                 class="aspect-video object-cover w-full">
-
-            <div class="p-6">
-
-                <h3 class="text-xl font-bold">
-                    เว็บไซต์ขายสินค้า KPOP-TPOP
-                </h3>
-
-            </div>
-
-        </div>
-
-        <div class="glass rounded-3xl overflow-hidden card-hover">
-
-            <img src="images/project2.jpg"
-                 class="aspect-video object-cover w-full">
-
-            <div class="p-6">
-
-                <h3 class="text-xl font-bold">
-                    ระบบจองตั๋วรถเมล์ออนไลน์
-                </h3>
-
-            </div>
-
-        </div>
-
-        <div class="glass rounded-3xl overflow-hidden card-hover">
-
-            <img src="images/project3.jpg"
-                 class="aspect-video object-cover w-full">
-
-            <div class="p-6">
-
-                <h3 class="text-xl font-bold">
-                    ผลิตภัณฑ์ระงับกลิ่นใต้วงแขน
-                </h3>
-
-            </div>
-
-        </div>
-
-        <div class="glass rounded-3xl overflow-hidden card-hover">
-
-            <img src="images/project4.jpg"
-                 class="aspect-video object-cover w-full">
-
-            <div class="p-6">
-
-                <h3 class="text-xl font-bold">
-                    เกมผี Roblox
-                </h3>
-
-            </div>
-
-        </div>
-
-    </div>
 
 </div>
-```
 
-</section>
+<div class="project-card glass
+rounded-3xl overflow-hidden">
 
-<!-- CERTIFICATE -->
+<img src="images/project2.jpg"
+class="aspect-video object-cover w-full">
 
-<section class="py-24">
+<div class="p-5">
 
-```
-<div class="max-w-6xl mx-auto px-6">
+<h3 class="font-semibold">
 
-    <h2 class="section-title">
-        ใบรับรอง
-    </h2>
+Online Bus Booking
 
-    <div class="grid md:grid-cols-2 gap-6">
-
-        <div class="glass p-6 rounded-3xl">
-            IC3 Digital Literacy
-        </div>
-
-        <div class="glass p-6 rounded-3xl">
-            PlayHubRO
-        </div>
-
-    </div>
+</h3>
 
 </div>
-```
-
-</section>
-
-<!-- CONTACT -->
-
-<section id="contact" class="py-24">
-
-```
-<div class="max-w-6xl mx-auto px-6">
-
-    <h2 class="section-title">
-        ติดต่อ
-    </h2>
-
-    <div class="glass p-8 rounded-3xl">
-
-        <p>
-            Email :
-            aphinya.prasom@gmail.com
-        </p>
-
-        <p class="mt-2">
-            Phone :
-            083-461-8077
-        </p>
-
-    </div>
 
 </div>
-```
+
+<div class="project-card glass
+rounded-3xl overflow-hidden">
+
+<img src="images/project3.jpg"
+class="aspect-video object-cover w-full">
+
+<div class="p-5">
+
+<h3 class="font-semibold">
+
+Roblox Horror Game
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
-
-<!-- FOOTER -->
-
-<footer class="text-center py-8 border-t border-white/10">
-
-```
-Designed & Developed by
-Aphinya Prasom
-```
-
-</footer>
 
 </body>
 </html>
