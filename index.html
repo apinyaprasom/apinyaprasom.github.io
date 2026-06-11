@@ -1,226 +1,237 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apinya Prasom | Portfolio</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #07010f;
+            color: white;
+            /* ล็อกหน้าจอตอนโหลด */
+            overflow-x: hidden; 
+            font-family: 'Outfit', 'Prompt', sans-serif;
+        }
 
-<title>Aphinya Prasom | Portfolio</title>
+        /* --- Skeleton Loader --- */
+        #loader {
+            background: #07010f;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
 
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- เพิ่มฟอนต์ Outfit สำหรับภาษาอังกฤษ และ Prompt สำหรับภาษาไทย -->
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background: #07010f;
-    color: white;
-    overflow-x: hidden;
-    /* ผสมฟอนต์: อังกฤษใช้ Outfit, ไทยใช้ Prompt */
-    font-family: 'Outfit', 'Prompt', sans-serif;
-}
-
-.hero-bg {
-    background: 
-    radial-gradient(circle at top center, rgba(168,85,247,.35), transparent 40%),
-    radial-gradient(circle at bottom center, rgba(139,92,246,.25), transparent 50%),
-    #07010f;
-}
-
-.glass {
-    background: rgba(255,255,255,.03);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255,255,255,.08);
-}
-
-.glow-btn {
-    background: linear-gradient(135deg, #a855f7, #c084fc);
-    transition: all 0.3s ease;
-}
-
-.glow-btn:hover {
-    box-shadow: 0 0 25px rgba(192,132,252,.6);
-    transform: translateY(-2px);
-}
-
-.project-card {
-    transition: 0.4s ease;
-}
-
-.project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 35px rgba(168,85,247,.25);
-}
-
-.blob {
-    position: absolute;
-    border-radius: 9999px;
-    filter: blur(120px);
-    z-index: 0; /* แก้ Z-index เพื่อไม่ให้บังเนื้อหา */
-}
-
-.blob-1 {
-    width: 400px;
-    height: 400px;
-    background: #9333ea;
-    top: -100px;
-    left: -100px;
-    opacity: 0.6;
-}
-
-.blob-2 {
-    width: 350px;
-    height: 350px;
-    background: #7c3aed;
-    right: -100px;
-    top: 250px;
-    opacity: 0.5;
-}
-
-</style>
+        .hero-bg {
+            background: 
+            radial-gradient(circle at top center, rgba(168,85,247,.35), transparent 40%),
+            radial-gradient(circle at bottom center, rgba(139,92,246,.25), transparent 50%),
+            #07010f;
+        }
+        
+        .glass {
+            background: rgba(255,255,255,.03);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,.08);
+        }
+        
+        .glow-btn {
+            background: linear-gradient(135deg, #a855f7, #c084fc);
+            transition: all 0.3s ease;
+        }
+        
+        .glow-btn:hover {
+            box-shadow: 0 0 25px rgba(192,132,252,.6);
+            transform: translateY(-2px);
+        }
+        
+        .project-card {
+            transition: 0.4s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 35px rgba(168,85,247,.25);
+        }
+        
+        .blob {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(120px);
+            z-index: -1;
+        }
+        
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: #9333ea;
+            top: -100px;
+            left: -100px;
+            opacity: 0.6;
+        }
+        
+        .blob-2 {
+            width: 350px;
+            height: 350px;
+            background: #7c3aed;
+            right: -100px;
+            top: 250px;
+            opacity: 0.5;
+        }
+    </style>
 </head>
 
-<body class="antialiased selection:bg-purple-500 selection:text-white">
+<body class="antialiased selection:bg-purple-500 selection:text-white overflow-hidden">
 
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
+    <div id="loader" class="fixed inset-0 flex items-center justify-center w-full h-full">
+        <div class="flex flex-col items-center gap-6 animate-pulse">
+            <div class="w-24 h-24 rounded-full border-4 border-purple-500 border-t-transparent animate-spin"></div>
+            <div class="w-48 h-6 bg-purple-500/30 rounded-full"></div>
+            <div class="w-32 h-4 bg-purple-500/20 rounded-full"></div>
+        </div>
+    </div>
 
-<!-- NAVBAR -->
-<nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6">
-        <div class="glass rounded-full px-6 py-3 sm:px-8 sm:py-4 flex justify-between items-center">
-            
-            <div>
-                <h1 class="text-xl sm:text-2xl font-bold tracking-wider">
-                    <span class="text-purple-400">&lt;</span>
-                    APHINYA
-                    <span class="text-purple-400">/&gt;</span>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6">
+            <div class="glass rounded-full px-6 py-3 sm:px-8 sm:py-4 flex justify-between items-center">
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-wider">
+                        <span class="text-purple-400">&lt;</span>
+                        APINYA
+                        <span class="text-purple-400">/&gt;</span>
+                    </h1>
+                </div>
+                <div class="hidden md:flex gap-8 text-sm font-medium tracking-wide">
+                    <a href="#home" class="hover:text-purple-400 transition-colors">Home</a>
+                    <a href="#about" class="hover:text-purple-400 transition-colors">About</a>
+                    <a href="#projects" class="hover:text-purple-400 transition-colors">Projects</a>
+                </div>
+                <a href="#contact" class="glow-btn px-5 py-2 sm:px-6 sm:py-3 rounded-full text-sm font-semibold">
+                    Contact
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero-bg min-h-screen flex flex-col justify-center relative pt-40 pb-20">
+        <div class="max-w-7xl mx-auto px-6 w-full relative z-10">
+            <div class="flex flex-col items-center text-center">
+                
+                <div class="glass p-3 rounded-full shadow-lg mb-8">
+                    <img src="images/profile.png" alt="อภิญญา ประสม" class="w-40 h-40 md:w-52 md:h-52 rounded-full object-cover border-4 border-purple-500/50 bg-gray-800">
+                </div>
+
+                <p class="uppercase tracking-[4px] sm:tracking-[6px] text-purple-300 mb-4 text-sm font-semibold">
+                    DIGITAL PORTFOLIO
+                </p>
+
+                <h1 class="text-5xl sm:text-7xl md:text-8xl font-extrabold leading-tight">
+                    อภิญญา 
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                        ประสม
+                    </span>
                 </h1>
+
+                <h2 class="text-xl sm:text-2xl md:text-3xl mt-6 text-gray-300 font-medium">
+                    Digital Business & Information Systems
+                </h2>
+
+                <div id="about" class="max-w-3xl mx-auto mt-8 text-gray-300 text-base sm:text-lg leading-relaxed text-center">
+                    <p class="mb-4">
+                        สวัสดีค่ะ ฉันชื่อวัน อายุ 22 ปี ปัจจุบันกำลังศึกษาอยู่ชั้นปีที่ 3 สาขาธุรกิจดิจิทัลและระบบสารสนเทศ มหาวิทยาลัยมหาสารคาม ฉันมีความหลงใหลในการผสานการออกแบบกราฟิกเข้ากับเทคโนโลยีระบบอัตโนมัติ โดยมุ่งเน้นการสร้างสรรค์ผลงานที่สวยงามและสามารถแก้ไขปัญหาทางธุรกิจได้จริงผ่านกระบวนการจัดการข้อมูลและการออกแบบ UI/UX ที่มีประสิทธิภาพ
+                    </p>
+                    <p>
+                        นอกจากการพัฒนาเว็บไซต์และระบบสารสนเทศแล้ว ฉันยังให้ความสำคัญกับการทำงานในสภาพแวดล้อมที่เป็นระบบ มีการวางแผนที่ชัดเจน และพร้อมที่จะเรียนรู้หรือร่วมงานกับผู้เชี่ยวชาญเพื่อต่อยอดทักษะการทำงานในสายเทคโนโลยีและดิจิทัลดีไซน์ต่อไป
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-4 sm:gap-5 mt-10">
+                    <a href="#projects" class="glow-btn px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-transform">
+                        ดูผลงาน
+                    </a>
+                </div>
             </div>
 
-            <div class="hidden md:flex gap-8 text-sm font-medium tracking-wide">
-                <a href="#home" class="hover:text-purple-400 transition-colors">Home</a>
-                <a href="#about" class="hover:text-purple-400 transition-colors">About</a>
-                <a href="#skills" class="hover:text-purple-400 transition-colors">Skills</a>
-                <a href="#projects" class="hover:text-purple-400 transition-colors">Projects</a>
-            </div>
+            <div id="projects" class="mt-24 sm:mt-32 pb-16">
+                <h3 class="text-3xl font-bold text-center mb-12 tracking-wider text-purple-100">ผลงานที่ผ่านมา</h3>
+                
+                <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
 
-            <a href="#contact" class="glow-btn px-5 py-2 sm:px-6 sm:py-3 rounded-full text-sm font-semibold">
-                Contact
-            </a>
-
-        </div>
-    </div>
-</nav>
-
-<!-- HERO SECTION -->
-<!-- ปรับ Layout ให้เป็น flex-col และเพิ่ม pt-40 (Padding Top) เพื่อดันเนื้อหาลงมาพ้น Navbar -->
-<section id="home" class="hero-bg min-h-screen flex flex-col justify-center relative pt-40 pb-20">
-    
-    <div class="max-w-7xl mx-auto px-6 w-full relative z-10">
-
-        <!-- TEXT CONTENT -->
-        <div class="text-center">
-
-            <section id="home" class="hero-bg min-h-screen flex items-center relative pt-40 pb-20">
-                <div class="max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center gap-12">
-                    <div class="flex-shrink-0">
-                        <div class="glass p-3 rounded-full shadow-lg">
-                            <img src="image/profile.png" alt="นิสิต" class="w-60 h-60 rounded-full object-cover border-4 border-purple-500/50">
+                    <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
+                        <div class="relative aspect-video overflow-hidden bg-gray-800">
+                            <img src="images/project1.jpg" alt="Finance Chatbot" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h3 class="text-xl font-semibold mb-2">Finance Chatbot for SMEs</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed mt-2">
+                                ผลงานการพัฒนาระบบบอตแชตทางการเงินสำหรับธุรกิจ SME โดยประยุกต์ใช้เครื่องมืออย่าง n8n และ LINE Notify เพื่อสร้างกระบวนการทำงานอัตโนมัติในการรายงานรายรับและรายจ่าย พร้อมทั้งบันทึกข้อมูลและจัดการฐานข้อมูลลงใน Google Sheets ได้อย่างรวดเร็วและแม่นยำ
+                            </p>
                         </div>
                     </div>
-            
-                    <div class="text-center md:text-left flex-grow">
+
+                    <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
+                        <div class="relative aspect-video overflow-hidden bg-gray-800">
+                            <img src="images/project2.jpg" alt="Bus Ticket Reservation" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
                         </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h3 class="text-xl font-semibold mb-2">Smart Bus Ticket System</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed mt-2">
+                                โครงการระบบจองตั๋วรถโดยสารออนไลน์ที่ครอบคลุมเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ซึ่งฉันได้รับผิดชอบในส่วนของการจัดการระบบจองที่นั่งและโครงสร้างทางเทคนิค เพื่ออำนวยความสะดวกให้ผู้ใช้งานสามารถจองคิวการเดินทางได้ด้วยตนเอง
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
+                        <div class="relative aspect-video overflow-hidden bg-gray-800">
+                            <img src="images/project3.jpg" alt="PureVeil Skincare Design" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h3 class="text-xl font-semibold mb-2">PureVeil Skincare Design</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed mt-2">
+                                โปรเจกต์การออกแบบผลิตภัณฑ์และบรรจุภัณฑ์อุตสาหกรรมสำหรับแบรนด์สกินแคร์ดูแลผิวใต้วงแขน PureVeil โดยฉันได้ออกแบบแพ็กเกจจิ้งในรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ (Metal Rollerball) ซึ่งตอบโจทย์ทั้งด้านความสวยงามและการใช้งานจริงในชีวิตประจำวัน
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
-            </section>
-
-            <p class="uppercase tracking-[4px] sm:tracking-[6px] text-purple-300 mb-4 sm:mb-6 text-sm sm:text-base font-semibold">
-                DIGITAL PORTFOLIO
-            </p>
-
-            <h1 class="text-5xl sm:text-7xl md:text-8xl font-extrabold leading-tight">
-                อภิญญา 
-                <!-- เพิ่มไล่สีนามสกุล (Text Gradient) -->
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-                    ประสม
-                </span>
-            </h1>
-
-            <h2 class="text-xl sm:text-2xl md:text-4xl mt-6 text-gray-300 font-medium">
-                Digital Business & Information Systems Student
-            </h2>
-
-            <p class="max-w-2xl mx-auto mt-8 text-gray-400 text-base sm:text-lg leading-relaxed">
-                นักศึกษาชั้นปีที่ 4 สาขาธุรกิจดิจิทัลและระบบสารสนเทศ มหาวิทยาลัยมหาสารคาม <br class="hidden sm:block">
-                สนใจด้านการพัฒนาเว็บไซต์ ระบบสารสนเทศ การออกแบบดิจิทัล และเทคโนโลยีเพื่อธุรกิจ
-            </p>
-
-            <div class="flex flex-wrap justify-center gap-4 sm:gap-5 mt-10 sm:mt-12">
-                <a href="#projects" class="glow-btn px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-transform">
-                    ดูผลงาน
-                </a>
-                <a href="#contact" class="glass px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold hover:bg-white/10 transition-colors">
-                    ติดต่อฉัน
-                </a>
             </div>
         </div>
+    </section>
 
-        <!-- PROJECT PREVIEW -->
-        <!-- แยกพื้นที่ของโปรเจกต์ให้มี Margin ห่างออกมาอย่างชัดเจน -->
-        <div id="projects" class="mt-24 sm:mt-32 pb-16">
-            <h3 class="text-2xl font-bold text-center mb-10 tracking-wider text-purple-100">ผลงานที่ผ่านมา</h3>
-            
-            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+    <script>
+        // รอให้โหลดโครงสร้าง DOM เริ่มต้นเสร็จ
+        window.addEventListener('DOMContentLoaded', () => {
+            // ตั้งเวลา 1.5 วินาที
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                const body = document.body;
+                
+                // 1. ทำให้ Loader เริ่ม Fade out
+                loader.style.opacity = '0';
+                
+                // 2. ปลดล็อกหน้าจอให้สามารถ Scroll ได้
+                body.classList.remove('overflow-hidden');
+                
+                // 3. หลังจาก Fade out เสร็จ (0.5 วินาที) ให้ลบ Element ทิ้งไปเลยเพื่อไม่ให้ขวางการคลิก
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
 
-                <!-- Card 1 -->
-                <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group">
-                    <div class="relative aspect-video overflow-hidden bg-gray-800">
-                        <!-- เช็กไฟล์รูปในโฟลเดอร์ images ว่ามีจริงไหม -->
-                        <img src="images/project1.jpg" alt="KPOP-TPOP Store" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">KPOP-TPOP Store</h3>
-                        <p class="text-sm text-purple-300">E-Commerce Platform</p>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group">
-                    <div class="relative aspect-video overflow-hidden bg-gray-800">
-                        <img src="images/project2.jpg" alt="Online Bus Booking" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Online Bus Booking</h3>
-                        <p class="text-sm text-purple-300">Booking System</p>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group">
-                    <div class="relative aspect-video overflow-hidden bg-gray-800">
-                        <img src="images/project3.jpg" alt="Roblox Horror Game" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Roblox Horror Game</h3>
-                        <p class="text-sm text-purple-300">Game Development</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-</section>
-
+            }, 1500);
+        });
+    </script>
 </body>
 </html>
