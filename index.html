@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apinya Prasom | Portfolio</title>
+    <title>Aphinya Prasom | Portfolio</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -68,7 +68,7 @@
             position: absolute;
             border-radius: 9999px;
             filter: blur(120px);
-            z-index: -1;
+            z-index: -1; /* แก้ Z-index เพื่อไม่ให้บังเนื้อหา */
         }
         
         .blob-1 {
@@ -110,13 +110,15 @@
                 <div>
                     <h1 class="text-xl sm:text-2xl font-bold tracking-wider">
                         <span class="text-purple-400">&lt;</span>
-                        APINYA
+                        APHINYA
                         <span class="text-purple-400">/&gt;</span>
                     </h1>
                 </div>
                 <div class="hidden md:flex gap-8 text-sm font-medium tracking-wide">
                     <a href="#home" class="hover:text-purple-400 transition-colors">Home</a>
                     <a href="#about" class="hover:text-purple-400 transition-colors">About</a>
+                    <a href="#education" class="hover:text-purple-400 transition-colors">Education</a>
+                    <a href="#skills" class="hover:text-purple-400 transition-colors">Skills</a>
                     <a href="#projects" class="hover:text-purple-400 transition-colors">Projects</a>
                 </div>
                 <a href="#contact" class="glow-btn px-5 py-2 sm:px-6 sm:py-3 rounded-full text-sm font-semibold">
@@ -149,14 +151,9 @@
                     Digital Business & Information Systems
                 </h2>
 
-                <div id="about" class="max-w-3xl mx-auto mt-8 text-gray-300 text-base sm:text-lg leading-relaxed text-center">
-                    <p class="mb-4">
-                        สวัสดีค่ะ ฉันชื่อวัน อายุ 22 ปี ปัจจุบันกำลังศึกษาอยู่ชั้นปีที่ 3 สาขาธุรกิจดิจิทัลและระบบสารสนเทศ มหาวิทยาลัยมหาสารคาม ฉันมีความหลงใหลในการผสานการออกแบบกราฟิกเข้ากับเทคโนโลยีระบบอัตโนมัติ โดยมุ่งเน้นการสร้างสรรค์ผลงานที่สวยงามและสามารถแก้ไขปัญหาทางธุรกิจได้จริงผ่านกระบวนการจัดการข้อมูลและการออกแบบ UI/UX ที่มีประสิทธิภาพ
-                    </p>
-                    <p>
-                        นอกจากการพัฒนาเว็บไซต์และระบบสารสนเทศแล้ว ฉันยังให้ความสำคัญกับการทำงานในสภาพแวดล้อมที่เป็นระบบ มีการวางแผนที่ชัดเจน และพร้อมที่จะเรียนรู้หรือร่วมงานกับผู้เชี่ยวชาญเพื่อต่อยอดทักษะการทำงานในสายเทคโนโลยีและดิจิทัลดีไซน์ต่อไป
-                    </p>
-                </div>
+                <p class="max-w-2xl mx-auto mt-8 text-gray-400 text-base sm:text-lg leading-relaxed">
+                    นักศึกษาชั้นปีที่ 4 มหาวิทยาลัยมหาสารคาม สนใจด้านการพัฒนาเว็บไซต์ ระบบสารสนเทศ และการออกแบบผลิตภัณฑ์นวัตกรรม
+                </p>
 
                 <div class="flex flex-wrap justify-center gap-4 sm:gap-5 mt-10">
                     <a href="#projects" class="glow-btn px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-transform">
@@ -164,52 +161,150 @@
                     </a>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div id="projects" class="mt-24 sm:mt-32 pb-16">
-                <h3 class="text-3xl font-bold text-center mb-12 tracking-wider text-purple-100">ผลงานที่ผ่านมา</h3>
-                
-                <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+    <section id="about" class="pb-24 pt-16 relative">
+        <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
+            <h3 class="text-4xl font-bold mb-12 tracking-wider text-purple-100">About Me</h3>
+            <div class="glass p-8 rounded-3xl text-gray-300 text-lg leading-relaxed">
+                สวัสดีค่ะ ฉันชื่อวัน อายุ 22 ปี เป็นคนรุ่นใหม่ที่มีความมุ่งมั่นและสนใจอย่างมากในการประยุกต์ใช้เทคโนโลยีเพื่อสร้างนวัตกรรมที่ใช้งานได้จริง ฉันมีความสุขกับการค้นหาแนวทางใหม่ๆ ในการผสานการออกแบบกราฟิก (Graphic Design) และการออกแบบประสบการณ์ผู้ใช้ (UI/UX Design) เข้ากับระบบทำงานอัตโนมัติ (Automation) เพื่อยกระดับความสวยงามและประสิทธิภาพของผลิตภัณฑ์ดิจิทัลให้ดียิ่งขึ้น
+            </div>
+        </div>
+    </section>
 
-                    <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
-                        <div class="relative aspect-video overflow-hidden bg-gray-800">
-                            <img src="images/project1.jpg" alt="Finance Chatbot" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
-                        </div>
-                        <div class="p-6 flex-grow flex flex-col">
-                            <h3 class="text-xl font-semibold mb-2">Finance Chatbot for SMEs</h3>
-                            <p class="text-sm text-gray-400 leading-relaxed mt-2">
-                                ผลงานการพัฒนาระบบบอตแชตทางการเงินสำหรับธุรกิจ SME โดยประยุกต์ใช้เครื่องมืออย่าง n8n และ LINE Notify เพื่อสร้างกระบวนการทำงานอัตโนมัติในการรายงานรายรับและรายจ่าย พร้อมทั้งบันทึกข้อมูลและจัดการฐานข้อมูลลงใน Google Sheets ได้อย่างรวดเร็วและแม่นยำ
-                            </p>
-                        </div>
+    <section id="education" class="pb-24 pt-16 relative bg-purple-500/5">
+        <div class="max-w-5xl mx-auto px-6 relative z-10">
+            <h3 class="text-4xl font-bold text-center mb-12 tracking-wider text-purple-100">Education</h3>
+            <div class="space-y-6">
+                <div class="glass p-6 rounded-2xl flex flex-col md:flex-row md:justify-between md:items-center gap-4 hover:border-purple-500/50 transition-all">
+                    <div>
+                        <p class="text-xl font-bold text-white">มหาวิทยาลัยมหาสารคาม (Mahasarakham University)</p>
+                        <p class="text-sm text-gray-300">คณะการบัญชีและการจัดการ (Faculty of Accounting and Management)</p>
+                        <p class="text-sm text-purple-300">สาขาธุรกิจดิจิทัลและระบบสารสนเทศ (Digital Business and Information Systems)</p>
                     </div>
-
-                    <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
-                        <div class="relative aspect-video overflow-hidden bg-gray-800">
-                            <img src="images/project2.jpg" alt="Bus Ticket Reservation" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
-                        </div>
-                        <div class="p-6 flex-grow flex flex-col">
-                            <h3 class="text-xl font-semibold mb-2">Smart Bus Ticket System</h3>
-                            <p class="text-sm text-gray-400 leading-relaxed mt-2">
-                                โครงการระบบจองตั๋วรถโดยสารออนไลน์ที่ครอบคลุมเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ซึ่งฉันได้รับผิดชอบในส่วนของการจัดการระบบจองที่นั่งและโครงสร้างทางเทคนิค เพื่ออำนวยความสะดวกให้ผู้ใช้งานสามารถจองคิวการเดินทางได้ด้วยตนเอง
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
-                        <div class="relative aspect-video overflow-hidden bg-gray-800">
-                            <img src="images/project3.jpg" alt="PureVeil Skincare Design" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
-                        </div>
-                        <div class="p-6 flex-grow flex flex-col">
-                            <h3 class="text-xl font-semibold mb-2">PureVeil Skincare Design</h3>
-                            <p class="text-sm text-gray-400 leading-relaxed mt-2">
-                                โปรเจกต์การออกแบบผลิตภัณฑ์และบรรจุภัณฑ์อุตสาหกรรมสำหรับแบรนด์สกินแคร์ดูแลผิวใต้วงแขน PureVeil โดยฉันได้ออกแบบแพ็กเกจจิ้งในรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ (Metal Rollerball) ซึ่งตอบโจทย์ทั้งด้านความสวยงามและการใช้งานจริงในชีวิตประจำวัน
-                            </p>
-                        </div>
-                    </div>
-
+                    <p class="text-lg font-medium text-gray-400 md:text-right">นิสิตชั้นปีที่ 4</p>
                 </div>
             </div>
         </div>
     </section>
+
+    <section id="skills" class="pb-24 pt-16 relative">
+        <div class="max-w-5xl mx-auto px-6 relative z-10">
+            <h3 class="text-4xl font-bold text-center mb-12 tracking-wider text-purple-100">Skills</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass p-6 rounded-3xl text-center space-y-3 hover:bg-purple-500/10 transition-colors">
+                    <p class="font-bold text-purple-300">Languages</p>
+                    <p class="text-gray-400 text-sm">PHP, R, Python, SQL, Java, Javascript</p>
+                </div>
+                <div class="glass p-6 rounded-3xl text-center space-y-3 hover:bg-purple-500/10 transition-colors">
+                    <p class="font-bold text-purple-300">Automation</p>
+                    <p class="text-gray-400 text-sm">n8n</p>
+                </div>
+                <div class="glass p-6 rounded-3xl text-center space-y-3 hover:bg-purple-500/10 transition-colors">
+                    <p class="font-bold text-purple-300">Prototyping</p>
+                    <p class="text-gray-400 text-sm">UI/UX Design, Product Prototyping</p>
+                </div>
+                <div class="glass p-6 rounded-3xl text-center space-y-3 hover:bg-purple-500/10 transition-colors">
+                    <p class="font-bold text-purple-300">Software</p>
+                    <p class="text-gray-400 text-sm">Microsoft Office (Word, Excel, PowerPoint)</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-xl font-medium text-gray-300 mb-6">Certifications / Training</p>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <span class="glass px-5 py-2 rounded-full text-purple-300 text-sm font-semibold">IC3</span>
+                    <span class="glass px-5 py-2 rounded-full text-purple-300 text-sm font-semibold">playhubro</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="pb-24 pt-16 relative bg-purple-500/5">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <h3 class="text-4xl font-bold text-center mb-12 tracking-wider text-purple-100">Projects</h3>
+            
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+
+                <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
+                    <div class="relative aspect-video overflow-hidden bg-gray-800">
+                        <img src="images/project1.jpg" alt="KPOP-TPOP Store" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-semibold mb-2">KPOP-TPOP Store</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mt-2 flex-grow">
+                            ออกแบบและพัฒนาเว็บไซต์อีคอมเมิร์ซสำหรับสินค้า K-POP และ T-POP โดยมีระบบตะกร้าสินค้าและการชำระเงินที่ใช้งานง่าย เพื่ออำนวยความสะดวกในการซื้อขายออนไลน์
+                        </p>
+                    </div>
+                </div>
+
+                <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
+                    <div class="relative aspect-video overflow-hidden bg-gray-800">
+                        <img src="images/project2.jpg" alt="Bus Ticket Reservation" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-semibold mb-2">Online Bus Ticket System</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mt-2 flex-grow">
+                            ออกแบบระบบจองตั๋วรถโดยสารออนไลน์ โดยใช้ n8n ในการทำงานอัตโนมัติ (Automation) เพื่อจัดการคำขอและยืนยันการจองผ่าน LINE Notify ช่วยยกระดับความสะดวกและรวดเร็ว
+                        </p>
+                    </div>
+                </div>
+
+                <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
+                    <div class="relative aspect-video overflow-hidden bg-gray-800">
+                        <img src="images/project3.jpg" alt="Underarm Product Design" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-semibold mb-2">PureVeil Product Design</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mt-2 flex-grow">
+                            ออกแบบผลิตภัณฑ์และทำโปรโตไทป์สินค้าใต้วงแขนที่เป็นนวัตกรรมใหม่ โดยเน้นประสบการณ์การใช้งานของผู้ใช้เป็นศูนย์กลาง ตั้งแต่การออกแบบ UI/UX ไปจนถึงการใช้งานจริง
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-16 text-center text-gray-400">
+                <p class="text-lg mb-6">ผลงานอื่นๆ:</p>
+                <p>ออกแบบเสื้อคณะ (ประจำปี) | โปรเจกต์จบ: เกมผีใน Roblox</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="pb-24 pt-16 relative">
+        <div class="max-w-5xl mx-auto px-6 relative z-10">
+            <h3 class="text-4xl font-bold text-center mb-12 tracking-wider text-purple-100">Get in Touch</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center md:text-left">
+                <a href="mailto:aphinya.prasom@gmail.com" class="glass p-8 rounded-3xl hover:border-purple-500/50 transition-all flex items-center justify-center md:justify-start gap-5">
+                    <div class="bg-purple-500/10 p-4 rounded-2xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-300">Email Me</p>
+                        <p class="text-xl font-bold text-white">aphinya.prasom@gmail.com</p>
+                    </div>
+                </a>
+                <div class="glass p-8 rounded-3xl flex items-center justify-center md:justify-start gap-5">
+                    <div class="bg-purple-500/10 p-4 rounded-2xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-300">Call Me</p>
+                        <p class="text-xl font-bold text-white">083-461-8077</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="glass border-t-0 py-6 text-center text-gray-400 text-sm">
+        <p>&copy; 2024 Aphinya Prasom. All rights reserved.</p>
+    </footer>
 
     <script>
         // รอให้โหลดโครงสร้าง DOM เริ่มต้นเสร็จ
