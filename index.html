@@ -1,35 +1,168 @@
-<!-- About Me -->
+<!DOCTYPE html>
+
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aphinya Prasom | Portfolio</title>
+
+```
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- FontAwesome -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+    *{
+        font-family:'Kanit',sans-serif;
+    }
+
+    html{
+        scroll-behavior:smooth;
+    }
+
+    body{
+        background:#0a192f;
+        color:white;
+    }
+
+    .section-title{
+        font-size:2rem;
+        font-weight:700;
+        margin-bottom:2rem;
+    }
+
+    .glass{
+        background:rgba(255,255,255,.05);
+        backdrop-filter:blur(12px);
+        border:1px solid rgba(255,255,255,.1);
+    }
+
+    .card-hover{
+        transition:.3s;
+    }
+
+    .card-hover:hover{
+        transform:translateY(-10px);
+        box-shadow:0 0 30px rgba(100,255,218,.3);
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="fixed top-0 w-full bg-[#0a192f]/80 backdrop-blur-md z-50">
+
+```
+<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between">
+
+    <h1 class="font-bold text-cyan-400">
+        APHINYA
+    </h1>
+
+    <div class="space-x-6">
+        <a href="#about">เกี่ยวกับฉัน</a>
+        <a href="#education">การศึกษา</a>
+        <a href="#skills">ทักษะ</a>
+        <a href="#projects">ผลงาน</a>
+        <a href="#contact">ติดต่อ</a>
+    </div>
+
+</div>
+```
+
+</nav>
+
+<!-- HERO -->
+
+<section id="home"
+         class="min-h-screen flex items-center">
+
+```
+<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10">
+
+    <div>
+
+        <p class="text-cyan-400 mb-3">
+            Portfolio
+        </p>
+
+        <h1 class="text-6xl font-bold">
+            อภิญญา ประสม
+        </h1>
+
+        <h2 class="text-2xl text-slate-300 mt-3">
+            Aphinya Prasom
+        </h2>
+
+        <p class="mt-6 text-slate-400 leading-relaxed">
+
+            นักศึกษาชั้นปีที่ 4
+            สาขาธุรกิจดิจิทัลและระบบสารสนเทศ
+            คณะการบัญชีและการจัดการ
+            มหาวิทยาลัยมหาสารคาม
+
+        </p>
+
+        <div class="mt-8 flex gap-4">
+
+            <a href="#projects"
+               class="bg-cyan-400 text-black px-6 py-3 rounded-xl">
+                ดูผลงาน
+            </a>
+
+            <a href="#contact"
+               class="border border-cyan-400 text-cyan-400 px-6 py-3 rounded-xl">
+                ติดต่อฉัน
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="flex justify-center">
+
+        <img src="images/profile.jpg"
+             class="w-80 h-80 rounded-full object-cover border-4 border-cyan-400">
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ABOUT -->
 
 <section id="about" class="py-24">
 
 ```
 <div class="max-w-6xl mx-auto px-6">
 
-    <h2 class="text-4xl font-bold mb-12">
+    <h2 class="section-title">
         เกี่ยวกับฉัน
     </h2>
 
-    <div class="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10">
+    <div class="glass rounded-3xl p-8">
 
-        <p class="text-slate-300 leading-relaxed text-lg">
+        <p>
 
-            สวัสดีค่ะ ฉันชื่อ อภิญญา ประสม
-            ปัจจุบันกำลังศึกษาระดับปริญญาตรี
-            สาขาธุรกิจดิจิทัลและระบบสารสนเทศ
-            คณะการบัญชีและการจัดการ
-            มหาวิทยาลัยมหาสารคาม
-
-            ฉันเป็นคนที่สนใจการเรียนรู้สิ่งใหม่ ๆ
-            โดยเฉพาะด้านเทคโนโลยีดิจิทัล
-            การพัฒนาเว็บไซต์ ระบบฐานข้อมูล
-            และการออกแบบระบบที่ช่วยแก้ไขปัญหาในการทำงานจริง
-
-            นอกจากด้านเทคโนโลยีแล้ว
-            ฉันยังสนใจงานด้านการออกแบบ
-            การสร้างสรรค์ผลงาน
-            และการพัฒนาผลิตภัณฑ์ใหม่ ๆ
-            ซึ่งช่วยให้สามารถมองเห็นปัญหา
-            และคิดค้นแนวทางแก้ไขได้หลากหลายมิติ
+            ฉันเป็นนักศึกษาสาขาธุรกิจดิจิทัลและระบบสารสนเทศ
+            ที่มีความสนใจด้านการพัฒนาเว็บไซต์
+            ระบบสารสนเทศ
+            การออกแบบผลิตภัณฑ์
+            และการประยุกต์ใช้เทคโนโลยีเพื่อแก้ปัญหาทางธุรกิจ
 
         </p>
 
@@ -39,3 +172,253 @@
 ```
 
 </section>
+
+<!-- EDUCATION -->
+
+<section id="education" class="py-24">
+
+```
+<div class="max-w-6xl mx-auto px-6">
+
+    <h2 class="section-title">
+        การศึกษา
+    </h2>
+
+    <div class="glass p-8 rounded-3xl">
+
+        <h3 class="text-2xl font-semibold">
+            มหาวิทยาลัยมหาสารคาม
+        </h3>
+
+        <p class="text-slate-400 mt-2">
+            คณะการบัญชีและการจัดการ
+        </p>
+
+        <p class="text-slate-400">
+            สาขาธุรกิจดิจิทัลและระบบสารสนเทศ
+        </p>
+
+        <p class="mt-4">
+            ชั้นปีที่ 4
+        </p>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- SKILLS -->
+
+<section id="skills" class="py-24">
+
+```
+<div class="max-w-6xl mx-auto px-6">
+
+    <h2 class="section-title">
+        ทักษะ
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div class="glass p-6 rounded-3xl card-hover">
+            <h3 class="font-bold mb-3">
+                Programming
+            </h3>
+
+            PHP<br>
+            Python<br>
+            Java<br>
+            JavaScript<br>
+            SQL<br>
+            R
+        </div>
+
+        <div class="glass p-6 rounded-3xl card-hover">
+            <h3 class="font-bold mb-3">
+                Web Development
+            </h3>
+
+            HTML<br>
+            CSS<br>
+            JavaScript
+        </div>
+
+        <div class="glass p-6 rounded-3xl card-hover">
+            <h3 class="font-bold mb-3">
+                Automation
+            </h3>
+
+            n8n<br>
+            Workflow Design
+        </div>
+
+        <div class="glass p-6 rounded-3xl card-hover">
+            <h3 class="font-bold mb-3">
+                Microsoft Office
+            </h3>
+
+            Word<br>
+            Excel<br>
+            PowerPoint
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- PROJECTS -->
+
+<section id="projects" class="py-24">
+
+```
+<div class="max-w-6xl mx-auto px-6">
+
+    <h2 class="section-title">
+        ผลงานเด่น
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-8">
+
+        <div class="glass rounded-3xl overflow-hidden card-hover">
+
+            <img src="images/project1.jpg"
+                 class="aspect-video object-cover w-full">
+
+            <div class="p-6">
+
+                <h3 class="text-xl font-bold">
+                    เว็บไซต์ขายสินค้า KPOP-TPOP
+                </h3>
+
+            </div>
+
+        </div>
+
+        <div class="glass rounded-3xl overflow-hidden card-hover">
+
+            <img src="images/project2.jpg"
+                 class="aspect-video object-cover w-full">
+
+            <div class="p-6">
+
+                <h3 class="text-xl font-bold">
+                    ระบบจองตั๋วรถเมล์ออนไลน์
+                </h3>
+
+            </div>
+
+        </div>
+
+        <div class="glass rounded-3xl overflow-hidden card-hover">
+
+            <img src="images/project3.jpg"
+                 class="aspect-video object-cover w-full">
+
+            <div class="p-6">
+
+                <h3 class="text-xl font-bold">
+                    ผลิตภัณฑ์ระงับกลิ่นใต้วงแขน
+                </h3>
+
+            </div>
+
+        </div>
+
+        <div class="glass rounded-3xl overflow-hidden card-hover">
+
+            <img src="images/project4.jpg"
+                 class="aspect-video object-cover w-full">
+
+            <div class="p-6">
+
+                <h3 class="text-xl font-bold">
+                    เกมผี Roblox
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- CERTIFICATE -->
+
+<section class="py-24">
+
+```
+<div class="max-w-6xl mx-auto px-6">
+
+    <h2 class="section-title">
+        ใบรับรอง
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+        <div class="glass p-6 rounded-3xl">
+            IC3 Digital Literacy
+        </div>
+
+        <div class="glass p-6 rounded-3xl">
+            PlayHubRO
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact" class="py-24">
+
+```
+<div class="max-w-6xl mx-auto px-6">
+
+    <h2 class="section-title">
+        ติดต่อ
+    </h2>
+
+    <div class="glass p-8 rounded-3xl">
+
+        <p>
+            Email :
+            aphinya.prasom@gmail.com
+        </p>
+
+        <p class="mt-2">
+            Phone :
+            083-461-8077
+        </p>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="text-center py-8 border-t border-white/10">
+
+```
+Designed & Developed by
+Aphinya Prasom
+```
+
+</footer>
+
+</body>
+</html>
