@@ -4,376 +4,395 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aphinya Prasom | Portfolio</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    body {
+        background: #07010f;
+        color: white;
+        overflow-x: hidden; 
+        font-family: 'Outfit', 'Prompt', sans-serif;
+    }
+
+    /* --- Skeleton Loader --- */
+    #loader {
+        background: #07010f;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+    }
+
+    .hero-bg {
+        background: 
+        radial-gradient(circle at top center, rgba(168,85,247,.35), transparent 40%),
+        radial-gradient(circle at bottom center, rgba(139,92,246,.25), transparent 50%),
+        #07010f;
+    }
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    .glass {
+        background: rgba(255,255,255,.03);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(255,255,255,.08);
+    }
     
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background: #07010f;
-            color: white;
-            overflow-x: hidden; 
-            font-family: 'Outfit', 'Prompt', sans-serif;
-            
-        }
+    .glow-btn {
+        background: linear-gradient(135deg, #a855f7, #c084fc);
+        transition: all 0.3s ease;
+    }
+    
+    .glow-btn:hover {
+        box-shadow: 0 0 25px rgba(192,132,252,.6);
+        transform: translateY(-2px);
+    }
+    
+    .project-card {
+        transition: 0.4s ease;
+    }
+    
+    .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 0 35px rgba(168,85,247,.25);
+    }
+    
+    .blob {
+        position: absolute;
+        border-radius: 9999px;
+        filter: blur(120px);
+        z-index: -1; 
+    }
+    
+    .blob-1 {
+        width: 400px;
+        height: 400px;
+        background: #9333ea;
+        top: -100px;
+        left: -100px;
+        opacity: 0.6;
+        animation: blobBounce 10s infinite alternate ease-in-out;
+    }
+    
+    .blob-2 {
+        width: 350px;
+        height: 350px;
+        background: #7c3aed;
+        right: -100px;
+        top: 250px;
+        opacity: 0.5;
+        animation: blobBounce 12s infinite alternate-reverse ease-in-out;
+    }
 
-        /* --- Skeleton Loader --- */
-        #loader {
-            background: #07010f;
-            z-index: 9999;
-            transition: opacity 0.5s ease-out;
-        }
+    /* --- Custom Animations --- */
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
 
-        .hero-bg {
-            background: 
-            radial-gradient(circle at top center, rgba(168,85,247,.35), transparent 40%),
-            radial-gradient(circle at bottom center, rgba(139,92,246,.25), transparent 50%),
-            #07010f;
-        }
-        
-        .glass {
-            background: rgba(255,255,255,.03);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255,255,255,.08);
-        }
-        
-        .glow-btn {
-            background: linear-gradient(135deg, #a855f7, #c084fc);
-            transition: all 0.3s ease;
-        }
-        
-        .glow-btn:hover {
-            box-shadow: 0 0 25px rgba(192,132,252,.6);
-            transform: translateY(-2px);
-        }
-        
-        .project-card {
-            transition: 0.4s ease;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 35px rgba(168,85,247,.25);
-        }
-        
-        .blob {
-            position: absolute;
-            border-radius: 9999px;
-            filter: blur(120px);
-            z-index: -1; 
-        }
-        
-        .blob-1 {
-            width: 400px;
-            height: 400px;
-            background: #9333ea;
-            top: -100px;
-            left: -100px;
-            opacity: 0.6;
-            animation: blobBounce 10s infinite alternate ease-in-out;
-        }
-        
-        .blob-2 {
-            width: 350px;
-            height: 350px;
-            background: #7c3aed;
-            right: -100px;
-            top: 250px;
-            opacity: 0.5;
-            animation: blobBounce 12s infinite alternate-reverse ease-in-out;
-        }
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
 
-        /* --- Custom Animations --- */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes blobBounce {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-            100% { transform: translate(0px, 0px) scale(1); }
-        }
-        
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s ease-out;
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    @keyframes blobBounce {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(30px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+    }
+    
+    .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s ease-out;
+    }
+    
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
 </head>
-
 <body class="antialiased selection:bg-purple-500 selection:text-white overflow-hidden">
 
-    <div id="loader" class="fixed inset-0 flex items-center justify-center w-full h-full">
-        <div class="flex flex-col items-center gap-6 animate-pulse">
-            <div class="w-24 h-24 rounded-full border-4 border-purple-500 border-t-transparent animate-spin"></div>
-            <div class="w-48 h-6 bg-purple-500/30 rounded-full"></div>
-            <div class="w-32 h-4 bg-purple-500/20 rounded-full"></div>
+<div id="loader" class="fixed inset-0 flex items-center justify-center w-full h-full">
+    <div class="flex flex-col items-center gap-6 animate-pulse">
+        <div class="w-24 h-24 rounded-full border-4 border-purple-500 border-t-transparent animate-spin"></div>
+        <div class="w-48 h-6 bg-purple-500/30 rounded-full"></div>
+        <div class="w-32 h-4 bg-purple-500/20 rounded-full"></div>
+    </div>
+</div>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6">
+        <div class="glass rounded-full px-6 py-3 sm:px-8 sm:py-4 flex justify-between items-center">
+            
+            <div class="w-10"></div> 
+            
+            <h1 class="text-xl sm:text-2xl font-bold tracking-wider text-purple-400">
+                APHINYA
+            </h1>
+            
+            <div class="hidden md:flex gap-8 text-sm font-medium tracking-wide">
+                <a href="#home" class="hover:text-purple-400 transition-colors">Home</a>
+                <a href="#about" class="hover:text-purple-400 transition-colors">About</a>
+                <a href="#education" class="hover:text-purple-400 transition-colors">Education</a>
+                <a href="#skills" class="hover:text-purple-400 transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-purple-400 transition-colors">Projects</a>
+            </div>
+            
+            <a href="#contact" class="glow-btn px-5 py-2 sm:px-6 sm:py-3 rounded-full text-sm font-semibold">
+                Contact
+            </a>
+            
         </div>
     </div>
+</nav>
 
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
+<section id="home" class="hero-bg min-h-screen flex flex-col justify-center relative pt-40 pb-20">
+    <div class="max-w-7xl mx-auto px-6 w-full relative z-10">
+        <div class="flex flex-col items-center text-center">
+            
+            <div class="glass p-3 rounded-full shadow-lg mb-8 animate-float">
+                <img src="image/profile.png" alt="อภิญญา ประสม" class="w-40 h-40 md:w-52 md:h-52 rounded-full object-cover border-4 border-purple-500/50 bg-gray-800">
+            </div>
 
-    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6">
-            <div class="glass rounded-full px-6 py-3 sm:px-8 sm:py-4 flex justify-between items-center">
-                
-                <div class="w-10"></div> 
-                
-                <h1 class="text-xl sm:text-2xl font-bold tracking-wider text-purple-400">
-                    APHINYA
-                </h1>
-                
-                <div class="hidden md:flex gap-8 text-sm font-medium tracking-wide">
-                    <a href="#home" class="hover:text-purple-400 transition-colors">Home</a>
-                    <a href="#about" class="hover:text-purple-400 transition-colors">About</a>
-                    <a href="#education" class="hover:text-purple-400 transition-colors">Education</a>
-                    <a href="#skills" class="hover:text-purple-400 transition-colors">Skills</a>
-                    <a href="#projects" class="hover:text-purple-400 transition-colors">Projects</a>
-                </div>
-                
-                <a href="#contact" class="glow-btn px-5 py-2 sm:px-6 sm:py-3 rounded-full text-sm font-semibold">
-                    Contact
+            <p class="uppercase tracking-[4px] sm:tracking-[6px] text-purple-300 mb-4 text-sm font-semibold">
+                DIGITAL PORTFOLIO
+            </p>
+
+            <h1 class="text-5xl sm:text-7xl md:text-8xl font-extrabold leading-tight">  
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                    อภิญญา ประสม
+                </span>
+            </h1>
+
+            <h2 class="text-xl sm:text-2xl md:text-3xl mt-6 text-gray-300 font-medium">
+                Digital Business & Information Systems
+            </h2>
+
+            <p class="max-w-2xl mx-auto mt-8 text-gray-400 text-base sm:text-lg leading-relaxed">
+                นักศึกษาชั้นปีที่ 4 มหาวิทยาลัยมหาสารคาม สนใจด้านการพัฒนาเว็บไซต์ ระบบสารสนเทศ และการออกแบบผลิตภัณฑ์นวัตกรรม
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-5 mt-10">
+                <a href="#projects" class="glow-btn px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-transform">
+                    ดูผลงาน
                 </a>
-                
             </div>
         </div>
-    </nav>
+    </div>
+</section>
 
-    <section id="home" class="hero-bg min-h-screen flex flex-col justify-center relative pt-40 pb-20">
-        <div class="max-w-7xl mx-auto px-6 w-full relative z-10">
-            <div class="flex flex-col items-center text-center">
-                
-                <div class="glass p-3 rounded-full shadow-lg mb-8 animate-float">
-                    <img src="image/profile.png" alt="อภิญญา ประสม" class="w-40 h-40 md:w-52 md:h-52 rounded-full object-cover border-4 border-purple-500/50 bg-gray-800">
+<section id="about" class="pb-24 pt-16 relative reveal">
+    <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
+        <h3 class="text-4xl font-bold mb-12 tracking-wider text-purple-100">About Me</h3>
+        <div class="glass p-8 rounded-3xl text-gray-300 text-lg leading-relaxed">
+            สวัสดีค่ะ ฉันชื่อว่าน อายุ 22 ปี ปัจจุบันกำลังศึกษาอยู่ชั้นปีที่ 4 สาขาธุรกิจดิจิทัลและระบบสารสนเทศ มหาวิทยาลัยมหาสารคาม ฉันมีความหลงใหลในการผสานการออกแบบกราฟิกเข้ากับเทคโนโลยีระบบอัตโนมัติ โดยมุ่งเน้นการสร้างสรรค์ผลงานที่สวยงามและสามารถแก้ไขปัญหาทางธุรกิจได้จริงผ่านกระบวนการจัดการข้อมูลและการออกแบบ UI/UX ที่มีประสิทธิภาพ นอกจากการพัฒนาเว็บไซต์และระบบสารสนเทศแล้ว ฉันยังให้ความสำคัญกับการทำงานในสภาพแวดล้อมที่เป็นระบบ มีการวางแผนที่ชัดเจน และพร้อมที่จะเรียนรู้หรือร่วมงานกับผู้เชี่ยวชาญเพื่อต่อยอดทักษะการทำงานในสายเทคโนโลยีต่อไป
+        </div>
+    </div>
+</section>
+
+<section id="education" class="pb-24 pt-16 relative bg-purple-500/5 reveal">
+    <div class="max-w-5xl mx-auto px-6 relative z-10">
+        <h3 class="text-4xl font-bold text-center mb-12 tracking-wider text-purple-100">Education</h3>
+        <div class="space-y-6">
+            <div class="glass p-6 rounded-2xl flex flex-col md:flex-row md:justify-between md:items-center gap-4 hover:border-purple-500/50 transition-all hover:scale-[1.02]">
+                <div>
+                    <p class="text-xl font-bold text-white">มหาวิทยาลัยมหาสารคาม (Mahasarakham University)</p>
+                    <p class="text-sm text-gray-300 mt-1">คณะการบัญชีและการจัดการ (Mahasarakham business school)</p>
+                    <p class="text-sm text-purple-300 mt-1">สาขาธุรกิจดิจิทัลและระบบสารสนเทศ (Digital Business and Information Systems)</p>
                 </div>
+                <p class="text-lg font-medium text-gray-400 md:text-right">นิสิตชั้นปีที่ 4</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-                <p class="uppercase tracking-[4px] sm:tracking-[6px] text-purple-300 mb-4 text-sm font-semibold">
-                    DIGITAL PORTFOLIO
-                </p>
+<section id="skills" class="pb-24 pt-16 relative reveal">
+    <div class="max-w-5xl mx-auto px-6 relative z-10">
+        <h3 class="text-4xl font-bold text-center mb-12 tracking-wider text-purple-100">Skills</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="glass p-6 rounded-3xl text-center space-y-3 hover:bg-purple-500/10 transition-all hover:-translate-y-2 duration-300">
+                <p class="font-bold text-purple-300">Languages</p>
+                <p class="text-gray-400 text-sm">PHP, R, Python, SQL, Java, Javascript</p>
+            </div>
+            <div class="glass p-6 rounded-3xl text-center space-y-3 hover:bg-purple-500/10 transition-all hover:-translate-y-2 duration-300">
+                <p class="font-bold text-purple-300">Automation</p>
+                <p class="text-gray-400 text-sm">n8n</p>
+            </div>
+            <div class="glass p-6 rounded-3xl text-center space-y-3 hover:bg-purple-500/10 transition-all hover:-translate-y-2 duration-300">
+                <p class="font-bold text-purple-300">Prototyping</p>
+                <p class="text-gray-400 text-sm">UI/UX Design, Product Prototyping</p>
+            </div>
+            <div class="glass p-6 rounded-3xl text-center space-y-3 hover:bg-purple-500/10 transition-all hover:-translate-y-2 duration-300">
+                <p class="font-bold text-purple-300">Software</p>
+                <p class="text-gray-400 text-sm">Microsoft Office (Word, Excel, PowerPoint)</p>
+            </div>
+        </div>
+        
+        <!-- ส่วน Certifications แก้เป็นรูปแบบรูปภาพขยายเมื่อนำเมาส์ไปชี้ -->
+        <div class="mt-16 text-center">
+            <p class="text-xl font-medium text-gray-300 mb-8">Certifications / Training</p>
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+                <!-- ใบเซอร์ที่ 1 -->
+                <div class="relative w-28 h-20 sm:w-36 sm:h-24 rounded-lg overflow-hidden glass cursor-pointer transition-transform duration-300 hover:scale-[2] hover:z-50 shadow-lg group">
+                    <img src="image/cert1.png" alt="Certificate 1" class="w-full h-full object-cover">
+                </div>
+                <!-- ใบเซอร์ที่ 2 -->
+                <div class="relative w-28 h-20 sm:w-36 sm:h-24 rounded-lg overflow-hidden glass cursor-pointer transition-transform duration-300 hover:scale-[2] hover:z-50 shadow-lg group">
+                    <img src="image/cert2.png" alt="Certificate 2" class="w-full h-full object-cover">
+                </div>
+                <!-- ใบเซอร์ที่ 3 -->
+                <div class="relative w-28 h-20 sm:w-36 sm:h-24 rounded-lg overflow-hidden glass cursor-pointer transition-transform duration-300 hover:scale-[2] hover:z-50 shadow-lg group">
+                    <img src="image/cert3.png" alt="Certificate 3" class="w-full h-full object-cover">
+                </div>
+                <!-- ใบเซอร์ที่ 4 -->
+                <div class="relative w-28 h-20 sm:w-36 sm:h-24 rounded-lg overflow-hidden glass cursor-pointer transition-transform duration-300 hover:scale-[2] hover:z-50 shadow-lg group">
+                    <img src="image/cert4.png" alt="Certificate 4" class="w-full h-full object-cover">
+                </div>
+                <!-- ใบเซอร์ที่ 5 -->
+                <div class="relative w-28 h-20 sm:w-36 sm:h-24 rounded-lg overflow-hidden glass cursor-pointer transition-transform duration-300 hover:scale-[2] hover:z-50 shadow-lg group">
+                    <img src="image/cert5.png" alt="Certificate 5" class="w-full h-full object-cover">
+                </div>
+            </div>
+            <p class="text-xs text-purple-300/70 mt-6">* ลองนำเมาส์ชี้ที่รูปเพื่อดูแบบขยาย (Hover to Zoom)</p>
+        </div>
+    </div>
+</section>
 
-                <h1 class="text-5xl sm:text-7xl md:text-8xl font-extrabold leading-tight">  
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-                        อภิญญา ประสม
-                    </span>
-                </h1>
+<section id="projects" class="pb-24 pt-16 relative bg-purple-500/5 reveal">
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <h3 class="text-4xl font-bold text-center mb-12 tracking-wider text-purple-100">Projects</h3>
+        
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
 
-                <h2 class="text-xl sm:text-2xl md:text-3xl mt-6 text-gray-300 font-medium">
-                    Digital Business & Information Systems
-                </h2>
+            <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
+                <div class="relative aspect-video overflow-hidden bg-gray-800">
+                    <img src="image/kpop.png" alt="KPOP-TPOP Store" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-xl font-semibold mb-2 text-white">KPOP-TPOP Store</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mt-2 flex-grow">
+                        ออกแบบและพัฒนาเว็บไซต์อีคอมเมิร์ซสำหรับสินค้า K-POP และ T-POP โดยมีระบบตะกร้าสินค้าและการชำระเงินที่ใช้งานง่าย เพื่ออำนวยความสะดวกในการซื้อขายออนไลน์อย่างมีประสิทธิภาพ
+                    </p>
+                </div>
+            </div>
 
-                <p class="max-w-2xl mx-auto mt-8 text-gray-400 text-base sm:text-lg leading-relaxed">
-                    นักศึกษาชั้นปีที่ 4 มหาวิทยาลัยมหาสารคาม สนใจด้านการพัฒนาเว็บไซต์ ระบบสารสนเทศ และการออกแบบผลิตภัณฑ์นวัตกรรม
-                </p>
+            <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
+                <div class="relative aspect-video overflow-hidden bg-gray-800">
+                    <img src="image/bus.png" alt="Bus Ticket Reservation" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-xl font-semibold mb-2 text-white">Online Bus Ticket System</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mt-2 flex-grow">
+                        ระบบจองตั๋วรถโดยสารออนไลน์ที่ครอบคลุมเส้นทางการเดินทาง โดยประยุกต์ใช้ n8n ในการจัดการระบบทำงานอัตโนมัติ (Automation) เพื่อรับคำขอและยืนยันการจองผ่าน LINE Notify ให้ผู้ใช้งานได้อย่างรวดเร็ว
+                    </p>
+                </div>
+            </div>
 
-                <div class="flex flex-wrap justify-center gap-4 sm:gap-5 mt-10">
-                    <a href="#projects" class="glow-btn px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-transform">
-                        ดูผลงาน
-                    </a>
+            <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
+                <div class="relative aspect-video overflow-hidden bg-gray-800">
+                    <img src="image/product.png" alt="PureVeil Product Design" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-xl font-semibold mb-2 text-white">PureVeil Product Design</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mt-2 flex-grow">
+                        โปรเจกต์การออกแบบผลิตภัณฑ์และบรรจุภัณฑ์อุตสาหกรรมสำหรับแบรนด์สกินแคร์ดูแลผิวใต้วงแขน PureVeil โดยนำเสนอแพ็กเกจจิ้งรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ (Metal Rollerball) ซึ่งตอบโจทย์ทั้งด้านความสวยงามและการใช้งานจริง
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- ลบส่วน ออกแบบเสื้อคณะ ออกตามที่แจ้ง -->
+        <div class="mt-16 text-center text-gray-400 bg-black/20 py-6 rounded-2xl backdrop-blur-md border border-white/5 mx-auto max-w-2xl">
+            <p class="text-lg mb-2 font-semibold text-purple-300">ผลงานอื่นๆ ที่น่าสนใจ</p>
+            <p class="text-sm">โปรเจกต์จบ: เกมแนวสยองขวัญพัฒนาบนแพลตฟอร์ม Roblox</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="pb-24 pt-16 relative reveal">
+    <div class="max-w-5xl mx-auto px-6 relative z-10">
+        <h3 class="text-4xl font-bold text-center mb-12 tracking-wider text-purple-100">Get in Touch</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center md:text-left">
+            <a href="mailto:aphinya.prasom@gmail.com" class="glass p-8 rounded-3xl hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300 flex items-center justify-center md:justify-start gap-5 group">
+                <div class="bg-purple-500/10 p-4 rounded-2xl group-hover:bg-purple-500/20 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-400 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-300">Email Me</p>
+                    <p class="text-xl font-bold text-white">66010916079@msu.ac.th</p>
+                </div>
+            </a>
+            <div class="glass p-8 rounded-3xl flex items-center justify-center md:justify-start gap-5 hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300 group">
+                <div class="bg-purple-500/10 p-4 rounded-2xl group-hover:bg-purple-500/20 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-400 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-300">Call Me</p>
+                    <p class="text-xl font-bold text-white">083-461-8077</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="about" class="pb-24 pt-16 relative reveal">
-        <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
-            <h3 class="text-4xl font-bold mb-12 tracking-wider text-purple-100">About Me</h3>
-            <div class="glass p-8 rounded-3xl text-gray-300 text-lg leading-relaxed">
-                สวัสดีค่ะ ฉันชื่อว่าน อายุ 22 ปี ปัจจุบันกำลังศึกษาอยู่ชั้นปีที่ 4 สาขาธุรกิจดิจิทัลและระบบสารสนเทศ มหาวิทยาลัยมหาสารคาม ฉันมีความหลงใหลในการผสานการออกแบบกราฟิกเข้ากับเทคโนโลยีระบบอัตโนมัติ โดยมุ่งเน้นการสร้างสรรค์ผลงานที่สวยงามและสามารถแก้ไขปัญหาทางธุรกิจได้จริงผ่านกระบวนการจัดการข้อมูลและการออกแบบ UI/UX ที่มีประสิทธิภาพ นอกจากการพัฒนาเว็บไซต์และระบบสารสนเทศแล้ว ฉันยังให้ความสำคัญกับการทำงานในสภาพแวดล้อมที่เป็นระบบ มีการวางแผนที่ชัดเจน และพร้อมที่จะเรียนรู้หรือร่วมงานกับผู้เชี่ยวชาญเพื่อต่อยอดทักษะการทำงานในสายเทคโนโลยีต่อไป
-            </div>
-        </div>
-    </section>
+<footer class="glass border-t-0 py-6 text-center text-gray-400 text-sm">
+    <p>&copy; 2024 Aphinya Prasom. All rights reserved.</p>
+</footer>
 
-    <section id="education" class="pb-24 pt-16 relative bg-purple-500/5 reveal">
-        <div class="max-w-5xl mx-auto px-6 relative z-10">
-            <h3 class="text-4xl font-bold text-center mb-12 tracking-wider text-purple-100">Education</h3>
-            <div class="space-y-6">
-                <div class="glass p-6 rounded-2xl flex flex-col md:flex-row md:justify-between md:items-center gap-4 hover:border-purple-500/50 transition-all hover:scale-[1.02]">
-                    <div>
-                        <p class="text-xl font-bold text-white">มหาวิทยาลัยมหาสารคาม (Mahasarakham University)</p>
-                        <p class="text-sm text-gray-300 mt-1">คณะการบัญชีและการจัดการ (Mahasarakham business school)</p>
-                        <p class="text-sm text-purple-300 mt-1">สาขาธุรกิจดิจิทัลและระบบสารสนเทศ (Digital Business and Information Systems)</p>
-                    </div>
-                    <p class="text-lg font-medium text-gray-400 md:text-right">นิสิตชั้นปีที่ 4</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" class="pb-24 pt-16 relative reveal">
-        <div class="max-w-5xl mx-auto px-6 relative z-10">
-            <h3 class="text-4xl font-bold text-center mb-12 tracking-wider text-purple-100">Skills</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="glass p-6 rounded-3xl text-center space-y-3 hover:bg-purple-500/10 transition-all hover:-translate-y-2 duration-300">
-                    <p class="font-bold text-purple-300">Languages</p>
-                    <p class="text-gray-400 text-sm">PHP, R, Python, SQL, Java, Javascript</p>
-                </div>
-                <div class="glass p-6 rounded-3xl text-center space-y-3 hover:bg-purple-500/10 transition-all hover:-translate-y-2 duration-300">
-                    <p class="font-bold text-purple-300">Automation</p>
-                    <p class="text-gray-400 text-sm">n8n</p>
-                </div>
-                <div class="glass p-6 rounded-3xl text-center space-y-3 hover:bg-purple-500/10 transition-all hover:-translate-y-2 duration-300">
-                    <p class="font-bold text-purple-300">Prototyping</p>
-                    <p class="text-gray-400 text-sm">UI/UX Design, Product Prototyping</p>
-                </div>
-                <div class="glass p-6 rounded-3xl text-center space-y-3 hover:bg-purple-500/10 transition-all hover:-translate-y-2 duration-300">
-                    <p class="font-bold text-purple-300">Software</p>
-                    <p class="text-gray-400 text-sm">Microsoft Office (Word, Excel, PowerPoint)</p>
-                </div>
-            </div>
+<script>
+    // 1. ควบคุมการทำงานของ Skeleton Loader
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            const loader = document.getElementById('loader');
+            const body = document.body;
             
-            <div class="mt-12 text-center">
-                <p class="text-xl font-medium text-gray-300 mb-6">Certifications / Training</p>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <span class="glass px-5 py-2 rounded-full text-purple-300 text-sm font-semibold hover:bg-purple-500/20 transition-colors cursor-default">IC3</span>
-                    <span class="glass px-5 py-2 rounded-full text-purple-300 text-sm font-semibold hover:bg-purple-500/20 transition-colors cursor-default">playhubro</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="pb-24 pt-16 relative bg-purple-500/5 reveal">
-        <div class="max-w-7xl mx-auto px-6 relative z-10">
-            <h3 class="text-4xl font-bold text-center mb-12 tracking-wider text-purple-100">Projects</h3>
+            loader.style.opacity = '0';
+            body.classList.remove('overflow-hidden');
             
-            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
-
-                <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
-                    <div class="relative aspect-video overflow-hidden bg-gray-800">
-                        <img src="image/kpop.png" alt="KPOP-TPOP Store" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col">
-                        <h3 class="text-xl font-semibold mb-2 text-white">KPOP-TPOP Store</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed mt-2 flex-grow">
-                            ออกแบบและพัฒนาเว็บไซต์อีคอมเมิร์ซสำหรับสินค้า K-POP และ T-POP โดยมีระบบตะกร้าสินค้าและการชำระเงินที่ใช้งานง่าย เพื่ออำนวยความสะดวกในการซื้อขายออนไลน์อย่างมีประสิทธิภาพ
-                        </p>
-                    </div>
-                </div>
-
-                <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
-                    <div class="relative aspect-video overflow-hidden bg-gray-800">
-                        <img src="image/bus.png" alt="Bus Ticket Reservation" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col">
-                        <h3 class="text-xl font-semibold mb-2 text-white">Online Bus Ticket System</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed mt-2 flex-grow">
-                            ระบบจองตั๋วรถโดยสารออนไลน์ที่ครอบคลุมเส้นทางการเดินทาง โดยประยุกต์ใช้ n8n ในการจัดการระบบทำงานอัตโนมัติ (Automation) เพื่อรับคำขอและยืนยันการจองผ่าน LINE Notify ให้ผู้ใช้งานได้อย่างรวดเร็ว
-                        </p>
-                    </div>
-                </div>
-
-                <div class="project-card glass rounded-3xl overflow-hidden cursor-pointer group flex flex-col">
-                    <div class="relative aspect-video overflow-hidden bg-gray-800">
-                        <img src="image/product.png" alt="PureVeil Product Design" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col">
-                        <h3 class="text-xl font-semibold mb-2 text-white">PureVeil Product Design</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed mt-2 flex-grow">
-                            โปรเจกต์การออกแบบผลิตภัณฑ์และบรรจุภัณฑ์อุตสาหกรรมสำหรับแบรนด์สกินแคร์ดูแลผิวใต้วงแขน PureVeil โดยนำเสนอแพ็กเกจจิ้งรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ (Metal Rollerball) ซึ่งตอบโจทย์ทั้งด้านความสวยงามและการใช้งานจริง
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-            
-            <div class="mt-16 text-center text-gray-400 bg-black/20 py-6 rounded-2xl backdrop-blur-md border border-white/5 mx-auto max-w-2xl">
-                <p class="text-lg mb-2 font-semibold text-purple-300">ผลงานอื่นๆ ที่น่าสนใจ</p>
-                <p class="text-sm">ออกแบบเสื้อคณะ (ประจำปี) | โปรเจกต์จบ: เกมแนวสยองขวัญพัฒนาบนแพลตฟอร์ม Roblox</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="pb-24 pt-16 relative reveal">
-        <div class="max-w-5xl mx-auto px-6 relative z-10">
-            <h3 class="text-4xl font-bold text-center mb-12 tracking-wider text-purple-100">Get in Touch</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center md:text-left">
-                <a href="mailto:aphinya.prasom@gmail.com" class="glass p-8 rounded-3xl hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300 flex items-center justify-center md:justify-start gap-5 group">
-                    <div class="bg-purple-500/10 p-4 rounded-2xl group-hover:bg-purple-500/20 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-400 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-300">Email Me</p>
-                        <p class="text-xl font-bold text-white">66010916079@msu.ac.th</p>
-                    </div>
-                </a>
-                <div class="glass p-8 rounded-3xl flex items-center justify-center md:justify-start gap-5 hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300 group">
-                    <div class="bg-purple-500/10 p-4 rounded-2xl group-hover:bg-purple-500/20 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-400 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-300">Call Me</p>
-                        <p class="text-xl font-bold text-white">083-461-8077</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="glass border-t-0 py-6 text-center text-gray-400 text-sm">
-        <p>&copy; 2024 Aphinya Prasom. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // 1. ควบคุมการทำงานของ Skeleton Loader
-        window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
-                const loader = document.getElementById('loader');
-                const body = document.body;
-                
-                loader.style.opacity = '0';
-                body.classList.remove('overflow-hidden');
-                
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 500);
+                loader.style.display = 'none';
+            }, 500);
 
-            }, 1000); 
+        }, 1000); 
+    });
+
+    // 2. ระบบ Scroll Reveal 
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15 
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); 
+            }
         });
+    }, observerOptions);
 
-        // 2. ระบบ Scroll Reveal 
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15 
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target); 
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach((element) => {
-            observer.observe(element);
-        });
-    </script>
+    document.querySelectorAll('.reveal').forEach((element) => {
+        observer.observe(element);
+    });
+</script>
 </body>
 </html>
