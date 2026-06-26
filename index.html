@@ -122,12 +122,19 @@
 </head>
 <body class="antialiased selection:bg-purple-500 selection:text-white overflow-hidden">
 
+<!-- Skeleton Loader -->
 <div id="loader" class="fixed inset-0 flex items-center justify-center w-full h-full">
     <div class="flex flex-col items-center gap-6 animate-pulse">
         <div class="w-24 h-24 rounded-full border-4 border-purple-500 border-t-transparent animate-spin"></div>
         <div class="w-48 h-6 bg-purple-500/30 rounded-full"></div>
         <div class="w-32 h-4 bg-purple-500/20 rounded-full"></div>
     </div>
+</div>
+
+<!-- Modal สำหรับโชว์รูปใบเซอร์เต็มจอ (Lightbox) -->
+<div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 p-4 backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
+    <span class="absolute top-6 right-6 sm:top-10 sm:right-10 text-white text-4xl sm:text-5xl cursor-pointer hover:text-purple-400 transition-colors">&times;</span>
+    <img id="lightbox-img" src="" alt="Certificate Full" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl scale-95 transition-transform duration-300">
 </div>
 
 <div class="blob blob-1"></div>
@@ -241,32 +248,47 @@
             </div>
         </div>
         
-        <!-- ส่วน Certifications แก้เป็นรูปแบบรูปภาพขยายเมื่อนำเมาส์ไปชี้ -->
+        <!-- ส่วน Certifications อัปเดตเป็นการใช้ Modal (Lightbox) แทนการ Hover ให้ขยายแบบเดิม -->
         <div class="mt-16 text-center">
             <p class="text-xl font-medium text-gray-300 mb-8">Certifications / Training</p>
             <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
                 <!-- ใบเซอร์ที่ 1 -->
-                <div class="relative w-28 h-20 sm:w-36 sm:h-24 rounded-lg overflow-hidden glass cursor-pointer transition-transform duration-300 hover:scale-[2] hover:z-50 shadow-lg group">
-                    <img src="image/cert1.jpg" alt="Certificate 1" class="w-full h-full object-cover">
+                <div class="relative w-32 h-24 sm:w-48 sm:h-32 rounded-lg overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-400 shadow-lg group" onclick="openLightbox('image/cert1.png')">
+                    <img src="image/cert1.png" alt="Certificate 1" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white text-sm font-medium">ดูรูปขยาย</span>
+                    </div>
                 </div>
                 <!-- ใบเซอร์ที่ 2 -->
-                <div class="relative w-28 h-20 sm:w-36 sm:h-24 rounded-lg overflow-hidden glass cursor-pointer transition-transform duration-300 hover:scale-[2] hover:z-50 shadow-lg group">
-                    <img src="image/cert2.jpg" alt="Certificate 2" class="w-full h-full object-cover">
+                <div class="relative w-32 h-24 sm:w-48 sm:h-32 rounded-lg overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-400 shadow-lg group" onclick="openLightbox('image/cert2.png')">
+                    <img src="image/cert2.png" alt="Certificate 2" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white text-sm font-medium">ดูรูปขยาย</span>
+                    </div>
                 </div>
                 <!-- ใบเซอร์ที่ 3 -->
-                <div class="relative w-28 h-20 sm:w-36 sm:h-24 rounded-lg overflow-hidden glass cursor-pointer transition-transform duration-300 hover:scale-[2] hover:z-50 shadow-lg group">
-                    <img src="image/cert3.jpg" alt="Certificate 3" class="w-full h-full object-cover">
+                <div class="relative w-32 h-24 sm:w-48 sm:h-32 rounded-lg overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-400 shadow-lg group" onclick="openLightbox('image/cert3.png')">
+                    <img src="image/cert3.png" alt="Certificate 3" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white text-sm font-medium">ดูรูปขยาย</span>
+                    </div>
                 </div>
                 <!-- ใบเซอร์ที่ 4 -->
-                <div class="relative w-28 h-20 sm:w-36 sm:h-24 rounded-lg overflow-hidden glass cursor-pointer transition-transform duration-300 hover:scale-[2] hover:z-50 shadow-lg group">
-                    <img src="image/cert4.jpg" alt="Certificate 4" class="w-full h-full object-cover">
+                <div class="relative w-32 h-24 sm:w-48 sm:h-32 rounded-lg overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-400 shadow-lg group" onclick="openLightbox('image/cert4.png')">
+                    <img src="image/cert4.png" alt="Certificate 4" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white text-sm font-medium">ดูรูปขยาย</span>
+                    </div>
                 </div>
                 <!-- ใบเซอร์ที่ 5 -->
-                <div class="relative w-28 h-20 sm:w-36 sm:h-24 rounded-lg overflow-hidden glass cursor-pointer transition-transform duration-300 hover:scale-[2] hover:z-50 shadow-lg group">
-                    <img src="image/cert5.jpg" alt="Certificate 5" class="w-full h-full object-cover">
+                <div class="relative w-32 h-24 sm:w-48 sm:h-32 rounded-lg overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-400 shadow-lg group" onclick="openLightbox('image/cert5.png')">
+                    <img src="image/cert5.png" alt="Certificate 5" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white text-sm font-medium">ดูรูปขยาย</span>
+                    </div>
                 </div>
             </div>
-            <p class="text-xs text-purple-300/70 mt-6">* ลองนำเมาส์ชี้ที่รูปเพื่อดูแบบขยาย (Hover to Zoom)</p>
+            <p class="text-xs text-purple-300/70 mt-6">* คลิกที่รูปเพื่อดูขนาดเต็ม (Click to Enlarge)</p>
         </div>
     </div>
 </section>
@@ -315,7 +337,6 @@
 
         </div>
         
-        <!-- ลบส่วน ออกแบบเสื้อคณะ ออกตามที่แจ้ง -->
         <div class="mt-16 text-center text-gray-400 bg-black/20 py-6 rounded-2xl backdrop-blur-md border border-white/5 mx-auto max-w-2xl">
             <p class="text-lg mb-2 font-semibold text-purple-300">ผลงานอื่นๆ ที่น่าสนใจ</p>
             <p class="text-sm">โปรเจกต์จบ: เกมแนวสยองขวัญพัฒนาบนแพลตฟอร์ม Roblox</p>
@@ -393,6 +414,39 @@
     document.querySelectorAll('.reveal').forEach((element) => {
         observer.observe(element);
     });
+
+    // 3. ระบบ Lightbox (คลิกรูปเพื่อดูขนาดเต็ม)
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    function openLightbox(src) {
+        // ใส่ภาพเป้าหมายเข้าไปใน Modal
+        lightboxImg.src = src;
+        
+        // ลบสถานะซ่อน และทำให้ Modal โชว์ขึ้นมา (แต่ยังโปร่งใสอยู่)
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+        
+        // หน่วงเวลาสั้นๆ เพื่อให้ CSS Transition ทำงานสมูท
+        setTimeout(() => {
+            lightbox.classList.remove('opacity-0');
+            lightboxImg.classList.remove('scale-95');
+            lightboxImg.classList.add('scale-100');
+        }, 10);
+    }
+
+    function closeLightbox() {
+        // เฟดออกก่อน
+        lightbox.classList.add('opacity-0');
+        lightboxImg.classList.remove('scale-100');
+        lightboxImg.classList.add('scale-95');
+        
+        // รอให้เฟดเสร็จ (300ms) ค่อยซ่อน Modal ทิ้งไป
+        setTimeout(() => {
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+        }, 300);
+    }
 </script>
 </body>
 </html>
