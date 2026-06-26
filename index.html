@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="th" class="scroll-smooth scroll-pt-28">
+<!-- เพิ่ม overflow-x-hidden ที่ html ป้องกันการเลื่อนขวาในทุกบราวเซอร์ -->
+<html lang="th" class="scroll-smooth scroll-pt-28 overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aphinya Prasom | Portfolio</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -69,7 +70,6 @@
         position: absolute;
         border-radius: 9999px;
         filter: blur(140px);
-        z-index: -1; 
     }
     
     .blob-1 {
@@ -119,8 +119,9 @@
     }
 </style>
 </head>
-<body class="antialiased selection:bg-purple-500 selection:text-white overflow-hidden">
+<body class="antialiased selection:bg-purple-500 selection:text-white overflow-x-hidden">
 
+<!-- Skeleton Loader -->
 <div id="loader" class="fixed inset-0 flex items-center justify-center w-full h-full">
     <div class="flex flex-col items-center gap-6 animate-pulse">
         <div class="w-20 h-20 rounded-full border-4 border-purple-500 border-t-transparent animate-spin"></div>
@@ -128,14 +129,19 @@
     </div>
 </div>
 
+<!-- Modal สำหรับโชว์รูปใบเซอร์เต็มจอ (Lightbox) -->
 <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 p-4 backdrop-blur-md transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
     <span class="absolute top-6 right-6 text-gray-400 text-4xl sm:text-5xl cursor-pointer hover:text-white transition-colors">&times;</span>
     <img id="lightbox-img" src="" alt="Certificate Full" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl scale-95 transition-transform duration-300 border border-white/10">
 </div>
 
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
+<!-- ใส่กล่อง Wrapper ครอบ Blob เอาไว้ ป้องกันขอบสีม่วงทะลุจอ -->
+<div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-[-1]">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+</div>
 
+<!-- Navbar -->
 <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6">
         <div class="glass rounded-full px-6 py-3 sm:px-8 sm:py-4 flex justify-between items-center">
@@ -162,6 +168,7 @@
     </div>
 </nav>
 
+<!-- Hero Section -->
 <section id="home" class="hero-bg min-h-screen flex flex-col justify-center relative pt-32 pb-16">
     <div class="max-w-7xl mx-auto px-6 w-full relative z-10">
         <div class="flex flex-col items-center text-center">
@@ -197,6 +204,7 @@
     </div>
 </section>
 
+<!-- About Section -->
 <section id="about" class="pb-24 pt-16 relative reveal">
     <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
         <h3 class="text-3xl font-extrabold mb-10 tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">About Me</h3>
@@ -206,6 +214,7 @@
     </div>
 </section>
 
+<!-- Education Section -->
 <section id="education" class="pb-24 pt-16 relative reveal">
     <div class="max-w-5xl mx-auto px-6 relative z-10">
         <h3 class="text-3xl font-extrabold text-center mb-10 tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Education</h3>
@@ -224,6 +233,7 @@
     </div>
 </section>
 
+<!-- Skills & Certifications Section -->
 <section id="skills" class="pb-24 pt-16 relative reveal">
     <div class="max-w-6xl mx-auto px-6 relative z-10">
         <h3 class="text-3xl font-extrabold text-center mb-12 tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Skills & Expertise</h3>
@@ -253,6 +263,7 @@
             <div class="flex justify-center w-full">
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5 max-w-5xl w-full justify-center">
                     
+                    <!-- ใบเซอร์ที่ 1 -->
                     <div class="relative aspect-[3/2] w-full rounded-xl overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-500/50 shadow-lg group" onclick="openLightbox('image/cert1.jpg')"> 
                         <img src="image/cert1.jpg" alt="Certificate 1" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
@@ -260,6 +271,7 @@
                         </div>
                     </div>
                     
+                    <!-- ใบเซอร์ที่ 2 -->
                     <div class="relative aspect-[3/2] w-full rounded-xl overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-500/50 shadow-lg group" onclick="openLightbox('image/cert2.jpg')">
                         <img src="image/cert2.jpg" alt="Certificate 2" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
@@ -267,6 +279,7 @@
                         </div>
                     </div>
                     
+                    <!-- ใบเซอร์ที่ 3 -->
                     <div class="relative aspect-[3/2] w-full rounded-xl overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-500/50 shadow-lg group" onclick="openLightbox('image/cert3.jpg')">
                         <img src="image/cert3.jpg" alt="Certificate 3" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
@@ -274,6 +287,7 @@
                         </div>
                     </div>
                     
+                    <!-- ใบเซอร์ที่ 4 -->
                     <div class="relative aspect-[3/2] w-full rounded-xl overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-500/50 shadow-lg group" onclick="openLightbox('image/cert4.jpg')">
                         <img src="image/cert4.jpg" alt="Certificate 4" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
@@ -281,6 +295,7 @@
                         </div>
                     </div>
                     
+                    <!-- ใบเซอร์ที่ 5 -->
                     <div class="relative aspect-[3/2] w-full rounded-xl overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-500/50 shadow-lg group" onclick="openLightbox('image/cert5.jpg')">
                         <img src="image/cert5.jpg" alt="Certificate 5" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
@@ -295,12 +310,14 @@
     </div>
 </section>
 
+<!-- Projects Section -->
 <section id="projects" class="pb-24 pt-16 relative reveal">
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         <h3 class="text-3xl font-extrabold text-center mb-12 tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Core Projects</h3>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
 
+            <!-- Card 1 -->
             <div class="project-card glass rounded-2xl overflow-hidden cursor-pointer group flex flex-col">
                 <div class="relative aspect-video overflow-hidden bg-gray-950">
                     <img src="image/kpop.png" alt="KPOP-TPOP Store" class="object-cover w-full h-full opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
@@ -315,6 +332,7 @@
                 </div>
             </div>
 
+            <!-- Card 2 -->
             <div class="project-card glass rounded-2xl overflow-hidden cursor-pointer group flex flex-col">
                 <div class="relative aspect-video overflow-hidden bg-gray-950">
                     <img src="image/bus.png" alt="Bus Ticket Reservation" class="object-cover w-full h-full opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
@@ -329,6 +347,7 @@
                 </div>
             </div>
 
+            <!-- Card 3 -->
             <div class="project-card glass rounded-2xl overflow-hidden cursor-pointer group flex flex-col">
                 <div class="relative aspect-video overflow-hidden bg-gray-950">
                     <img src="image/product.png" alt="PureVeil Product Design" class="object-cover w-full h-full opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
@@ -352,6 +371,7 @@
     </div>
 </section>
 
+<!-- Contact Section -->
 <section id="contact" class="pb-24 pt-16 relative reveal">
     <div class="max-w-5xl mx-auto px-6 relative z-10">
         <h3 class="text-3xl font-extrabold text-center mb-12 tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Get in Touch</h3>
@@ -382,10 +402,12 @@
     </div>
 </section>
 
+<!-- Footer -->
 <footer class="glass border-r-0 border-l-0 border-b-0 py-6 text-center text-gray-500 text-xs">
     <p>&copy; 2026 Aphinya Prasom. All rights reserved.</p>
 </footer>
 
+<!-- Scripts -->
 <script>
     // 1. ควบคุมการทำงานของ Skeleton Loader
     window.addEventListener('DOMContentLoaded', () => {
