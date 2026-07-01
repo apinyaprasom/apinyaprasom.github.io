@@ -252,8 +252,10 @@
             <p class="text-lg font-bold text-gray-300 mb-8 tracking-wide">Certifications / Training</p>
             
             <div class="flex justify-center w-full">
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5 max-w-5xl w-full justify-center">
+                <!-- ปรับ Grid ให้เป็น 2 แถว แถวละ 3 รูป พอดีสำหรับ 6 ใบ -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl w-full justify-center">
                     
+                    <!-- ใบเซอร์ที่ 1 -->
                     <div class="relative aspect-[3/2] w-full rounded-xl overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-500/50 shadow-lg group" onclick="openLightbox('image/cert1.jpg')"> 
                         <img src="image/cert1.jpg" alt="Certificate 1" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
@@ -261,6 +263,7 @@
                         </div>
                     </div>
                     
+                    <!-- ใบเซอร์ที่ 2 -->
                     <div class="relative aspect-[3/2] w-full rounded-xl overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-500/50 shadow-lg group" onclick="openLightbox('image/cert2.jpg')">
                         <img src="image/cert2.jpg" alt="Certificate 2" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
@@ -268,6 +271,7 @@
                         </div>
                     </div>
                     
+                    <!-- ใบเซอร์ที่ 3 -->
                     <div class="relative aspect-[3/2] w-full rounded-xl overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-500/50 shadow-lg group" onclick="openLightbox('image/cert3.jpg')">
                         <img src="image/cert3.jpg" alt="Certificate 3" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
@@ -275,6 +279,7 @@
                         </div>
                     </div>
                     
+                    <!-- ใบเซอร์ที่ 4 -->
                     <div class="relative aspect-[3/2] w-full rounded-xl overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-500/50 shadow-lg group" onclick="openLightbox('image/cert4.jpg')">
                         <img src="image/cert4.jpg" alt="Certificate 4" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
@@ -282,8 +287,17 @@
                         </div>
                     </div>
                     
+                    <!-- ใบเซอร์ที่ 5 -->
                     <div class="relative aspect-[3/2] w-full rounded-xl overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-500/50 shadow-lg group" onclick="openLightbox('image/cert5.jpg')">
                         <img src="image/cert5.jpg" alt="Certificate 5" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                            <span class="text-white text-xs font-semibold tracking-wider bg-purple-600/80 px-3 py-1.5 rounded-full shadow">ดูรูปขยาย</span>
+                        </div>
+                    </div>
+
+                    <!-- ใบเซอร์ที่ 6 -->
+                    <div class="relative aspect-[3/2] w-full rounded-xl overflow-hidden glass cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-purple-500/50 shadow-lg group" onclick="openLightbox('image/cert6.jpg')">
+                        <img src="image/cert6.jpg" alt="Certificate 6" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                             <span class="text-white text-xs font-semibold tracking-wider bg-purple-600/80 px-3 py-1.5 rounded-full shadow">ดูรูปขยาย</span>
                         </div>
@@ -291,7 +305,7 @@
                     
                 </div>
             </div>
-            <p class="text-xs text-gray-500 mt-5 tracking-wide">* คลิกที่รูปเพื่อเปิดไฟล์อ่านขนาดเต็ม</p>
+            <p class="text-xs text-gray-500 mt-6 tracking-wide">* คลิกที่รูปเพื่อเปิดไฟล์อ่านขนาดเต็ม</p>
         </div>
     </div>
 </section>
