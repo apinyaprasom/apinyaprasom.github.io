@@ -1,502 +1,1091 @@
 <!DOCTYPE html>
+
 <html lang="th" class="scroll-smooth">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
     <title>Aphinya Prasom | Portfolio</title>
+
  
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+
+
     <style>
+
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
-        }
-        
-        body {
-            background-color: #050505;
-            color: #ffffff; 
-            overflow-x: hidden; 
-            font-family: 'Inter', 'Prompt', sans-serif;
-            position: relative;
+
         }
 
-        /* ---------------- Mouse Trail Fluid Canvas ---------------- */
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: auto; /* Fluid script ต้องการรับรู้ event การคลิกและลากเมาส์ */
-            z-index: -2; /* ให้อยู่หลังสุด ซ้อนทับเนื้อหาไม่ได้ */
+        
+
+        body {
+
+            background-color: #050505;
+
+            color: #ffffff; 
+
+            overflow-x: hidden; 
+
+            font-family: 'Inter', 'Prompt', sans-serif;
+
+            /* เพื่อให้เมาส์สามารถทะลุเอฟเฟกต์ควันไปคลิกโดนปุ่มได้ */
+
+            position: relative;
+
         }
+
+
+
+        /* ---------------- Mouse Trail Canvas ---------------- */
+
+        #mouse-trail {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100vw;
+
+            height: 100vh;
+
+            pointer-events: none; /* สำคัญมาก: ให้เมาส์คลิกทะลุ canvas ได้ */
+
+            z-index: 9999;
+
+        }
+
+
 
         .bg-glow {
+
             position: fixed; 
+
             top: 50%;
+
             left: 50%;
+
             transform: translate(-50%, -50%);
+
             width: 800px;
+
             height: 800px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, rgba(0,0,0,0) 60%);
+
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(0,0,0,0) 60%);
+
             filter: blur(60px);
+
             z-index: -1;
+
             pointer-events: none;
+
         }
+
+
 
         /* ---------------- Hero Section ---------------- */
+
         @keyframes slideLeft {
+
             from { transform: translateX(0); }
+
             to { transform: translateX(-50%); }
+
         }
+
         .animate-slide {
+
             display: inline-block;
+
             white-space: nowrap;
+
             animation: slideLeft 20s linear infinite;
+
         }
+
         @keyframes float {
+
             0% { transform: translateY(0px); }
+
             50% { transform: translateY(-20px); }
+
             100% { transform: translateY(0px); }
+
         }
+
         .floating-avatar {
+
             animation: float 6s ease-in-out infinite;
+
         }
+
+
 
         /* ---------------- Timeline (Skills Section) ---------------- */
+
         .timeline-container {
+
             position: relative;
+
             max-width: 1000px;
+
             margin: 0 auto;
+
             padding: 100px 0;
+
         }
+
         .timeline-line {
+
             position: absolute;
+
             width: 2px;
+
             background: #222;
+
             top: 0;
+
             bottom: 0;
+
             left: 50%;
+
             transform: translateX(-50%);
+
         }
+
         .timeline-progress {
+
             position: absolute;
+
             width: 2px;
+
             background: linear-gradient(to bottom, #a855f7, #d8b4fe);
+
             top: 0;
+
             left: 50%;
+
             transform: translateX(-50%);
+
             height: 0%;
+
             box-shadow: 0 0 15px #a855f7;
+
         }
+
         .glow-dot {
+
             position: absolute;
+
             width: 16px;
+
             height: 16px;
+
             background-color: #d8b4fe;
+
             border-radius: 50%;
+
             left: 50%;
+
             transform: translate(-50%, -50%);
+
             top: 0%;
+
             box-shadow: 0 0 20px 5px rgba(168, 85, 247, 0.6);
+
             z-index: 10;
+
         }
+
         .timeline-item {
+
             padding: 20px 40px;
+
             position: relative;
+
             width: 50%;
+
             opacity: 0.5;
+
             transition: opacity 0.5s ease;
+
         }
+
         .timeline-item.active {
+
             opacity: 1;
+
         }
+
         .timeline-item.left { left: 0; text-align: right; }
+
         .timeline-item.right { left: 50%; text-align: left; }
 
+
+
         /* ---------------- Horizontal Scroll (Projects Section) ---------------- */
+
         .horizontal-scroll-wrapper {
+
             display: flex;
+
             overflow-x: auto;
+
             scroll-snap-type: x mandatory;
+
             -webkit-overflow-scrolling: touch;
+
             scrollbar-width: none;
+
             border-top: 1px solid rgba(255,255,255,0.05);
+
             border-bottom: 1px solid rgba(255,255,255,0.05);
+
         }
+
         .horizontal-scroll-wrapper::-webkit-scrollbar {
+
             display: none;
+
         }
+
         .project-card {
+
             flex: 0 0 100vw;
+
             scroll-snap-align: center;
+
             border-right: 1px solid rgba(255,255,255,0.05);
+
             padding: 2rem; 
+
             display: flex;
+
             flex-direction: column;
+
             justify-content: center;
+
         }
+
         @media (min-width: 768px) {
+
             .project-card {
+
                 flex: 0 0 60vw;
+
                 padding: 3rem;
+
             }
+
         }
+
         @media (min-width: 1024px) {
+
             .project-card {
+
                 flex: 0 0 40vw; 
+
                 max-width: 550px; 
+
             }
+
         }
+
+
 
         /* ---------------- Lightbox ---------------- */
+
         #lightbox {
+
             background: rgba(0, 0, 0, 0.95);
+
             backdrop-filter: blur(10px);
+
         }
+
+
 
         /* ---------------- General ---------------- */
+
         .reveal {
+
             opacity: 0;
+
             transform: translateY(30px);
+
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
         }
+
         .reveal.active {
+
             opacity: 1;
+
             transform: translateY(0);
+
         }
+
     </style>
+
 </head>
+
 <body class="antialiased selection:bg-purple-500 selection:text-white">
 
-<!-- Canvas สำหรับเอฟเฟกต์ควันไหล (Fluid) -->
-<canvas></canvas>
+
+
+<canvas id="mouse-trail"></canvas>
+
+
 
 <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
+
     <span class="absolute top-6 right-6 text-gray-500 hover:text-white text-5xl cursor-pointer transition-colors">&times;</span>
+
     <img id="lightbox-img" src="" alt="Certificate" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl scale-95 transition-transform duration-300 border border-white/10">
+
 </div>
+
+
 
 <div class="bg-glow"></div>
 
+
+
 <nav class="fixed top-0 w-full p-6 md:p-8 flex justify-between items-center z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
+
     <div class="font-black text-xl tracking-widest text-white">AP</div>
+
     <div class="hidden md:block text-sm text-gray-400 font-medium tracking-wide">aphinya.prasom@gmail.com</div>
-    <div class="flex gap-6 md:gap-8 text-xs md:text-sm font-bold tracking-wider pointer-events-auto">
+
+    <div class="flex gap-6 md:gap-8 text-xs md:text-sm font-bold tracking-wider">
+
         <a href="#about" class="hover:text-purple-400 transition-colors uppercase">About</a>
+
         <a href="#skills" class="hover:text-purple-400 transition-colors uppercase">Skills</a>
+
         <a href="#work" class="hover:text-purple-400 transition-colors uppercase">Work</a>
+
     </div>
+
 </nav>
 
-<div class="hidden lg:flex fixed left-8 top-1/2 -translate-y-1/2 flex-col gap-6 z-50 text-gray-500 pointer-events-auto">
+
+
+<div class="hidden lg:flex fixed left-8 top-1/2 -translate-y-1/2 flex-col gap-6 z-50 text-gray-500">
+
     <a href="https://github.com/apinyaprasom" target="_blank" class="hover:text-white hover:scale-110 transition-all">
+
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+
     </a>
+
 </div>
 
-<section id="home" class="relative h-screen flex flex-col items-center justify-center overflow-hidden px-6 pointer-events-none">
-    <div class="absolute w-full flex justify-between px-6 md:px-24 lg:px-32 z-10 mt-20">
+
+
+<section id="home" class="relative h-screen flex flex-col items-center justify-center overflow-hidden px-6">
+
+    <div class="absolute w-full flex justify-between px-6 md:px-24 lg:px-32 z-10 pointer-events-none mt-20">
+
         <div class="w-1/2 lg:w-1/3">
+
             <p class="text-purple-400 font-medium text-sm md:text-lg mb-2 reveal">Hello! I'm</p>
+
             <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight uppercase reveal" style="transition-delay: 0.2s;">
+
                 APHINYA <br> PRASOM
+
             </h1>
+
         </div>
+
         <div class="w-1/2 lg:w-1/3 text-right">
+
             <p class="text-purple-400 font-medium text-sm md:text-lg mb-2 reveal">An</p>
+
             <div class="text-2xl sm:text-4xl lg:text-5xl font-black text-gray-500/50 leading-tight uppercase tracking-tight overflow-hidden reveal" style="transition-delay: 0.2s;">
+
                 <div class="animate-slide">
+
                     AUTOMATION DEV & UI/UX &nbsp;&nbsp;&nbsp; AUTOMATION DEV & UI/UX
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
-    <div class="relative z-20 w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 floating-avatar mt-10 pointer-events-auto">
+
+    <div class="relative z-20 w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 floating-avatar mt-10">
+
         <div class="absolute inset-0 bg-purple-600 rounded-full blur-3xl opacity-40"></div>
+
         <img src="image/profile.png" alt="Profile" class="w-full h-full object-cover rounded-full border-4 border-gray-800 shadow-2xl relative z-10">
+
     </div>
+
 </section>
 
-<section id="about" class="py-24 px-6 relative z-10 reveal pointer-events-none">
-    <div class="max-w-4xl mx-auto text-center pointer-events-auto">
+
+
+<section id="about" class="py-24 px-6 relative z-10 reveal">
+
+    <div class="max-w-4xl mx-auto text-center">
+
         <h1 class="text-4xl md:text-6xl font-black text-white mb-12 tracking-tighter uppercase">
+
             Academic Profile
+
         </h1>
+
         <div class="text-gray-400 text-sm md:text-base leading-relaxed">
+
             <p class="mb-6">
+
                 ฉันคือ อภิญญา ประสม ปัจจุบันศึกษาอยู่ในชั้นปีที่สาม คณะการบัญชีและการจัดการ สาขาธุรกิจดิจิทัลและระบบสารสนเทศ มหาวิทยาลัยมหาสารคาม การศึกษาในสาขาวิชานี้ได้บ่มเพาะให้ฉันมีความสนใจอย่างลึกซึ้งในการผสานทักษะด้านการออกแบบกราฟิกเข้ากับเทคโนโลยีระบบอัตโนมัติ เพื่อสร้างสรรค์ผลงานที่สามารถตอบสนองความสวยงามพร้อมทั้งแก้ไขปัญหาทางธุรกิจได้อย่างเป็นรูปธรรมผ่านกระบวนการจัดการข้อมูลและการออกแบบส่วนต่อประสานที่คำนึงถึงผู้ใช้งานเป็นหลัก
+
             </p>
+
             <p>
+
                 ในแง่ของแนวคิดการทำงาน ฉันให้ความสำคัญอย่างยิ่งกับการอยู่ในสภาพแวดล้อมที่เป็นระบบ มีการวางแผนโครงสร้างงานที่ชัดเจน และเคารพในพื้นที่ส่วนบุคคล การได้ร่วมงานกับทีมที่มีความเชี่ยวชาญสูงถือเป็นแรงผลักดันสำคัญที่ช่วยให้ฉันได้เรียนรู้และพัฒนาขีดความสามารถของตนเองอย่างต่อเนื่อง เพื่อก้าวไปสู่การเป็นบุคลากรที่มีคุณภาพในสายงานเทคโนโลยี
+
             </p>
+
         </div>
+
     </div>
+
 </section>
 
-<section id="skills" class="py-32 px-6 relative z-10 pointer-events-none">
+
+
+<section id="skills" class="py-32 px-6 relative z-10">
+
     <div class="text-center mb-20 reveal">
+
         <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight">My skills &</h2>
+
         <h2 class="text-4xl md:text-6xl font-black text-purple-400 tracking-tight">expertise</h2>
+
     </div>
 
-    <div class="timeline-container pointer-events-auto" id="timeline-container">
+
+
+    <div class="timeline-container" id="timeline-container">
+
         <div class="timeline-line"></div>
+
         <div class="timeline-progress" id="timeline-progress"></div>
+
         <div class="glow-dot" id="glow-dot"></div>
+
         
+
         <div class="timeline-item left timeline-content">
+
             <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Languages</h3>
+
             <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">CORE PROGRAMMING</p>
+
             <p class="text-gray-400 text-sm leading-relaxed">
+
                 มีความสามารถในการจัดการและเขียนโปรแกรมโครงสร้างด้วยภาษาที่หลากหลาย ครอบคลุมตั้งแต่ PHP, R, Python, SQL, Java ไปจนถึง Javascript เพื่อรองรับการพัฒนาระบบที่มีประสิทธิภาพ
+
             </p>
+
         </div>
+
+
 
         <div class="timeline-item right mt-24 timeline-content">
+
             <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Automation</h3>
+
             <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">WORKFLOW & SYSTEMS</p>
+
             <p class="text-gray-400 text-sm leading-relaxed">
+
                 เชี่ยวชาญการออกแบบและจัดการระบบการทำงานอัตโนมัติ โดยใช้งานแพลตฟอร์มการจัดการเวิร์กโฟลว์อย่าง n8n เพื่อลดขั้นตอนที่ซ้ำซ้อนและเชื่อมต่อข้อมูลระหว่างแอปพลิเคชันให้ทำงานร่วมกันได้อย่างแม่นยำ
+
             </p>
+
         </div>
+
+
 
         <div class="timeline-item left mt-24 timeline-content">
+
             <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Prototyping</h3>
+
             <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">UI/UX & DESIGN</p>
+
             <p class="text-gray-400 text-sm leading-relaxed">
+
                 มุ่งเน้นการออกแบบประสบการณ์ผู้ใช้และส่วนต่อประสานที่ใช้งานง่าย ผ่านการสร้าง Product Prototyping และการจัดวางโครงสร้างด้วยโปรแกรมออกแบบระดับมืออาชีพอย่าง Figma
+
             </p>
+
         </div>
+
+
 
         <div class="timeline-item right mt-24 timeline-content">
+
             <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Software</h3>
+
             <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">TOOLS & UTILITIES</p>
+
             <p class="text-gray-400 text-sm leading-relaxed">
+
                 สามารถใช้งานซอฟต์แวร์สนับสนุนการทำงานได้อย่างคล่องแคล่ว ทั้งการจัดการข้อมูลด้วย Microsoft Office และ PowerBI รวมถึงการผลิตสื่อสร้างสรรค์ผ่าน Canva และ CapCut
+
             </p>
+
         </div>
 
+
+
     </div>
+
 </section>
 
-<section id="work" class="pt-32 pb-16 relative z-10 overflow-hidden pointer-events-none">
+
+
+<section id="work" class="pt-32 pb-16 relative z-10 overflow-hidden">
+
     <div class="px-6 md:px-12 mb-12 reveal">
+
         <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight">My Work</h2>
+
     </div>
 
-    <div class="horizontal-scroll-wrapper pointer-events-auto">
+
+
+    <div class="horizontal-scroll-wrapper">
+
         
+
         <div class="project-card">
+
             <div class="flex justify-between items-start mb-6">
+
                 <h1 class="text-5xl font-black text-white">01</h1>
+
                 <div class="text-right">
+
                     <h3 class="text-xl md:text-2xl font-bold text-white">Automated Transit</h3>
+
                     <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">System / n8n</p>
+
                 </div>
+
             </div>
+
             <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+
                 <img src="image/bus.png" alt="Bus System" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
+
             </div>
+
             <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
+
             <p class="text-gray-400 text-sm leading-relaxed">
+
                 โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ที่ออกแบบมาเพื่อรองรับเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ระบบนี้ถูกสร้างขึ้นโดยประยุกต์ใช้แพลตฟอร์ม n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอจากผู้ใช้งานและดำเนินการส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที
+
             </p>
+
         </div>
 
+
+
         <div class="project-card">
+
             <div class="flex justify-between items-start mb-6">
+
                 <h1 class="text-5xl font-black text-white">02</h1>
+
                 <div class="text-right">
+
                     <h3 class="text-xl md:text-2xl font-bold text-white">PureVeil Design</h3>
+
                     <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Product / Packaging</p>
+
                 </div>
+
             </div>
+
             <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+
                 <img src="image/product.png" alt="PureVeil" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
+
             </div>
+
             <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
+
             <p class="text-gray-400 text-sm leading-relaxed">
+
                 โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ งานออกแบบนี้ได้นำเสนอวิสัยทัศน์ใหม่ของบรรจุภัณฑ์ โดยเปลี่ยนจากการใช้ขวดแบบดั้งเดิมมาเป็นรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ ตอบโจทย์ทั้งความสวยงามและการใช้งานจริง
+
             </p>
+
         </div>
 
+
+
         <div class="project-card">
+
             <div class="flex justify-between items-start mb-6">
+
                 <h1 class="text-5xl font-black text-white">03</h1>
+
                 <div class="text-right">
+
                     <h3 class="text-xl md:text-2xl font-bold text-white">Entertainment Merch</h3>
+
                     <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Database / Store</p>
+
                 </div>
+
             </div>
+
             <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+
                 <img src="image/kpop.png" alt="Merch Store" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
+
             </div>
+
             <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
+
             <p class="text-gray-400 text-sm leading-relaxed">
+
                 ระบบจัดการฐานข้อมูลและสถาปัตยกรรมร้านค้าออนไลน์ที่ถูกพัฒนาขึ้นเพื่อรวบรวมและจัดจำหน่ายสินค้าของกลุ่มศิลปินในวงการบันเทิง ระบบถูกออกแบบให้มีโครงสร้างการจัดเก็บข้อมูลที่มีประสิทธิภาพ รองรับการสืบค้นแคตตาล็อกสินค้า และการจัดการรายการสินค้าได้อย่างราบรื่น
+
             </p>
+
         </div>
+
+
 
         <div class="project-card">
+
             <div class="flex justify-between items-start mb-6">
+
                 <h1 class="text-5xl font-black text-white">04</h1>
+
                 <div class="text-right">
+
                     <h3 class="text-xl md:text-2xl font-bold text-white">Roblox Horror</h3>
+
                     <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Game Development</p>
+
                 </div>
+
             </div>
+
             <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+
                 <img src="image/roblox.png" alt="Roblox Game" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
+
             </div>
+
             <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
+
             <p class="text-gray-400 text-sm leading-relaxed">
+
                 โครงการพัฒนาและออกแบบวิดีโอเกมแนวสยองขวัญที่สร้างขึ้นบนแพลตฟอร์ม Roblox Studio โครงการนี้ครอบคลุมกระบวนการพัฒนาเกมตั้งแต่การวางโครงสร้างกลไกการเล่น ไปจนถึงการจัดการระบบควบคุมมุมกล้องเพื่อสร้างบรรยากาศที่น่าตื่นเต้นและยกระดับประสบการณ์ของผู้เล่น
+
             </p>
+
         </div>
 
+
+
     </div>
+
 </section>
 
-<section class="py-24 px-6 relative z-10 pointer-events-none">
-    <div class="max-w-6xl mx-auto pointer-events-auto">
+
+
+<section class="py-24 px-6 relative z-10">
+
+    <div class="max-w-6xl mx-auto">
+
         <h2 class="text-3xl md:text-5xl font-black text-center mb-16 tracking-tighter text-white uppercase reveal">
+
             CERTIFICATIONS
+
         </h2>
+
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto">
+
             <div class="relative aspect-[4/3] w-full bg-gray-900 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 border border-white/5 hover:border-purple-500 reveal" onclick="openLightbox('image/cert1.jpg')"> 
+
                 <img src="image/cert1.jpg" alt="Cert 1" class="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity">
+
             </div>
+
             <div class="relative aspect-[4/3] w-full bg-gray-900 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 border border-white/5 hover:border-purple-500 reveal" style="transition-delay: 0.1s;" onclick="openLightbox('image/cert2.jpg')"> 
+
                 <img src="image/cert2.jpg" alt="Cert 2" class="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity">
+
             </div>
+
             <div class="relative aspect-[4/3] w-full bg-gray-900 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 border border-white/5 hover:border-purple-500 reveal" style="transition-delay: 0.2s;" onclick="openLightbox('image/cert3.jpg')"> 
+
                 <img src="image/cert3.jpg" alt="Cert 3" class="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity">
+
             </div>
+
             <div class="relative aspect-[4/3] w-full bg-gray-900 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 border border-white/5 hover:border-purple-500 reveal" onclick="openLightbox('image/cert4.jpg')"> 
+
                 <img src="image/cert4.jpg" alt="Cert 4" class="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity">
+
             </div>
+
             <div class="relative aspect-[4/3] w-full bg-gray-900 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 border border-white/5 hover:border-purple-500 reveal" style="transition-delay: 0.1s;" onclick="openLightbox('image/cert5.jpg')"> 
+
                 <img src="image/cert5.jpg" alt="Cert 5" class="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity">
+
             </div>
+
             <div class="relative aspect-[4/3] w-full bg-gray-900 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 border border-white/5 hover:border-purple-500 reveal" style="transition-delay: 0.2s;" onclick="openLightbox('image/cert6.jpg')"> 
+
                 <img src="image/cert6.jpg" alt="Cert 6" class="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity">
+
             </div>
+
         </div>
+
     </div>
+
 </section>
 
-<footer id="contact" class="py-12 border-t border-white/5 relative z-10 mt-12 bg-black/20 pointer-events-auto">
+
+
+<footer id="contact" class="py-12 border-t border-white/5 relative z-10 mt-12 bg-black/20">
+
     <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+
         <div class="font-black text-xl tracking-widest text-white">AP</div>
+
         <div class="text-gray-400 text-sm">aphinya.prasom@gmail.com | 083-461-8077</div>
+
         <div class="text-gray-600 text-xs font-medium uppercase tracking-widest">&copy; 2026 Aphinya Prasom.</div>
+
     </div>
+
 </footer>
 
-<!-- โหลด WebGL Fluid Simulation Script -->
-<script src="https://cdn.jsdelivr.net/npm/webgl-fluid-simulation/webgl-fluid.min.js"></script>
+
 
 <script>
-    // --------------------------------------------------------
-    // 1. Mouse Trail Effect (ควันไหล Fluid Simulation)
-    // --------------------------------------------------------
-    WebGLFluid(document.querySelector('canvas'), {
-        IMMEDIATE: true,
-        TRIGGER: 'hover',
-        SIM_RESOLUTION: 128,
-        DYE_RESOLUTION: 512,
-        CAPTURE_RESOLUTION: 512,
-        DENSITY_DISSIPATION: 3, /* ควันสลายตัวเร็วขึ้น */
-        VELOCITY_DISSIPATION: 1.5,
-        PRESSURE: 0.1,
-        PRESSURE_ITERATIONS: 20,
-        CURL: 3,
-        SPLAT_RADIUS: 0.2,
-        SPLAT_FORCE: 6000,
-        SHADING: true,
-        COLORFUL: false, /* ปิดโหมดสีรุ้ง เพื่อใช้สีที่เรากำหนดเอง */
-        COLOR_UPDATE_SPEED: 10,
-        PAUSED: false,
-        BACK_COLOR: { r: 5, g: 5, b: 5 }, /* สีพื้นหลังดำ #050505 */
-        TRANSPARENT: false,
-        BLOOM: false,
-        COLOR_PALETTE: ['#9ca3af', '#a855f7', '#d8b4fe'] /* กำหนดสีควัน: เทา, ม่วง, ม่วงสว่าง */
-    });
 
     // --------------------------------------------------------
-    // 2. Scroll Reveal แอนิเมชันตอนเลื่อนหน้าจอ
+
+    // 1. Mouse Trail Effect (ควันสีเทาม่วงตามเมาส์)
+
     // --------------------------------------------------------
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target); 
+
+    const canvas = document.getElementById('mouse-trail');
+
+    const ctx = canvas.getContext('2d');
+
+    let particlesArray = [];
+
+    
+
+    // ตั้งค่าขนาด canvas ให้เต็มจอ
+
+    canvas.width = window.innerWidth;
+
+    canvas.height = window.innerHeight;
+
+
+
+    window.addEventListener('resize', () => {
+
+        canvas.width = window.innerWidth;
+
+        canvas.height = window.innerHeight;
+
+    });
+
+
+
+    const mouse = {
+
+        x: null,
+
+        y: null
+
+    };
+
+
+
+    window.addEventListener('mousemove', (event) => {
+
+        mouse.x = event.x;
+
+        mouse.y = event.y;
+
+        for (let i = 0; i < 2; i++) { // สร้างควัน 2 จุดต่อการขยับเมาส์ 1 ครั้ง
+
+            particlesArray.push(new Particle());
+
+        }
+
+    });
+
+
+
+    class Particle {
+
+        constructor() {
+
+            this.x = mouse.x;
+
+            this.y = mouse.y;
+
+            this.size = Math.random() * 15 + 5; // ขนาดควันสุ่ม (5-20px)
+
+            this.speedX = Math.random() * 2 - 1; // ลอยซ้ายขวา
+
+            this.speedY = Math.random() * 2 - 1; // ลอยขึ้นลง
+
+            // สุ่มสีเทา-ม่วง แบบโปร่งใส
+
+            const colors = ['rgba(168, 85, 247, 0.2)', 'rgba(100, 100, 100, 0.2)', 'rgba(216, 180, 254, 0.2)'];
+
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+
+        }
+
+        update() {
+
+            this.x += this.speedX;
+
+            this.y += this.speedY;
+
+            if (this.size > 0.2) this.size -= 0.1; // ค่อยๆ หดเล็กลง
+
+        }
+
+        draw() {
+
+            ctx.fillStyle = this.color;
+
+            ctx.beginPath();
+
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+
+            ctx.fill();
+
+        }
+
+    }
+
+
+
+    function handleParticles() {
+
+        for (let i = 0; i < particlesArray.length; i++) {
+
+            particlesArray[i].update();
+
+            particlesArray[i].draw();
+
+            // ลบจุดที่เล็กลงจนมองไม่เห็นออกจากระบบ
+
+            if (particlesArray[i].size <= 0.2) {
+
+                particlesArray.splice(i, 1);
+
+                i--;
+
             }
+
+        }
+
+    }
+
+
+
+    function animateTrail() {
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        handleParticles();
+
+        requestAnimationFrame(animateTrail);
+
+    }
+
+    animateTrail();
+
+
+
+
+
+    // --------------------------------------------------------
+
+    // 2. Scroll Reveal แอนิเมชันตอนเลื่อนหน้าจอ
+
+    // --------------------------------------------------------
+
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add('active');
+
+                observer.unobserve(entry.target); 
+
+            }
+
         });
+
     }, observerOptions);
+
     document.querySelectorAll('.reveal').forEach((element) => { observer.observe(element); });
 
+
+
     // --------------------------------------------------------
+
     // 3. Timeline Scroll Animation (แสงไฟวิ่งตามการเลื่อนในหมวด Skills)
+
     // --------------------------------------------------------
+
     window.addEventListener('scroll', () => {
+
         const container = document.getElementById('timeline-container');
+
         const progress = document.getElementById('timeline-progress');
+
         const dot = document.getElementById('glow-dot');
+
         const items = document.querySelectorAll('.timeline-content');
+
         
+
         const rect = container.getBoundingClientRect();
+
         const containerTop = rect.top;
+
         const containerHeight = rect.height;
+
         const windowHeight = window.innerHeight;
 
+
+
         if (containerTop < windowHeight / 2 && containerTop > -containerHeight) {
+
             let scrolled = (windowHeight / 2 - containerTop) / containerHeight;
+
             scrolled = Math.max(0, Math.min(1, scrolled)); 
+
             
+
             progress.style.height = (scrolled * 100) + '%';
+
             dot.style.top = (scrolled * 100) + '%';
 
+
+
             items.forEach(item => {
+
                 const itemTop = item.getBoundingClientRect().top;
+
                 if (itemTop < windowHeight / 2 + 50) {
+
                     item.classList.add('active');
+
                 } else {
+
                     item.classList.remove('active');
+
                 }
+
             });
+
         }
+
     });
 
+
+
     // --------------------------------------------------------
+
     // 4. Lightbox สำหรับ Certifications
+
     // --------------------------------------------------------
+
     const lightbox = document.getElementById('lightbox');
+
     const lightboxImg = document.getElementById('lightbox-img');
+
     function openLightbox(src) {
+
         lightboxImg.src = src;
+
         lightbox.classList.remove('hidden');
+
         lightbox.classList.add('flex');
+
         setTimeout(() => {
+
             lightbox.classList.remove('opacity-0');
+
             lightboxImg.classList.remove('scale-95');
+
             lightboxImg.classList.add('scale-100');
+
         }, 10);
+
     }
+
     function closeLightbox() {
+
         lightbox.classList.add('opacity-0');
+
         lightboxImg.classList.remove('scale-100');
+
         lightboxImg.classList.add('scale-95');
+
         setTimeout(() => {
+
             lightbox.classList.add('hidden');
+
             lightbox.classList.remove('flex');
+
         }, 300);
+
     }
+
 </script>
+
 </body>
+
 </html>
