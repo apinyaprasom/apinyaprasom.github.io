@@ -122,14 +122,21 @@
             flex: 0 0 100vw;
             scroll-snap-align: center;
             border-right: 1px solid rgba(255,255,255,0.05);
-            padding: 4rem;
+            padding: 2rem; /* ลดระยะขอบให้การ์ดกระชับขึ้น */
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
+        @media (min-width: 768px) {
+            .project-card {
+                flex: 0 0 60vw;
+                padding: 3rem;
+            }
+        }
         @media (min-width: 1024px) {
             .project-card {
-                flex: 0 0 50vw;
+                flex: 0 0 40vw; /* ลดความกว้างจาก 50vw เหลือ 40vw */
+                max-width: 550px; /* ล็อคความกว้างสูงสุดไม่ให้เกิน 550px */
             }
         }
 
@@ -262,96 +269,90 @@
         <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight">My Work</h2>
     </div>
 
-    <!-- แกนเลื่อนแนวนอนแสดงงานทั้งหมด -->
     <div class="horizontal-scroll-wrapper">
         
-        <!-- Project 1 -->
         <div class="project-card">
             <div class="flex justify-between items-start mb-6">
                 <h1 class="text-5xl font-black text-white">01</h1>
                 <div class="text-right">
-                    <h3 class="text-2xl font-bold text-white">Automated Transit</h3>
-                    <p class="text-purple-400 text-sm tracking-widest uppercase">System / n8n</p>
+                    <h3 class="text-xl md:text-2xl font-bold text-white">Automated Transit</h3>
+                    <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">System / n8n</p>
                 </div>
             </div>
-            <div class="relative aspect-[4/3] overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+            <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
                 <img src="image/bus.png" alt="Bus System" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
             </div>
             <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
             <p class="text-gray-400 text-sm leading-relaxed">
-                โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ที่ออกแบบมาเพื่อรองรับเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ระบบนี้ถูกสร้างขึ้นโดยประยุกต์ใช้แพลตฟอร์ม n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอจากผู้ใช้งานและดำเนินการส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที ซึ่งช่วยลดภาระงานและเพิ่มความรวดเร็วในการให้บริการ
+                โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ที่ออกแบบมาเพื่อรองรับเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ระบบนี้ถูกสร้างขึ้นโดยประยุกต์ใช้แพลตฟอร์ม n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอจากผู้ใช้งานและดำเนินการส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที
             </p>
         </div>
 
-        <!-- Project 2 -->
         <div class="project-card">
             <div class="flex justify-between items-start mb-6">
                 <h1 class="text-5xl font-black text-white">02</h1>
                 <div class="text-right">
-                    <h3 class="text-2xl font-bold text-white">Finance Chatbot</h3>
-                    <p class="text-purple-400 text-sm tracking-widest uppercase">Integration</p>
+                    <h3 class="text-xl md:text-2xl font-bold text-white">Finance Chatbot</h3>
+                    <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Integration</p>
                 </div>
             </div>
-            <div class="relative aspect-[4/3] overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
-                <img src="image/finance.png" alt="Finance Chatbot" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
+            <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+                <img src="image/roblox.png" alt="Finance Chatbot" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
             </div>
             <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
             <p class="text-gray-400 text-sm leading-relaxed">
-                การสร้างสรรค์นวัตกรรมแชทบอทด้านการเงินที่ถูกพัฒนาขึ้นเพื่อสนับสนุนการทำงานของธุรกิจขนาดกลางและขนาดย่อม (SME) โดยระบบจะทำหน้าที่เป็นผู้ช่วยตอบรับอัตโนมัติในการรับข้อมูลธุรกรรมจากแอปพลิเคชันสนทนา จากนั้นจะทำการประมวลผลและบันทึกข้อมูลรายรับรายจ่ายลงใน Google Sheets อย่างเป็นระเบียบ เพื่อความสะดวกในการตรวจสอบและจัดทำรายงานทางการเงิน
+                การสร้างสรรค์นวัตกรรมแชทบอทด้านการเงินที่ถูกพัฒนาขึ้นเพื่อสนับสนุนการทำงานของธุรกิจ (SME) ระบบจะทำหน้าที่เป็นผู้ช่วยตอบรับอัตโนมัติในการรับข้อมูลธุรกรรมจากแอปพลิเคชันสนทนา จากนั้นจะทำการประมวลผลและบันทึกข้อมูลรายรับรายจ่ายลงใน Google Sheets อย่างเป็นระเบียบ
             </p>
         </div>
 
-        <!-- Project 3 -->
         <div class="project-card">
             <div class="flex justify-between items-start mb-6">
                 <h1 class="text-5xl font-black text-white">03</h1>
                 <div class="text-right">
-                    <h3 class="text-2xl font-bold text-white">PureVeil Design</h3>
-                    <p class="text-purple-400 text-sm tracking-widest uppercase">Product / Packaging</p>
+                    <h3 class="text-xl md:text-2xl font-bold text-white">PureVeil Design</h3>
+                    <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Product / Packaging</p>
                 </div>
             </div>
-            <div class="relative aspect-[4/3] overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+            <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
                 <img src="image/product.png" alt="PureVeil" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
             </div>
             <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
             <p class="text-gray-400 text-sm leading-relaxed">
-                โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ดูแลผิวภายใต้ชื่อ PureVeil งานออกแบบนี้ได้นำเสนอวิสัยทัศน์ใหม่ของบรรจุภัณฑ์ โดยเปลี่ยนจากการใช้ขวดแบบดั้งเดิมมาเป็นรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ ซึ่งถูกออกแบบมาอย่างพิถีพิถันเพื่อมอบทั้งภาพลักษณ์ที่สวยงามทันสมัยและตอบโจทย์การใช้งานจริงของผู้บริโภค
+                โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ งานออกแบบนี้ได้นำเสนอวิสัยทัศน์ใหม่ของบรรจุภัณฑ์ โดยเปลี่ยนจากการใช้ขวดแบบดั้งเดิมมาเป็นรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ ตอบโจทย์ทั้งความสวยงามและการใช้งานจริง
             </p>
         </div>
 
-        <!-- Project 4 -->
         <div class="project-card">
             <div class="flex justify-between items-start mb-6">
                 <h1 class="text-5xl font-black text-white">04</h1>
                 <div class="text-right">
-                    <h3 class="text-2xl font-bold text-white">Entertainment Merch</h3>
-                    <p class="text-purple-400 text-sm tracking-widest uppercase">Database / Store</p>
+                    <h3 class="text-xl md:text-2xl font-bold text-white">Entertainment Merch</h3>
+                    <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Database / Store</p>
                 </div>
             </div>
-            <div class="relative aspect-[4/3] overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+            <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
                 <img src="image/kpop.png" alt="Merch Store" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
             </div>
             <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
             <p class="text-gray-400 text-sm leading-relaxed">
-                ระบบจัดการฐานข้อมูลและสถาปัตยกรรมร้านค้าออนไลน์ที่ถูกพัฒนาขึ้นเพื่อรวบรวมและจัดจำหน่ายสินค้าของกลุ่มศิลปินในวงการบันเทิงทั้ง T-Pop และ K-Pop อาทิเช่น BTS, EXO, BLACKPINK และ 4EVE ระบบถูกออกแบบให้มีโครงสร้างการจัดเก็บข้อมูลที่มีประสิทธิภาพ รองรับการสืบค้นแคตตาล็อกสินค้า และการจัดการรายการสินค้าที่หลากหลายได้อย่างราบรื่น
+                ระบบจัดการฐานข้อมูลและสถาปัตยกรรมร้านค้าออนไลน์ที่ถูกพัฒนาขึ้นเพื่อรวบรวมและจัดจำหน่ายสินค้าของกลุ่มศิลปินในวงการบันเทิง ระบบถูกออกแบบให้มีโครงสร้างการจัดเก็บข้อมูลที่มีประสิทธิภาพ รองรับการสืบค้นแคตตาล็อกสินค้า และการจัดการรายการสินค้าได้อย่างราบรื่น
             </p>
         </div>
 
-        <!-- Project 5 -->
         <div class="project-card">
             <div class="flex justify-between items-start mb-6">
                 <h1 class="text-5xl font-black text-white">05</h1>
                 <div class="text-right">
-                    <h3 class="text-2xl font-bold text-white">Roblox Horror</h3>
-                    <p class="text-purple-400 text-sm tracking-widest uppercase">Game Development</p>
+                    <h3 class="text-xl md:text-2xl font-bold text-white">Roblox Horror</h3>
+                    <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Game Development</p>
                 </div>
             </div>
-            <div class="relative aspect-[4/3] overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+            <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
                 <img src="image/roblox.png" alt="Roblox Game" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
             </div>
             <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
             <p class="text-gray-400 text-sm leading-relaxed">
-                โครงการพัฒนาและออกแบบวิดีโอเกมแนวสยองขวัญที่สร้างขึ้นบนแพลตฟอร์ม Roblox Studio โครงการนี้ครอบคลุมกระบวนการพัฒนาเกมตั้งแต่การวางโครงสร้างกลไกการเล่น ไปจนถึงการจัดการระบบควบคุมมุมกล้องและการกำหนดทิศทางการดำเนินเรื่อง เพื่อสร้างบรรยากาศที่น่าตื่นเต้นและยกระดับประสบการณ์การโต้ตอบของผู้เล่นภายในโลกของเกม
+                โครงการพัฒนาและออกแบบวิดีโอเกมแนวสยองขวัญที่สร้างขึ้นบนแพลตฟอร์ม Roblox Studio โครงการนี้ครอบคลุมกระบวนการพัฒนาเกมตั้งแต่การวางโครงสร้างกลไกการเล่น ไปจนถึงการจัดการระบบควบคุมมุมกล้องเพื่อสร้างบรรยากาศที่น่าตื่นเต้นและยกระดับประสบการณ์ของผู้เล่น
             </p>
         </div>
 
