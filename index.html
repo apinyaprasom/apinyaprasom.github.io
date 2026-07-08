@@ -20,7 +20,6 @@
             color: #ffffff; 
             overflow-x: hidden; 
             font-family: 'Inter', 'Prompt', sans-serif;
-            /* เพื่อให้เมาส์สามารถทะลุเอฟเฟกต์ควันไปคลิกโดนปุ่มได้ */
             position: relative;
         }
 
@@ -80,15 +79,9 @@
             margin: 0 auto;
             padding: 100px 0;
         }
-        .timeline-line {
-            position: absolute;
-            width: 2px;
-            background: #222;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+        
+        /* เอา .timeline-line ที่เป็นเส้นสีเทาออกตามที่รีเควส */
+
         .timeline-progress {
             position: absolute;
             width: 2px;
@@ -197,7 +190,6 @@
 
 <nav class="fixed top-0 w-full p-6 md:p-8 flex justify-between items-center z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5 pointer-events-none">
     <div class="font-black text-xl tracking-widest text-white pointer-events-auto">AP</div>
-    <div class="hidden md:block text-sm text-gray-400 font-medium tracking-wide">aphinya.prasom@gmail.com</div>
     <div class="flex gap-6 md:gap-8 text-xs md:text-sm font-bold tracking-wider pointer-events-auto">
         <a href="#about" class="hover:text-purple-400 transition-colors uppercase">About</a>
         <a href="#skills" class="hover:text-purple-400 transition-colors uppercase">Skills</a>
@@ -263,7 +255,6 @@
     </div>
 
     <div class="timeline-container pointer-events-auto" id="timeline-container">
-        <div class="timeline-line"></div>
         <div class="timeline-progress" id="timeline-progress"></div>
         <div class="glow-dot" id="glow-dot"></div>
         
