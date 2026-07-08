@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="th" class="scroll-smooth"> 
+<html lang="th" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Aphinya Prasom | Portfolio</title>
  
-    <script src="https://cdn.tailwindcss.com"></script> 
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
@@ -16,7 +16,7 @@
         }
         
         body {
-            background-color: #050505;
+            /* ลบ background-color ออก เพื่อไม่ให้สีดำทึบบัง Canvas WebGL ที่อยู่ด้านหลัง */
             color: #ffffff; 
             overflow-x: hidden; 
             font-family: 'Inter', 'Prompt', sans-serif;
@@ -30,7 +30,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            pointer-events: auto; /* ให้ WebGL รับ event จากเมาส์ได้ */
+            pointer-events: auto;
             z-index: -2; 
         }
 
@@ -405,7 +405,7 @@
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/webgl-fluid-simulation/webgl-fluid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/webgl-fluid"></script>
 
 <script>
     // --------------------------------------------------------
@@ -419,26 +419,26 @@
                 SIM_RESOLUTION: 256,
                 DYE_RESOLUTION: 1024,
                 CAPTURE_RESOLUTION: 512,
-                DENSITY_DISSIPATION: 0.8, // ลดค่าลงเพื่อให้ควันฟุ้งกระจายนานขึ้น
+                DENSITY_DISSIPATION: 0.8,
                 VELOCITY_DISSIPATION: 0.95,
                 PRESSURE: 0.1,
                 PRESSURE_ITERATIONS: 24,
-                CURL: 25, // เพิ่มการหมุนวนของควัน
+                CURL: 25,
                 SPLAT_RADIUS: 0.45,
                 SPLAT_FORCE: 6000,
                 SHADING: true,
-                COLORFUL: true, // เปิดการสุ่มสี
+                COLORFUL: true,
                 COLOR_UPDATE_SPEED: 8,
                 PAUSED: false,
-                BACK_COLOR: { r: 5, g: 5, b: 5 }, // สีพื้นหลังดำ
+                BACK_COLOR: { r: 5, g: 5, b: 5 },
                 TRANSPARENT: false,
-                BLOOM: true, // เพิ่มความสว่างให้เอฟเฟกต์
+                BLOOM: true,
                 BLOOM_ITERATIONS: 8,
                 BLOOM_RESOLUTION: 256,
                 BLOOM_INTENSITY: 0.6,
                 BLOOM_THRESHOLD: 0.1,
                 BLOOM_SOFT_KNEE: 0.7,
-                COLOR_PALETTE: ['#f472b6', '#c084fc', '#38bdf8', '#4ade80'] // ชุดสีพาสเทล: ชมพู, ม่วง, ฟ้า, เขียว
+                COLOR_PALETTE: ['#f472b6', '#c084fc', '#38bdf8', '#4ade80']
             });
         }
     });
@@ -456,24 +456,19 @@
         const aboutTop = about.offsetTop;
         const isDesktop = window.innerWidth >= 768;
 
-        // คำนวณความคืบหน้าการเลื่อนจาก Home ไป About (0 ถึง 1)
         let xProgress = scrollY / (aboutTop || 1); 
         xProgress = Math.max(0, Math.min(1, xProgress));
         
-        // เลื่อนแนวนอน: จากตรงกลาง (50%) ไปทางซ้าย (25% บนคอม, 50% บนมือถือ)
         let startLeft = 50;
         let endLeft = isDesktop ? 25 : 50; 
         profile.style.left = (startLeft - ((startLeft - endLeft) * xProgress)) + '%';
 
-        // เลื่อนแนวตั้ง: รูปจะเลิก Fixed ทันทีเมื่อเลื่อนพ้นหน้า About Me
         let endFixedScroll = aboutTop; 
         
         if (scrollY > endFixedScroll) {
-            // เมื่อพ้น About แล้ว ให้รูปเลื่อนขึ้นไปตาม Scroll ปกติ
             let moveUp = scrollY - endFixedScroll;
             profile.style.top = `calc(50% - ${moveUp}px)`;
         } else {
-            // ยังไม่พ้น About ให้อยู่กลางจอแนวตั้งตลอด
             profile.style.top = '50%';
         }
     });
