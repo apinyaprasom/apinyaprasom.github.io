@@ -23,15 +23,15 @@
             position: relative;
         }
 
-        /* ---------------- Mouse Trail Fluid Canvas ---------------- */
-        #fluid-canvas {
+        /* ---------------- Mouse Trail Smoke Canvas ---------------- */
+        #smoke-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            pointer-events: auto; /* สำคัญ: ให้ WebGL รับ event จากเมาส์ได้ */
-            z-index: -2; /* ซ่อนไว้หลังเนื้อหาทั้งหมด */
+            pointer-events: none; /* ให้คลิกทะลุผ่านควันได้ */
+            z-index: 9999;
         }
 
         .bg-glow {
@@ -140,16 +140,10 @@
             justify-content: center;
         }
         @media (min-width: 768px) {
-            .project-card {
-                flex: 0 0 60vw;
-                padding: 3rem;
-            }
+            .project-card { flex: 0 0 60vw; padding: 3rem; }
         }
         @media (min-width: 1024px) {
-            .project-card {
-                flex: 0 0 40vw; 
-                max-width: 550px; 
-            }
+            .project-card { flex: 0 0 40vw; max-width: 550px; }
         }
 
         /* ---------------- Lightbox ---------------- */
@@ -158,7 +152,6 @@
             backdrop-filter: blur(10px);
         }
 
-        /* ---------------- General ---------------- */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -172,7 +165,7 @@
 </head>
 <body class="antialiased selection:bg-purple-500 selection:text-white">
 
-<canvas id="fluid-canvas"></canvas>
+<canvas id="smoke-canvas"></canvas>
 
 <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
     <span class="absolute top-6 right-6 text-gray-500 hover:text-white text-5xl cursor-pointer transition-colors">&times;</span>
@@ -214,6 +207,7 @@
             </div>
         </div>
     </div>
+    
     <div class="relative z-20 w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 floating-avatar mt-10 pointer-events-auto">
         <div class="absolute inset-0 bg-purple-600 rounded-full blur-3xl opacity-40"></div>
         <img src="image/profile.png" alt="Profile" class="w-full h-full object-cover rounded-full border-4 border-gray-800 shadow-2xl relative z-10">
@@ -221,18 +215,29 @@
 </section>
 
 <section id="about" class="py-24 px-6 relative z-10 reveal pointer-events-none">
-    <div class="max-w-4xl mx-auto text-center pointer-events-auto">
-        <h1 class="text-4xl md:text-6xl font-black text-white mb-12 tracking-tighter uppercase">
-            Academic Profile
-        </h1>
-        <div class="text-gray-400 text-sm md:text-base leading-relaxed">
-            <p class="mb-6">
-                ฉันคือ อภิญญา ประสม ปัจจุบันศึกษาอยู่ในชั้นปีที่สาม คณะการบัญชีและการจัดการ สาขาธุรกิจดิจิทัลและระบบสารสนเทศ มหาวิทยาลัยมหาสารคาม การศึกษาในสาขาวิชานี้ได้บ่มเพาะให้ฉันมีความสนใจอย่างลึกซึ้งในการผสานทักษะด้านการออกแบบกราฟิกเข้ากับเทคโนโลยีระบบอัตโนมัติ เพื่อสร้างสรรค์ผลงานที่สามารถตอบสนองความสวยงามพร้อมทั้งแก้ไขปัญหาทางธุรกิจได้อย่างเป็นรูปธรรมผ่านกระบวนการจัดการข้อมูลและการออกแบบส่วนต่อประสานที่คำนึงถึงผู้ใช้งานเป็นหลัก
-            </p>
-            <p>
-                ในแง่ของแนวคิดการทำงาน ฉันให้ความสำคัญอย่างยิ่งกับการอยู่ในสภาพแวดล้อมที่เป็นระบบ มีการวางแผนโครงสร้างงานที่ชัดเจน และเคารพในพื้นที่ส่วนบุคคล การได้ร่วมงานกับทีมที่มีความเชี่ยวชาญสูงถือเป็นแรงผลักดันสำคัญที่ช่วยให้ฉันได้เรียนรู้และพัฒนาขีดความสามารถของตนเองอย่างต่อเนื่อง เพื่อก้าวไปสู่การเป็นบุคลากรที่มีคุณภาพในสายงานเทคโนโลยี
-            </p>
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 pointer-events-auto">
+        
+        <div class="w-full md:w-1/2 flex justify-center">
+            <div class="relative w-64 h-64 md:w-80 md:h-80 floating-avatar">
+                <div class="absolute inset-0 bg-purple-600 rounded-full blur-3xl opacity-50"></div>
+                <img src="image/profile.png" alt="Profile" class="w-full h-full object-cover rounded-full border-4 border-gray-800 shadow-2xl relative z-10">
+            </div>
         </div>
+
+        <div class="w-full md:w-1/2 text-left">
+            <h1 class="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter uppercase">
+                ABOUT ME
+            </h1>
+            <div class="text-gray-400 text-sm md:text-base leading-relaxed">
+                <p class="mb-6">
+                    ฉันคือ อภิญญา ประสม ปัจจุบันศึกษาอยู่ในชั้นปีที่สาม คณะการบัญชีและการจัดการ สาขาธุรกิจดิจิทัลและระบบสารสนเทศ มหาวิทยาลัยมหาสารคาม การศึกษาในสาขาวิชานี้ได้บ่มเพาะให้ฉันมีความสนใจอย่างลึกซึ้งในการผสานทักษะด้านการออกแบบกราฟิกเข้ากับเทคโนโลยีระบบอัตโนมัติ เพื่อสร้างสรรค์ผลงานที่สามารถตอบสนองความสวยงามพร้อมทั้งแก้ไขปัญหาทางธุรกิจได้อย่างเป็นรูปธรรมผ่านกระบวนการจัดการข้อมูลและการออกแบบส่วนต่อประสานที่คำนึงถึงผู้ใช้งานเป็นหลัก
+                </p>
+                <p>
+                    ในแง่ของแนวคิดการทำงาน ฉันให้ความสำคัญอย่างยิ่งกับการอยู่ในสภาพแวดล้อมที่เป็นระบบ มีการวางแผนโครงสร้างงานที่ชัดเจน และเคารพในพื้นที่ส่วนบุคคล การได้ร่วมงานกับทีมที่มีความเชี่ยวชาญสูงถือเป็นแรงผลักดันสำคัญที่ช่วยให้ฉันได้เรียนรู้และพัฒนาขีดความสามารถของตนเองอย่างต่อเนื่อง เพื่อก้าวไปสู่การเป็นบุคลากรที่มีคุณภาพในสายงานเทคโนโลยี
+                </p>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -396,40 +401,77 @@
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/webgl-fluid-simulation/webgl-fluid.min.js"></script>
-
 <script>
     // --------------------------------------------------------
-    // 1. Mouse Trail Effect (ควันไหล Fluid Simulation)
+    // 1. Mouse Trail Smoke Effect (Canvas 2D)
     // --------------------------------------------------------
-    
-    // ตรวจสอบว่าโหลด script สำเร็จก่อนเรียกใช้งาน
-    window.addEventListener('load', function() {
-        if (typeof WebGLFluid === 'function') {
-            WebGLFluid(document.querySelector('#fluid-canvas'), {
-                IMMEDIATE: true,
-                TRIGGER: 'hover',
-                SIM_RESOLUTION: 128,
-                DYE_RESOLUTION: 512,
-                CAPTURE_RESOLUTION: 512,
-                DENSITY_DISSIPATION: 3, /* กำหนดความเร็วในการจางของควัน (ตัวเลขมากจางเร็ว) */
-                VELOCITY_DISSIPATION: 1.5,
-                PRESSURE: 0.1,
-                PRESSURE_ITERATIONS: 20,
-                CURL: 3,
-                SPLAT_RADIUS: 0.2, /* ขนาดของควันที่ปล่อยออกมา */
-                SPLAT_FORCE: 6000,
-                SHADING: true,
-                COLORFUL: false, /* ปิดโหมดสุ่มสีรุ้ง */
-                COLOR_UPDATE_SPEED: 10,
-                PAUSED: false,
-                BACK_COLOR: { r: 5, g: 5, b: 5 }, /* สีพื้นหลังดำ #050505 ให้กลืนไปกับเว็บ */
-                TRANSPARENT: false,
-                BLOOM: false,
-                COLOR_PALETTE: ['#9ca3af', '#a855f7', '#d8b4fe'] /* โทนสีควัน: เทา, ม่วง, ม่วงอ่อน */
-            });
+    const canvas = document.getElementById('smoke-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    const mouse = { x: undefined, y: undefined };
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+        // ปล่อยควัน 3 จุด ต่อการขยับเมาส์ 1 ครั้ง
+        for (let i = 0; i < 3; i++) {
+            particles.push(new Particle());
         }
     });
+
+    class Particle {
+        constructor() {
+            this.x = mouse.x;
+            this.y = mouse.y;
+            this.size = Math.random() * 15 + 10; // ขนาดเริ่มต้น
+            this.speedX = Math.random() * 2 - 1; // ควันกระจายซ้ายขวา
+            this.speedY = Math.random() * -2 - 0.5; // ควันลอยขึ้นด้านบนเสมอ
+            this.life = 1.0; // ความทึบแสง (Opacity)
+            
+            // สุ่มสีเทา-ม่วง แบบเดียวกับเว็บต้นแบบ
+            const colors = ['168, 85, 247', '216, 180, 254', '156, 163, 175'];
+            this.colorStr = colors[Math.floor(Math.random() * colors.length)];
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.size += 0.2; // ควันขยายตัวขึ้นเรื่อยๆ
+            this.life -= 0.015; // ค่อยๆ จางหายไป
+        }
+        draw() {
+            ctx.fillStyle = `rgba(${this.colorStr}, ${this.life * 0.4})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function animateSmoke() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // ใส่ฟิลเตอร์เบลอเพื่อทำให้จุดวงกลมดูฟุ้งเหมือนควันจริงๆ
+        ctx.filter = 'blur(10px)'; 
+        
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+            // ลบควันที่จางจนมองไม่เห็นแล้วออก
+            if (particles[i].life <= 0) {
+                particles.splice(i, 1);
+                i--;
+            }
+        }
+        requestAnimationFrame(animateSmoke);
+    }
+    animateSmoke();
 
     // --------------------------------------------------------
     // 2. Scroll Reveal แอนิเมชันตอนเลื่อนหน้าจอ
@@ -446,7 +488,7 @@
     document.querySelectorAll('.reveal').forEach((element) => { observer.observe(element); });
 
     // --------------------------------------------------------
-    // 3. Timeline Scroll Animation (แสงไฟวิ่งตามการเลื่อนในหมวด Skills)
+    // 3. Timeline Scroll Animation (แสงไฟวิ่งตามการเลื่อน)
     // --------------------------------------------------------
     window.addEventListener('scroll', () => {
         const container = document.getElementById('timeline-container');
@@ -454,7 +496,7 @@
         const dot = document.getElementById('glow-dot');
         const items = document.querySelectorAll('.timeline-content');
         
-        if (!container || !progress || !dot) return; // ป้องกัน error ถ้าโหลด element ไม่ทัน
+        if (!container || !progress || !dot) return;
 
         const rect = container.getBoundingClientRect();
         const containerTop = rect.top;
