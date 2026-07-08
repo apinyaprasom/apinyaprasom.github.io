@@ -23,15 +23,15 @@
             position: relative;
         }
 
-        /* ---------------- Mouse Trail Smoke Canvas ---------------- */
-        #smoke-canvas {
+        /* ---------------- Mouse Trail Fluid Canvas ---------------- */
+        #fluid-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            pointer-events: none; /* ให้คลิกทะลุผ่านควันได้ */
-            z-index: 9999;
+            pointer-events: auto; /* ให้ WebGL รับ event จากเมาส์ได้ */
+            z-index: -2; 
         }
 
         .bg-glow {
@@ -59,11 +59,17 @@
         }
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-15px); }
             100% { transform: translateY(0px); }
         }
         .floating-avatar {
             animation: float 6s ease-in-out infinite;
+        }
+
+        /* รูปที่เลื่อนตาม Scroll */
+        #moving-profile {
+            transition: left 0.1s ease-out, top 0.1s ease-out;
+            will-change: left, top;
         }
 
         /* ---------------- Timeline (Skills Section) ---------------- */
@@ -140,10 +146,16 @@
             justify-content: center;
         }
         @media (min-width: 768px) {
-            .project-card { flex: 0 0 60vw; padding: 3rem; }
+            .project-card {
+                flex: 0 0 60vw;
+                padding: 3rem;
+            }
         }
         @media (min-width: 1024px) {
-            .project-card { flex: 0 0 40vw; max-width: 550px; }
+            .project-card {
+                flex: 0 0 40vw; 
+                max-width: 550px; 
+            }
         }
 
         /* ---------------- Lightbox ---------------- */
@@ -152,6 +164,7 @@
             backdrop-filter: blur(10px);
         }
 
+        /* ---------------- General ---------------- */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -165,7 +178,14 @@
 </head>
 <body class="antialiased selection:bg-purple-500 selection:text-white">
 
-<canvas id="smoke-canvas"></canvas>
+<canvas id="fluid-canvas"></canvas>
+
+<div id="moving-profile" class="fixed z-40 pointer-events-none" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <div class="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 floating-avatar pointer-events-auto">
+        <div class="absolute inset-0 bg-purple-600 rounded-full blur-3xl opacity-50"></div>
+        <img src="image/profile.png" alt="Profile" class="w-full h-full object-cover rounded-full border-4 border-gray-800 shadow-2xl relative z-10">
+    </div>
+</div>
 
 <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
     <span class="absolute top-6 right-6 text-gray-500 hover:text-white text-5xl cursor-pointer transition-colors">&times;</span>
@@ -208,23 +228,17 @@
         </div>
     </div>
     
-    <div class="relative z-20 w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 floating-avatar mt-10 pointer-events-auto">
-        <div class="absolute inset-0 bg-purple-600 rounded-full blur-3xl opacity-40"></div>
-        <img src="image/profile.png" alt="Profile" class="w-full h-full object-cover rounded-full border-4 border-gray-800 shadow-2xl relative z-10">
-    </div>
+    <div class="w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 opacity-0 mt-10"></div>
 </section>
 
-<section id="about" class="py-24 px-6 relative z-10 reveal pointer-events-none">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 pointer-events-auto">
+<section id="about" class="py-24 px-6 relative z-10 reveal pointer-events-none min-h-[80vh] flex items-center">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 pointer-events-auto w-full">
         
-        <div class="w-full md:w-1/2 flex justify-center">
-            <div class="relative w-64 h-64 md:w-80 md:h-80 floating-avatar">
-                <div class="absolute inset-0 bg-purple-600 rounded-full blur-3xl opacity-50"></div>
-                <img src="image/profile.png" alt="Profile" class="w-full h-full object-cover rounded-full border-4 border-gray-800 shadow-2xl relative z-10">
-            </div>
+        <div class="w-full md:w-1/2 flex justify-center opacity-0">
+            <div class="w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80"></div>
         </div>
 
-        <div class="w-full md:w-1/2 text-left">
+        <div class="w-full md:w-1/2 text-center md:text-left">
             <h1 class="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter uppercase">
                 ABOUT ME
             </h1>
@@ -401,80 +415,78 @@
     </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/webgl-fluid-simulation/webgl-fluid.min.js"></script>
+
 <script>
     // --------------------------------------------------------
-    // 1. Mouse Trail Smoke Effect (Canvas 2D)
+    // 1. Mouse Trail Effect (ควันไหลสีรุ้ง แบบ aaabadcode.com)
     // --------------------------------------------------------
-    const canvas = document.getElementById('smoke-canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particles = [];
-    const mouse = { x: undefined, y: undefined };
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    window.addEventListener('load', function() {
+        if (typeof WebGLFluid === 'function') {
+            WebGLFluid(document.querySelector('#fluid-canvas'), {
+                IMMEDIATE: true,
+                TRIGGER: 'hover',
+                SIM_RESOLUTION: 256,    // ความละเอียดควันสูงขึ้น
+                DYE_RESOLUTION: 1024,   // ความละเอียดสี
+                CAPTURE_RESOLUTION: 512,
+                DENSITY_DISSIPATION: 0.5, // ค่าต่ำ = ควันจางช้ามาก (ไหลฟุ้งสวย)
+                VELOCITY_DISSIPATION: 0.5,
+                PRESSURE: 0.1,
+                PRESSURE_ITERATIONS: 20,
+                CURL: 30,                 // ทำให้ควันม้วนตัว (Swirl) เยอะๆ
+                SPLAT_RADIUS: 0.5,        // ขนาดของควันที่พ่นออกมา (ใหญ่)
+                SPLAT_FORCE: 6000,
+                SHADING: true,
+                COLORFUL: true,           // เปิดโหมดสีรุ้งพาสเทลแบบเว็บเรฟ
+                COLOR_UPDATE_SPEED: 10,
+                PAUSED: false,
+                BACK_COLOR: { r: 5, g: 5, b: 5 }, /* พื้นหลังกลืนกับเว็บ */
+                TRANSPARENT: false,
+                BLOOM: true,              // เปิดแสงเรืองแสงให้ควัน
+                BLOOM_ITERATIONS: 8,
+                BLOOM_RESOLUTION: 256,
+                BLOOM_INTENSITY: 0.8,
+                BLOOM_THRESHOLD: 0.2,
+                BLOOM_SOFT_KNEE: 0.7
+            });
+        }
     });
 
-    window.addEventListener('mousemove', (e) => {
-        mouse.x = e.x;
-        mouse.y = e.y;
-        // ปล่อยควัน 3 จุด ต่อการขยับเมาส์ 1 ครั้ง
-        for (let i = 0; i < 3; i++) {
-            particles.push(new Particle());
+    // --------------------------------------------------------
+    // 2. Profile Image Movement Animation
+    // --------------------------------------------------------
+    window.addEventListener('scroll', () => {
+        const profile = document.getElementById('moving-profile');
+        const about = document.getElementById('about');
+
+        const scrollY = window.scrollY;
+        const aboutTop = about.offsetTop;
+        const isDesktop = window.innerWidth >= 768;
+
+        // คำนวณความคืบหน้าการเลื่อนจาก Home ไป About (0 ถึง 1)
+        let xProgress = scrollY / (aboutTop || 1); 
+        xProgress = Math.max(0, Math.min(1, xProgress));
+        
+        // เลื่อนแนวนอน: จากตรงกลาง (50%) ไปทางซ้าย (25% บนคอม, 50% บนมือถือ)
+        let startLeft = 50;
+        let endLeft = isDesktop ? 25 : 50; 
+        profile.style.left = (startLeft - ((startLeft - endLeft) * xProgress)) + '%';
+
+        // เลื่อนแนวตั้ง: รูปจะคงที่จนกว่าจะเลื่อนพ้นหมวด About
+        let endFixedScroll = aboutTop + (about.offsetHeight / 2); 
+        
+        if (scrollY > endFixedScroll) {
+            // เมื่อพ้น About แล้ว ให้รูปเลื่อนขึ้นไปตาม Scroll ปกติ
+            let moveUp = scrollY - endFixedScroll;
+            profile.style.top = `calc(50% - ${moveUp}px)`;
+        } else {
+            // ยังไม่พ้น About ให้อยู่กลางจอแนวตั้งตลอด
+            profile.style.top = '50%';
         }
     });
 
-    class Particle {
-        constructor() {
-            this.x = mouse.x;
-            this.y = mouse.y;
-            this.size = Math.random() * 15 + 10; // ขนาดเริ่มต้น
-            this.speedX = Math.random() * 2 - 1; // ควันกระจายซ้ายขวา
-            this.speedY = Math.random() * -2 - 0.5; // ควันลอยขึ้นด้านบนเสมอ
-            this.life = 1.0; // ความทึบแสง (Opacity)
-            
-            // สุ่มสีเทา-ม่วง แบบเดียวกับเว็บต้นแบบ
-            const colors = ['168, 85, 247', '216, 180, 254', '156, 163, 175'];
-            this.colorStr = colors[Math.floor(Math.random() * colors.length)];
-        }
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            this.size += 0.2; // ควันขยายตัวขึ้นเรื่อยๆ
-            this.life -= 0.015; // ค่อยๆ จางหายไป
-        }
-        draw() {
-            ctx.fillStyle = `rgba(${this.colorStr}, ${this.life * 0.4})`;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
-
-    function animateSmoke() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // ใส่ฟิลเตอร์เบลอเพื่อทำให้จุดวงกลมดูฟุ้งเหมือนควันจริงๆ
-        ctx.filter = 'blur(10px)'; 
-        
-        for (let i = 0; i < particles.length; i++) {
-            particles[i].update();
-            particles[i].draw();
-            // ลบควันที่จางจนมองไม่เห็นแล้วออก
-            if (particles[i].life <= 0) {
-                particles.splice(i, 1);
-                i--;
-            }
-        }
-        requestAnimationFrame(animateSmoke);
-    }
-    animateSmoke();
-
     // --------------------------------------------------------
-    // 2. Scroll Reveal แอนิเมชันตอนเลื่อนหน้าจอ
+    // 3. Scroll Reveal แอนิเมชันตอนเลื่อนหน้าจอ
     // --------------------------------------------------------
     const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
     const observer = new IntersectionObserver((entries, observer) => {
@@ -488,7 +500,7 @@
     document.querySelectorAll('.reveal').forEach((element) => { observer.observe(element); });
 
     // --------------------------------------------------------
-    // 3. Timeline Scroll Animation (แสงไฟวิ่งตามการเลื่อน)
+    // 4. Timeline Scroll Animation (แสงไฟวิ่งตามการเลื่อน)
     // --------------------------------------------------------
     window.addEventListener('scroll', () => {
         const container = document.getElementById('timeline-container');
@@ -522,7 +534,7 @@
     });
 
     // --------------------------------------------------------
-    // 4. Lightbox สำหรับ Certifications
+    // 5. Lightbox สำหรับ Certifications
     // --------------------------------------------------------
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
