@@ -79,8 +79,6 @@
             margin: 0 auto;
             padding: 100px 0;
         }
-        
-        /* เอา .timeline-line ที่เป็นเส้นสีเทาออกตามที่รีเควส */
 
         .timeline-progress {
             position: absolute;
@@ -411,35 +409,36 @@
 
 <script>
     // --------------------------------------------------------
-    // 1. Mouse Trail Effect (ควันไหลสีรุ้ง แบบ aaabadcode.com)
+    // 1. Mouse Trail Effect (ควันไหลสีรุ้งพาสเทลแบบ Dynamic)
     // --------------------------------------------------------
     window.addEventListener('load', function() {
         if (typeof WebGLFluid === 'function') {
             WebGLFluid(document.querySelector('#fluid-canvas'), {
                 IMMEDIATE: true,
                 TRIGGER: 'hover',
-                SIM_RESOLUTION: 256,    // ความละเอียดควันสูงขึ้น
-                DYE_RESOLUTION: 1024,   // ความละเอียดสี
+                SIM_RESOLUTION: 256,
+                DYE_RESOLUTION: 1024,
                 CAPTURE_RESOLUTION: 512,
-                DENSITY_DISSIPATION: 0.5, // ค่าต่ำ = ควันจางช้ามาก (ไหลฟุ้งสวย)
-                VELOCITY_DISSIPATION: 0.5,
+                DENSITY_DISSIPATION: 0.8, // ลดค่าลงเพื่อให้ควันฟุ้งกระจายนานขึ้น
+                VELOCITY_DISSIPATION: 0.95,
                 PRESSURE: 0.1,
-                PRESSURE_ITERATIONS: 20,
-                CURL: 30,                 // ทำให้ควันม้วนตัว (Swirl) เยอะๆ
-                SPLAT_RADIUS: 0.5,        // ขนาดของควันที่พ่นออกมา (ใหญ่)
+                PRESSURE_ITERATIONS: 24,
+                CURL: 25, // เพิ่มการหมุนวนของควัน
+                SPLAT_RADIUS: 0.45,
                 SPLAT_FORCE: 6000,
                 SHADING: true,
-                COLORFUL: true,           // เปิดโหมดสีรุ้งพาสเทลแบบเว็บเรฟ
-                COLOR_UPDATE_SPEED: 10,
+                COLORFUL: true, // เปิดการสุ่มสี
+                COLOR_UPDATE_SPEED: 8,
                 PAUSED: false,
-                BACK_COLOR: { r: 5, g: 5, b: 5 }, /* พื้นหลังกลืนกับเว็บ */
+                BACK_COLOR: { r: 5, g: 5, b: 5 }, // สีพื้นหลังดำ
                 TRANSPARENT: false,
-                BLOOM: true,              // เปิดแสงเรืองแสงให้ควัน
+                BLOOM: true, // เพิ่มความสว่างให้เอฟเฟกต์
                 BLOOM_ITERATIONS: 8,
                 BLOOM_RESOLUTION: 256,
-                BLOOM_INTENSITY: 0.8,
-                BLOOM_THRESHOLD: 0.2,
-                BLOOM_SOFT_KNEE: 0.7
+                BLOOM_INTENSITY: 0.6,
+                BLOOM_THRESHOLD: 0.1,
+                BLOOM_SOFT_KNEE: 0.7,
+                COLOR_PALETTE: ['#f472b6', '#c084fc', '#38bdf8', '#4ade80'] // ชุดสีพาสเทล: ชมพู, ม่วง, ฟ้า, เขียว
             });
         }
     });
