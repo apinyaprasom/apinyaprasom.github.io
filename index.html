@@ -7,166 +7,8 @@
  
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background-color: #050505; 
-            color: #ffffff; 
-            overflow-x: hidden; 
-            font-family: 'Inter', 'Prompt', sans-serif;
-            position: relative;
-        }
-
-        /* ---------------- Particle Canvas ---------------- */
-        #fluid-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: auto;
-            z-index: -2; 
-        }
-
-        .bg-glow {
-            position: fixed; 
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(0,0,0,0) 60%);
-            filter: blur(60px);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* ---------------- Hero Section ---------------- */
-        @keyframes slideLeft {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-        .animate-slide {
-            display: inline-block;
-            white-space: nowrap;
-            animation: slideLeft 20s linear infinite;
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-        .floating-avatar {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* รูปที่เลื่อนตาม Scroll */
-        #moving-profile {
-            transition: left 0.1s ease-out, top 0.1s ease-out;
-            will-change: left, top;
-        }
-
-        /* ---------------- Timeline (Skills Section) ---------------- */
-        .timeline-container {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 100px 0;
-        }
-
-        .timeline-progress {
-            position: absolute;
-            width: 2px;
-            background: linear-gradient(to bottom, #a855f7, #d8b4fe);
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            height: 0%;
-            box-shadow: 0 0 15px #a855f7;
-        }
-        .glow-dot {
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            background-color: #d8b4fe;
-            border-radius: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            top: 0%;
-            box-shadow: 0 0 20px 5px rgba(168, 85, 247, 0.6);
-            z-index: 10;
-        }
-        .timeline-item {
-            padding: 20px 40px;
-            position: relative;
-            width: 50%;
-            opacity: 0.5;
-            transition: opacity 0.5s ease;
-        }
-        .timeline-item.active {
-            opacity: 1;
-        }
-        .timeline-item.left { left: 0; text-align: right; }
-        .timeline-item.right { left: 50%; text-align: left; }
-
-        /* ---------------- Horizontal Scroll (Projects Section) ---------------- */
-        .horizontal-scroll-wrapper {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .horizontal-scroll-wrapper::-webkit-scrollbar {
-            display: none;
-        }
-        .project-card {
-            flex: 0 0 100vw;
-            scroll-snap-align: center;
-            border-right: 1px solid rgba(255,255,255,0.05);
-            padding: 2rem; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        @media (min-width: 768px) {
-            .project-card {
-                flex: 0 0 60vw;
-                padding: 3rem;
-            }
-        }
-        @media (min-width: 1024px) {
-            .project-card {
-                flex: 0 0 40vw; 
-                max-width: 550px; 
-            }
-        }
-
-        /* ---------------- Lightbox ---------------- */
-        #lightbox {
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-        }
-
-        /* ---------------- General ---------------- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased selection:bg-purple-500 selection:text-white">
 
@@ -298,7 +140,7 @@
         <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight">My Work</h2>
     </div>
 
-    <div class="horizontal-scroll-wrapper pointer-events-auto">
+    <div class="horizontal-scroll-wrapper pointer-events-auto lg:justify-center max-w-7xl mx-auto">
         
         <div class="project-card">
             <div class="flex justify-between items-start mb-6">
@@ -392,12 +234,12 @@
 
 <script>
     // --------------------------------------------------------
-    // 0. Force scroll to top on refresh (บังคับให้เลื่อนกลับไปบนสุดเมื่อรีเฟรช)
+    // 0. Force scroll to top on refresh (บังคับให้เลื่อนไปบนสุดเมื่อรีเฟรช)
     // --------------------------------------------------------
     if (history.scrollRestoration) {
         history.scrollRestoration = 'manual';
     }
-    window.addEventListener('beforeunload', function () {
+    window.addEventListener('load', function () {
         window.scrollTo(0, 0);
     });
 
@@ -412,7 +254,7 @@
     canvas.height = window.innerHeight;
 
     let particlesArray = [];
-    // โทนสีพาสเทลที่คุณต้องการ
+    // โทนสีพาสเทล
     const colors = ['#f472b6', '#c084fc', '#38bdf8', '#4ade80'];
 
     // ปรับขนาด Canvas เมื่อย่อขยายหน้าต่าง
@@ -430,7 +272,6 @@
     canvas.addEventListener('mousemove', (event) => {
         mouse.x = event.x;
         mouse.y = event.y;
-        // สร้างชิ้นส่วน 6 ชิ้นทุกครั้งที่เมาส์ขยับ 1 ครั้ง
         for (let i = 0; i < 6; i++) { 
             particlesArray.push(new Particle());
         }
@@ -441,24 +282,20 @@
             this.x = mouse.x;
             this.y = mouse.y;
             this.size = Math.random() * 8 + 4; 
-            // ให้ความเร็วเริ่มต้นสูงๆ เพื่อให้ดูเหมือนการระเบิดแตกออก
             this.speedX = (Math.random() * 12 - 6); 
             this.speedY = (Math.random() * 12 - 6); 
             this.color = colors[Math.floor(Math.random() * colors.length)];
-            this.life = 1; // ความโปร่งใสเริ่มต้น
+            this.life = 1; 
             this.rotation = Math.random() * 360;
             this.rotationSpeed = (Math.random() * 20 - 10);
         }
         update() {
             this.x += this.speedX;
             this.y += this.speedY;
-            // แรงเสียดทาน ชะลอความเร็วลงเรื่อยๆ
             this.speedX *= 0.90;
             this.speedY *= 0.90;
-            // จางหายไปทีละนิด
             this.life -= 0.02;
             this.rotation += this.rotationSpeed;
-            // หดขนาดลง
             if (this.size > 0.2) this.size -= 0.1;
         }
         draw() {
@@ -467,7 +304,6 @@
             ctx.rotate(this.rotation * Math.PI / 180);
             ctx.globalAlpha = Math.max(0, this.life);
             ctx.fillStyle = this.color;
-            // วาดเป็นรูปทรงสี่เหลี่ยมเพื่อให้ความรู้สึกเหมือนเศษกระจกหรือชิ้นส่วนที่แตกออก
             ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
             ctx.restore();
         }
@@ -477,7 +313,6 @@
         for (let i = 0; i < particlesArray.length; i++) {
             particlesArray[i].update();
             particlesArray[i].draw();
-            // ลบทิ้งเมื่อจางหมดหรือขนาดเล็กเกินไป เพื่อไม่ให้กินทรัพยากรเครื่อง
             if (particlesArray[i].life <= 0 || particlesArray[i].size <= 0.2) {
                 particlesArray.splice(i, 1);
                 i--;
@@ -486,13 +321,11 @@
     }
 
     function animate() {
-        // ล้างเฟรมเก่าแบบโปร่งใส เพื่อเผยให้เห็นพื้นหลังสีดำของเว็บ
         ctx.clearRect(0, 0, canvas.width, canvas.height); 
         handleParticles();
         requestAnimationFrame(animate);
     }
     
-    // เริ่มแอนิเมชัน
     animate();
 
     // --------------------------------------------------------
