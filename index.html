@@ -16,7 +16,7 @@
         }
         
         body {
-            background-color: #050505; /* ใส่สีพื้นหลังดำกลับคืนมา */
+            background-color: #050505; 
             color: #ffffff; 
             overflow-x: hidden; 
             font-family: 'Inter', 'Prompt', sans-serif;
@@ -122,31 +122,39 @@
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            gap: 1.5rem; /* ระยะห่างระหว่างกล่อง */
+            padding: 2rem;
+            /* โค้ดนี้บังคับให้กล่องอยู่ตรงกลางจอคอม */
+            justify-content: center; 
         }
+        
         .horizontal-scroll-wrapper::-webkit-scrollbar {
             display: none;
         }
+        
         .project-card {
-            flex: 0 0 100vw;
+            flex: 0 0 85vw; /* บนมือถือขนาดเกือบเต็มจอ */
             scroll-snap-align: center;
-            border-right: 1px solid rgba(255,255,255,0.05);
-            padding: 2rem; 
+            background: rgba(20, 20, 20, 0.5); /* ใส่พื้นหลังดำโปร่งแสงนิดๆ ให้การ์ด */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 2.5rem; 
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* จัดเนื้อหาชิดบน */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        @media (min-width: 768px) {
-            .project-card {
-                flex: 0 0 60vw;
-                padding: 3rem;
-            }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.1);
         }
+
+        /* บนจอคอมพิวเตอร์ให้แบ่งการ์ดให้พอดี 3 ใบ */
         @media (min-width: 1024px) {
             .project-card {
-                flex: 0 0 40vw; 
-                max-width: 550px; 
+                flex: 0 0 30vw; 
+                max-width: 400px; /* ล็อกความกว้างสูงสุดไม่ให้ใหญ่เกินไป */
             }
         }
 
@@ -269,7 +277,7 @@
             <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Automation</h3>
             <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">WORKFLOW & SYSTEMS</p>
             <p class="text-gray-400 text-sm leading-relaxed">
-               มีประสบการณ์ในการใช้งานแพลตฟอร์ม n8n จากการพัฒนาโครงงาน สามารถออกแบบเวิร์กโฟลว์พื้นฐานเพื่อทำงานอัตโนมัติ ลดขั้นตอนที่ซ้ำซ้อน และเชื่อมต่อข้อมูลระหว่างบริการต่าง ๆ ได้ำ
+               มีประสบการณ์ในการใช้งานแพลตฟอร์ม n8n จากการพัฒนาโครงงาน สามารถออกแบบเวิร์กโฟลว์พื้นฐานเพื่อทำงานอัตโนมัติ ลดขั้นตอนที่ซ้ำซ้อน และเชื่อมต่อข้อมูลระหว่างบริการต่าง ๆ ได้
             </p>
         </div>
 
@@ -293,25 +301,25 @@
 </section>
 
 <section id="work" class="pt-32 pb-16 relative z-10 overflow-hidden pointer-events-none">
-    <div class="px-6 md:px-12 mb-12 reveal pointer-events-auto">
+    <div class="max-w-6xl mx-auto px-6 md:px-12 mb-12 reveal pointer-events-auto text-left">
         <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight">My Work</h2>
     </div>
 
-    <div class="horizontal-scroll-wrapper pointer-events-auto">
+    <div class="horizontal-scroll-wrapper pointer-events-auto max-w-7xl mx-auto">
         
         <div class="project-card">
             <div class="flex justify-between items-start mb-6">
                 <h1 class="text-5xl font-black text-white">01</h1>
                 <div class="text-right">
-                    <h3 class="text-xl md:text-2xl font-bold text-white">Automated Transit</h3>
-                    <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">System / n8n</p>
+                    <h3 class="text-lg md:text-xl font-bold text-white leading-tight">Automated Transit</h3>
+                    <p class="text-purple-400 text-[10px] md:text-xs tracking-widest uppercase">System / n8n</p>
                 </div>
             </div>
-            <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
-                <img src="image/bus.png" alt="Bus System" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
+            <div class="relative aspect-video overflow-hidden rounded-xl mb-6 border border-white/5">
+                <img src="image/bus.png" alt="Bus System" class="w-full h-full object-cover opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-700">
             </div>
-            <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
-            <p class="text-gray-400 text-sm leading-relaxed">
+            <h4 class="text-base font-bold text-white mb-2">Project Overview</h4>
+            <p class="text-gray-400 text-xs md:text-sm leading-relaxed">
                 โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ที่ออกแบบมาเพื่อรองรับเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ระบบนี้ถูกสร้างขึ้นโดยประยุกต์ใช้แพลตฟอร์ม n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอจากผู้ใช้งานและดำเนินการส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที
             </p>
         </div>
@@ -320,15 +328,15 @@
             <div class="flex justify-between items-start mb-6">
                 <h1 class="text-5xl font-black text-white">02</h1>
                 <div class="text-right">
-                    <h3 class="text-xl md:text-2xl font-bold text-white">PureVeil Design</h3>
-                    <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Product / Packaging</p>
+                    <h3 class="text-lg md:text-xl font-bold text-white leading-tight">PureVeil Design</h3>
+                    <p class="text-purple-400 text-[10px] md:text-xs tracking-widest uppercase">Product / Packaging</p>
                 </div>
             </div>
-            <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
-                <img src="image/product.png" alt="PureVeil" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
+            <div class="relative aspect-video overflow-hidden rounded-xl mb-6 border border-white/5">
+                <img src="image/product.png" alt="PureVeil" class="w-full h-full object-cover opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-700">
             </div>
-            <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
-            <p class="text-gray-400 text-sm leading-relaxed">
+            <h4 class="text-base font-bold text-white mb-2">Project Overview</h4>
+            <p class="text-gray-400 text-xs md:text-sm leading-relaxed">
                 โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ งานออกแบบนี้ได้นำเสนอวิสัยทัศน์ใหม่ของบรรจุภัณฑ์ โดยเปลี่ยนจากการใช้ขวดแบบดั้งเดิมมาเป็นรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ ตอบโจทย์ทั้งความสวยงามและการใช้งานจริง
             </p>
         </div>
@@ -337,19 +345,19 @@
             <div class="flex justify-between items-start mb-6">
                 <h1 class="text-5xl font-black text-white">03</h1>
                 <div class="text-right">
-                    <h3 class="text-xl md:text-2xl font-bold text-white">Entertainment Merch</h3>
-                    <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Database / Store</p>
+                    <h3 class="text-lg md:text-xl font-bold text-white leading-tight">Entertainment Merch</h3>
+                    <p class="text-purple-400 text-[10px] md:text-xs tracking-widest uppercase">Database / Store</p>
                 </div>
             </div>
-            <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
-                <img src="image/kpop.png" alt="Merch Store" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
+            <div class="relative aspect-video overflow-hidden rounded-xl mb-6 border border-white/5">
+                <img src="image/kpop.png" alt="Merch Store" class="w-full h-full object-cover opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-700">
             </div>
-            <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
-            <p class="text-gray-400 text-sm leading-relaxed">
+            <h4 class="text-base font-bold text-white mb-2">Project Overview</h4>
+            <p class="text-gray-400 text-xs md:text-sm leading-relaxed">
                 ออกแบบและพัฒนาเว็บไซต์ร้านค้าออนไลน์สำหรับจำหน่ายสินค้าของศิลปิน KPOP-TPOP พร้อมออกแบบฐานข้อมูลเชิงสัมพันธ์เพื่อจัดเก็บข้อมูลสินค้า หมวดหมู่ ผู้ใช้งาน และคำสั่งซื้อ รวมถึงพัฒนาฟังก์ชันการค้นหาสินค้า การจัดการแคตตาล็อก และระบบจัดการข้อมูลผ่านฐานข้อมูล เพื่อให้ระบบสามารถรองรับการใช้งานได้อย่างเป็นระเบียบ
             </p>
         </div>
-        
+
     </div>
 </section>
 
@@ -389,100 +397,42 @@
     </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/webgl-fluid-simulation/webgl-fluid.min.js"></script>
+
 <script>
     // --------------------------------------------------------
-    // 1. Mouse Particle Shatter Effect (สีแตกกระจายตามเมาส์)
+    // 1. Mouse Trail Effect (ควันไหลสีรุ้ง แบบ aaabadcode.com)
     // --------------------------------------------------------
-    const canvas = document.getElementById('fluid-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    // ตั้งค่าขนาดเริ่มต้น
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particlesArray = [];
-    // โทนสีพาสเทลที่คุณต้องการ
-    const colors = ['#f472b6', '#c084fc', '#38bdf8', '#4ade80'];
-
-    // ปรับขนาด Canvas เมื่อย่อขยายหน้าต่าง
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
-
-    const mouse = {
-        x: undefined,
-        y: undefined
-    }
-
-    // ตรวจจับการขยับเมาส์และสร้างอนุภาค
-    canvas.addEventListener('mousemove', (event) => {
-        mouse.x = event.x;
-        mouse.y = event.y;
-        // สร้างชิ้นส่วน 6 ชิ้นทุกครั้งที่เมาส์ขยับ 1 ครั้ง
-        for (let i = 0; i < 6; i++) { 
-            particlesArray.push(new Particle());
+    window.addEventListener('load', function() {
+        if (typeof WebGLFluid === 'function') {
+            WebGLFluid(document.querySelector('#fluid-canvas'), {
+                IMMEDIATE: true,
+                TRIGGER: 'hover',
+                SIM_RESOLUTION: 256,
+                DYE_RESOLUTION: 1024,
+                CAPTURE_RESOLUTION: 512,
+                DENSITY_DISSIPATION: 0.5, 
+                VELOCITY_DISSIPATION: 0.5,
+                PRESSURE: 0.1,
+                PRESSURE_ITERATIONS: 20,
+                CURL: 30,                 
+                SPLAT_RADIUS: 0.5,        
+                SPLAT_FORCE: 6000,
+                SHADING: true,
+                COLORFUL: true,           
+                COLOR_UPDATE_SPEED: 10,
+                PAUSED: false,
+                BACK_COLOR: { r: 5, g: 5, b: 5 }, 
+                TRANSPARENT: false,
+                BLOOM: true,              
+                BLOOM_ITERATIONS: 8,
+                BLOOM_RESOLUTION: 256,
+                BLOOM_INTENSITY: 0.8,
+                BLOOM_THRESHOLD: 0.2,
+                BLOOM_SOFT_KNEE: 0.7
+            });
         }
     });
-
-    class Particle {
-        constructor() {
-            this.x = mouse.x;
-            this.y = mouse.y;
-            this.size = Math.random() * 8 + 4; 
-            // ให้ความเร็วเริ่มต้นสูงๆ เพื่อให้ดูเหมือนการระเบิดแตกออก
-            this.speedX = (Math.random() * 12 - 6); 
-            this.speedY = (Math.random() * 12 - 6); 
-            this.color = colors[Math.floor(Math.random() * colors.length)];
-            this.life = 1; // ความโปร่งใสเริ่มต้น
-            this.rotation = Math.random() * 360;
-            this.rotationSpeed = (Math.random() * 20 - 10);
-        }
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            // แรงเสียดทาน ชะลอความเร็วลงเรื่อยๆ
-            this.speedX *= 0.90;
-            this.speedY *= 0.90;
-            // จางหายไปทีละนิด
-            this.life -= 0.02;
-            this.rotation += this.rotationSpeed;
-            // หดขนาดลง
-            if (this.size > 0.2) this.size -= 0.1;
-        }
-        draw() {
-            ctx.save();
-            ctx.translate(this.x, this.y);
-            ctx.rotate(this.rotation * Math.PI / 180);
-            ctx.globalAlpha = Math.max(0, this.life);
-            ctx.fillStyle = this.color;
-            // วาดเป็นรูปทรงสี่เหลี่ยมเพื่อให้ความรู้สึกเหมือนเศษกระจกหรือชิ้นส่วนที่แตกออก
-            ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
-            ctx.restore();
-        }
-    }
-
-    function handleParticles() {
-        for (let i = 0; i < particlesArray.length; i++) {
-            particlesArray[i].update();
-            particlesArray[i].draw();
-            // ลบทิ้งเมื่อจางหมดหรือขนาดเล็กเกินไป เพื่อไม่ให้กินทรัพยากรเครื่อง
-            if (particlesArray[i].life <= 0 || particlesArray[i].size <= 0.2) {
-                particlesArray.splice(i, 1);
-                i--;
-            }
-        }
-    }
-
-    function animate() {
-        // ล้างเฟรมเก่าแบบโปร่งใส เพื่อเผยให้เห็นพื้นหลังสีดำของเว็บ
-        ctx.clearRect(0, 0, canvas.width, canvas.height); 
-        handleParticles();
-        requestAnimationFrame(animate);
-    }
-    
-    // เริ่มแอนิเมชัน
-    animate();
 
     // --------------------------------------------------------
     // 2. Profile Image Movement Animation
@@ -504,7 +454,7 @@
         let endLeft = isDesktop ? 25 : 50; 
         profile.style.left = (startLeft - ((startLeft - endLeft) * xProgress)) + '%';
 
-        let endFixedScroll = aboutTop + (about.offsetHeight / 2) - (window.innerHeight / 2); 
+        let endFixedScroll = aboutTop; 
         
         if (scrollY > endFixedScroll) {
             let moveUp = scrollY - endFixedScroll;
