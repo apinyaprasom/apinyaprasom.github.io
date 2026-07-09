@@ -16,21 +16,21 @@
         }
         
         body {
-            background-color: #050505; /* ใส่สีพื้นหลังดำกลับคืนมา */
+            background-color: #050505;
             color: #ffffff; 
             overflow-x: hidden; 
             font-family: 'Inter', 'Prompt', sans-serif;
             position: relative;
         }
 
-        /* ---------------- Particle Canvas ---------------- */
+        /* ---------------- Mouse Trail Fluid Canvas ---------------- */
         #fluid-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            pointer-events: auto;
+            pointer-events: auto; /* ให้ WebGL รับ event จากเมาส์ได้ */
             z-index: -2; 
         }
 
@@ -268,7 +268,7 @@
             <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Automation</h3>
             <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">WORKFLOW & SYSTEMS</p>
             <p class="text-gray-400 text-sm leading-relaxed">
-               มีประสบการณ์ในการใช้งานแพลตฟอร์ม n8n จากการพัฒนาโครงงาน สามารถออกแบบเวิร์กโฟลว์พื้นฐานเพื่อทำงานอัตโนมัติ ลดขั้นตอนที่ซ้ำซ้อน และเชื่อมต่อข้อมูลระหว่างบริการต่าง ๆ ได้ำ
+               มีประสบการณ์ในการใช้งานแพลตฟอร์ม n8n จากการพัฒนาโครงงาน สามารถออกแบบเวิร์กโฟลว์พื้นฐานเพื่อทำงานอัตโนมัติ ลดขั้นตอนที่ซ้ำซ้อน และเชื่อมต่อข้อมูลระหว่างบริการต่าง ๆ ได้
             </p>
         </div>
 
@@ -349,6 +349,7 @@
             </p>
         </div>
         
+    </div>
 </section>
 
 <section class="py-24 px-6 relative z-10 pointer-events-none">
@@ -387,100 +388,43 @@
     </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/webgl-fluid-simulation/webgl-fluid.min.js"></script>
+
 <script>
     // --------------------------------------------------------
-    // 1. Mouse Particle Shatter Effect (สีแตกกระจายตามเมาส์)
+    // 1. Mouse Trail Effect (ควันไหลสีรุ้งพาสเทลแบบ Dynamic)
     // --------------------------------------------------------
-    const canvas = document.getElementById('fluid-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    // ตั้งค่าขนาดเริ่มต้น
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particlesArray = [];
-    // โทนสีพาสเทลที่คุณต้องการ
-    const colors = ['#f472b6', '#c084fc', '#38bdf8', '#4ade80'];
-
-    // ปรับขนาด Canvas เมื่อย่อขยายหน้าต่าง
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
-
-    const mouse = {
-        x: undefined,
-        y: undefined
-    }
-
-    // ตรวจจับการขยับเมาส์และสร้างอนุภาค
-    canvas.addEventListener('mousemove', (event) => {
-        mouse.x = event.x;
-        mouse.y = event.y;
-        // สร้างชิ้นส่วน 6 ชิ้นทุกครั้งที่เมาส์ขยับ 1 ครั้ง
-        for (let i = 0; i < 6; i++) { 
-            particlesArray.push(new Particle());
+    window.addEventListener('load', function() {
+        if (typeof WebGLFluid === 'function') {
+            WebGLFluid(document.querySelector('#fluid-canvas'), {
+                IMMEDIATE: true,
+                TRIGGER: 'hover',
+                SIM_RESOLUTION: 256,
+                DYE_RESOLUTION: 1024,
+                CAPTURE_RESOLUTION: 512,
+                DENSITY_DISSIPATION: 0.8, // ลดค่าลงเพื่อให้ควันฟุ้งกระจายนานขึ้น
+                VELOCITY_DISSIPATION: 0.95,
+                PRESSURE: 0.1,
+                PRESSURE_ITERATIONS: 24,
+                CURL: 25, // เพิ่มการหมุนวนของควัน
+                SPLAT_RADIUS: 0.45,
+                SPLAT_FORCE: 6000,
+                SHADING: true,
+                COLORFUL: true, // เปิดการสุ่มสี
+                COLOR_UPDATE_SPEED: 8,
+                PAUSED: false,
+                BACK_COLOR: { r: 5, g: 5, b: 5 }, // สีพื้นหลังดำ
+                TRANSPARENT: false,
+                BLOOM: true, // เพิ่มความสว่างให้เอฟเฟกต์
+                BLOOM_ITERATIONS: 8,
+                BLOOM_RESOLUTION: 256,
+                BLOOM_INTENSITY: 0.6,
+                BLOOM_THRESHOLD: 0.1,
+                BLOOM_SOFT_KNEE: 0.7,
+                COLOR_PALETTE: ['#f472b6', '#c084fc', '#38bdf8', '#4ade80'] // ชุดสีพาสเทล: ชมพู, ม่วง, ฟ้า, เขียว
+            });
         }
     });
-
-    class Particle {
-        constructor() {
-            this.x = mouse.x;
-            this.y = mouse.y;
-            this.size = Math.random() * 8 + 4; 
-            // ให้ความเร็วเริ่มต้นสูงๆ เพื่อให้ดูเหมือนการระเบิดแตกออก
-            this.speedX = (Math.random() * 12 - 6); 
-            this.speedY = (Math.random() * 12 - 6); 
-            this.color = colors[Math.floor(Math.random() * colors.length)];
-            this.life = 1; // ความโปร่งใสเริ่มต้น
-            this.rotation = Math.random() * 360;
-            this.rotationSpeed = (Math.random() * 20 - 10);
-        }
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            // แรงเสียดทาน ชะลอความเร็วลงเรื่อยๆ
-            this.speedX *= 0.90;
-            this.speedY *= 0.90;
-            // จางหายไปทีละนิด
-            this.life -= 0.02;
-            this.rotation += this.rotationSpeed;
-            // หดขนาดลง
-            if (this.size > 0.2) this.size -= 0.1;
-        }
-        draw() {
-            ctx.save();
-            ctx.translate(this.x, this.y);
-            ctx.rotate(this.rotation * Math.PI / 180);
-            ctx.globalAlpha = Math.max(0, this.life);
-            ctx.fillStyle = this.color;
-            // วาดเป็นรูปทรงสี่เหลี่ยมเพื่อให้ความรู้สึกเหมือนเศษกระจกหรือชิ้นส่วนที่แตกออก
-            ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
-            ctx.restore();
-        }
-    }
-
-    function handleParticles() {
-        for (let i = 0; i < particlesArray.length; i++) {
-            particlesArray[i].update();
-            particlesArray[i].draw();
-            // ลบทิ้งเมื่อจางหมดหรือขนาดเล็กเกินไป เพื่อไม่ให้กินทรัพยากรเครื่อง
-            if (particlesArray[i].life <= 0 || particlesArray[i].size <= 0.2) {
-                particlesArray.splice(i, 1);
-                i--;
-            }
-        }
-    }
-
-    function animate() {
-        // ล้างเฟรมเก่าแบบโปร่งใส เพื่อเผยให้เห็นพื้นหลังสีดำของเว็บ
-        ctx.clearRect(0, 0, canvas.width, canvas.height); 
-        handleParticles();
-        requestAnimationFrame(animate);
-    }
-    
-    // เริ่มแอนิเมชัน
-    animate();
 
     // --------------------------------------------------------
     // 2. Profile Image Movement Animation
@@ -495,19 +439,28 @@
         const aboutTop = about.offsetTop;
         const isDesktop = window.innerWidth >= 768;
 
+        // คำนวณความคืบหน้าการเลื่อนจาก Home ไป About (0 ถึง 1)
         let xProgress = scrollY / (aboutTop || 1); 
         xProgress = Math.max(0, Math.min(1, xProgress));
         
+        // เลื่อนแนวนอน: จากตรงกลาง (50%) ไปทางซ้าย (25% บนคอม, 50% บนมือถือ)
         let startLeft = 50;
         let endLeft = isDesktop ? 25 : 50; 
         profile.style.left = (startLeft - ((startLeft - endLeft) * xProgress)) + '%';
 
-        let endFixedScroll = aboutTop; 
+        // คำนวณจุดสิ้นสุดการเลื่อนของหน้า About Me อย่างแม่นยำ
+        // about.offsetTop = จุดเริ่มต้นของหน้า About
+        // about.offsetHeight = ความสูงรวมของหน้า About
+        let endFixedScroll = aboutTop + about.offsetHeight;
         
         if (scrollY > endFixedScroll) {
+            // เมื่อเลื่อนพ้นหน้า About Me ไปแล้ว (เริ่มเข้าสู่หน้า Skills)
+            // ให้ปลดล็อก (Unfix) และปล่อยให้รูปเลื่อนขึ้นไปพร้อมกับหน้าเว็บ
             let moveUp = scrollY - endFixedScroll;
             profile.style.top = `calc(50% - ${moveUp}px)`;
         } else {
+            // ถ้าระดับการเลื่อน (Scroll) ยังอยู่ในช่วงหน้าแรกถึงหน้า About Me 
+            // ให้รูปล็อกตำแหน่งอยู่ตรงกลางหน้าจอในแนวตั้งเสมอ
             profile.style.top = '50%';
         }
     });
