@@ -31,11 +31,16 @@
 <nav class="fixed top-0 w-full p-6 md:p-8 flex justify-between items-center z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5 pointer-events-none">
     <div class="font-black text-xl tracking-widest text-white pointer-events-auto">AP</div>
     <div class="hidden md:block text-sm text-gray-400 font-medium tracking-wide">aphinya.prasom@gmail.com</div>
-    <div class="flex gap-4 md:gap-8 text-[10px] md:text-sm font-bold tracking-wider pointer-events-auto">
-        <a href="#about" class="hover:text-purple-400 transition-colors uppercase">About</a>
-        <a href="#skills" class="hover:text-purple-400 transition-colors uppercase">Skills</a>
-        <a href="#work" class="hover:text-purple-400 transition-colors uppercase">Work</a>
-        <a href="#certifications" class="hover:text-purple-400 transition-colors uppercase">Certifications</a>
+    <div class="flex items-center gap-3 md:gap-8 text-[10px] md:text-sm font-bold tracking-wider pointer-events-auto">
+        <a href="#about" class="hover:text-purple-400 transition-colors uppercase translatable" data-th="เกี่ยวกับ" data-en="About">About</a>
+        <a href="#skills" class="hover:text-purple-400 transition-colors uppercase translatable" data-th="ทักษะ" data-en="Skills">Skills</a>
+        <a href="#work" class="hover:text-purple-400 transition-colors uppercase translatable" data-th="ผลงาน" data-en="Work">Work</a>
+        <a href="#certifications" class="hover:text-purple-400 transition-colors uppercase translatable" data-th="ใบรับรอง" data-en="Certifications">Certifications</a>
+        
+        <button id="langToggleBtn" onclick="toggleLanguage()" class="ml-2 md:ml-4 px-3 py-1.5 md:px-4 md:py-2 bg-white/5 hover:bg-purple-500 border border-white/10 hover:border-purple-500 rounded-full text-white transition-all duration-300 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022h1.408z"/><path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.14-.183l-1.294.693zm1.442-2.316.035.051c.212.336.453.66.718.961a5.05 5.05 0 0 0-.715.918c-.22-.315-.42-.647-.597-.993l.56-.937z"/></svg>
+            <span id="currentLangText">EN</span>
+        </button>
     </div>
 </nav>
 
@@ -48,7 +53,7 @@
 <section id="home" class="relative h-screen flex flex-col items-center justify-center overflow-hidden px-6 pointer-events-none">
     <div class="absolute w-full flex justify-between px-6 md:px-24 lg:px-32 z-10 mt-20">
         <div class="w-1/2 lg:w-1/3">
-            <p class="text-purple-400 font-medium text-sm md:text-lg mb-2 reveal">Hello! I'm</p>
+            <p class="text-purple-400 font-medium text-sm md:text-lg mb-2 reveal translatable" data-th="สวัสดี! ฉันคือ" data-en="Hello! I'm">Hello! I'm</p>
             <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight uppercase reveal" style="transition-delay: 0.2s;">
                 APHINYA <br> PRASOM
             </h1>
@@ -56,7 +61,7 @@
         <div class="w-1/2 lg:w-1/3 text-right">
             <p class="text-purple-400 font-medium text-sm md:text-lg mb-2 reveal">An</p>
             <div class="text-2xl sm:text-4xl lg:text-5xl font-black text-gray-500/50 leading-tight uppercase tracking-tight overflow-hidden reveal" style="transition-delay: 0.2s;">
-                <div class="animate-slide">
+                <div class="animate-slide whitespace-nowrap">
                     AUTOMATION DEV & UI/UX &nbsp;&nbsp;&nbsp; AUTOMATION DEV & UI/UX
                 </div>
             </div>
@@ -74,14 +79,18 @@
         </div>
 
         <div class="w-full md:w-1/2 text-center md:text-left">
-            <h1 class="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter uppercase">
+            <h1 class="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter uppercase translatable" data-th="เกี่ยวกับฉัน" data-en="ABOUT ME">
                 ABOUT ME
             </h1>
             <div class="text-gray-400 text-sm md:text-base leading-relaxed">
-                <p class="mb-6">
+                <p class="mb-6 translatable" 
+                   data-th="ฉันคือ อภิญญา ประสม ปัจจุบันเป็นนิสิตชั้นปีที่ 4 คณะการบัญชีและการจัดการ สาขาธุรกิจดิจิทัลและระบบสารสนเทศ มหาวิทยาลัยมหาสารคาม ตลอดระยะเวลาที่ศึกษาในสาขานี้ ฉันได้พัฒนาความสนใจด้านการออกแบบกราฟิก การพัฒนาเว็บไซต์ และการประยุกต์ใช้เทคโนโลยีระบบอัตโนมัติเพื่อสนับสนุนการดำเนินงานทางธุรกิจ โดยมุ่งเน้นการออกแบบที่คำนึงถึงผู้ใช้งานเป็นสำคัญ ควบคู่กับการจัดการข้อมูลเพื่อให้เกิดประสิทธิภาพในการใช้งานจริง" 
+                   data-en="I am Aphinya Prasom, a 4th-year student at Mahasarakham University, majoring in Digital Business and Information Systems. Throughout my studies, I have developed a strong interest in graphic design, web development, and the application of automation technologies to support business operations. My focus is on user-centered design coupled with efficient data management for practical efficiency.">
                     ฉันคือ อภิญญา ประสม ปัจจุบันเป็นนิสิตชั้นปีที่ 4 คณะการบัญชีและการจัดการ สาขาธุรกิจดิจิทัลและระบบสารสนเทศ มหาวิทยาลัยมหาสารคาม ตลอดระยะเวลาที่ศึกษาในสาขานี้ ฉันได้พัฒนาความสนใจด้านการออกแบบกราฟิก การพัฒนาเว็บไซต์ และการประยุกต์ใช้เทคโนโลยีระบบอัตโนมัติเพื่อสนับสนุนการดำเนินงานทางธุรกิจ โดยมุ่งเน้นการออกแบบที่คำนึงถึงผู้ใช้งานเป็นสำคัญ ควบคู่กับการจัดการข้อมูลเพื่อให้เกิดประสิทธิภาพในการใช้งานจริง
                 </p>
-                <p>
+                <p class="translatable"
+                   data-th="ในด้านการทำงาน ฉันให้ความสำคัญกับการวางแผนอย่างเป็นระบบ การจัดลำดับความสำคัญของงาน และการทำงานร่วมกับผู้อื่นอย่างมีความรับผิดชอบ ฉันเชื่อว่าการได้เรียนรู้จากผู้มีประสบการณ์และการทำงานร่วมกับทีมจะช่วยพัฒนาทักษะ ความรู้ และมุมมองในการทำงาน พร้อมนำสิ่งที่เรียนรู้มาประยุกต์ใช้เพื่อสร้างผลงานที่มีคุณค่าและตอบโจทย์การใช้งานได้อย่างเหมาะสม"
+                   data-en="Professionally, I value systematic planning, task prioritization, and responsible collaboration. I believe that learning from experienced professionals and working with a team enhances my skills, knowledge, and perspectives, enabling me to apply what I learn to create valuable and practical solutions.">
                     ในด้านการทำงาน ฉันให้ความสำคัญกับการวางแผนอย่างเป็นระบบ การจัดลำดับความสำคัญของงาน และการทำงานร่วมกับผู้อื่นอย่างมีความรับผิดชอบ ฉันเชื่อว่าการได้เรียนรู้จากผู้มีประสบการณ์และการทำงานร่วมกับทีมจะช่วยพัฒนาทักษะ ความรู้ และมุมมองในการทำงาน พร้อมนำสิ่งที่เรียนรู้มาประยุกต์ใช้เพื่อสร้างผลงานที่มีคุณค่าและตอบโจทย์การใช้งานได้อย่างเหมาะสม
                 </p>
             </div>
@@ -92,8 +101,8 @@
 
 <section id="skills" class="py-32 px-6 relative z-10 pointer-events-none">
     <div class="text-center mb-20 reveal pointer-events-auto">
-        <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight">My skills &</h2>
-        <h2 class="text-4xl md:text-6xl font-black text-purple-400 tracking-tight">expertise</h2>
+        <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight translatable" data-th="ทักษะและ" data-en="My skills &">My skills &</h2>
+        <h2 class="text-4xl md:text-6xl font-black text-purple-400 tracking-tight translatable" data-th="ความเชี่ยวชาญ" data-en="expertise">expertise</h2>
     </div>
 
     <div class="timeline-container pointer-events-auto" id="timeline-container">
@@ -103,7 +112,9 @@
         <div class="timeline-item left timeline-content">
             <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Languages</h3>
             <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">CORE PROGRAMMING</p>
-            <p class="text-gray-400 text-sm leading-relaxed">
+            <p class="text-gray-400 text-sm leading-relaxed translatable"
+               data-th="มีพื้นฐานด้านการเขียนโปรแกรมและการพัฒนาระบบ โดยสามารถใช้งานภาษา PHP, R, Python, SQL, Java และ JavaScript ในระดับพื้นฐานจากการเรียนและการทำโครงงาน พร้อมเรียนรู้และพัฒนาทักษะเพิ่มเติมเพื่อนำไปประยุกต์ใช้ในการพัฒนาระบบ"
+               data-en="Possess foundational programming and system development skills, utilizing PHP, R, Python, SQL, Java, and JavaScript from coursework and projects. Continuously eager to learn and apply these skills in real-world system development.">
                 มีพื้นฐานด้านการเขียนโปรแกรมและการพัฒนาระบบ โดยสามารถใช้งานภาษา PHP, R, Python, SQL, Java และ JavaScript ในระดับพื้นฐานจากการเรียนและการทำโครงงาน พร้อมเรียนรู้และพัฒนาทักษะเพิ่มเติมเพื่อนำไปประยุกต์ใช้ในการพัฒนาระบบ
             </p>
         </div>
@@ -111,7 +122,9 @@
         <div class="timeline-item right mt-24 timeline-content">
             <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Automation</h3>
             <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">WORKFLOW & SYSTEMS</p>
-            <p class="text-gray-400 text-sm leading-relaxed">
+            <p class="text-gray-400 text-sm leading-relaxed translatable"
+               data-th="มีประสบการณ์ในการใช้งานแพลตฟอร์ม n8n จากการพัฒนาโครงงาน สามารถออกแบบเวิร์กโฟลว์พื้นฐานเพื่อทำงานอัตโนมัติ ลดขั้นตอนที่ซ้ำซ้อน และเชื่อมต่อข้อมูลระหว่างบริการต่าง ๆ ได้"
+               data-en="Experienced in using the n8n platform from project development. Capable of designing basic workflows to automate tasks, reduce redundancies, and seamlessly connect data across various digital services.">
                มีประสบการณ์ในการใช้งานแพลตฟอร์ม n8n จากการพัฒนาโครงงาน สามารถออกแบบเวิร์กโฟลว์พื้นฐานเพื่อทำงานอัตโนมัติ ลดขั้นตอนที่ซ้ำซ้อน และเชื่อมต่อข้อมูลระหว่างบริการต่าง ๆ ได้
             </p>
         </div>
@@ -119,7 +132,9 @@
         <div class="timeline-item left mt-24 timeline-content">
             <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Prototyping</h3>
             <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">UI/UX & DESIGN</p>
-            <p class="text-gray-400 text-sm leading-relaxed">
+            <p class="text-gray-400 text-sm leading-relaxed translatable"
+               data-th="การออกแบบส่วนต่อประสานผู้ใช้ (UI) โดยใช้ Figma ในการสร้างต้นแบบ (Prototype) และออกแบบหน้าจอสำหรับเว็บไซต์หรือแอปพลิเคชันจากการเรียนและการทำโครงงาน"
+               data-en="Proficient in User Interface (UI) design using Figma to create prototypes and design screen layouts for websites and applications, gained through academic studies and practical projects.">
                 การออกแบบส่วนต่อประสานผู้ใช้ (UI) โดยใช้ Figma ในการสร้างต้นแบบ (Prototype) และออกแบบหน้าจอสำหรับเว็บไซต์หรือแอปพลิเคชันจากการเรียนและการทำโครงงาน
             </p>
         </div>
@@ -127,7 +142,9 @@
         <div class="timeline-item right mt-24 timeline-content">
             <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Software</h3>
             <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">TOOLS & UTILITIES</p>
-            <p class="text-gray-400 text-sm leading-relaxed">
+            <p class="text-gray-400 text-sm leading-relaxed translatable"
+               data-th="มีพื้นฐานการใช้งาน Microsoft Office, Power BI, Canva และ CapCut เพื่อสนับสนุนการจัดการข้อมูล การวิเคราะห์เบื้องต้น และการออกแบบสื่อสำหรับการนำเสนอ"
+               data-en="Skilled in using Microsoft Office, Power BI, Canva, and CapCut to support data management, perform basic analytics, and design engaging media for professional presentations.">
                มีพื้นฐานการใช้งาน Microsoft Office, Power BI, Canva และ CapCut เพื่อสนับสนุนการจัดการข้อมูล การวิเคราะห์เบื้องต้น และการออกแบบสื่อสำหรับการนำเสนอ
             </p>
         </div>
@@ -137,7 +154,7 @@
 
 <section id="work" class="pt-32 pb-16 relative z-10 overflow-hidden pointer-events-none">
     <div class="px-6 md:px-12 mb-12 reveal pointer-events-auto">
-        <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight">My Work</h2>
+        <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight translatable" data-th="ผลงานของฉัน" data-en="My Work">My Work</h2>
     </div>
 
     <div class="horizontal-scroll-wrapper pointer-events-auto lg:justify-center max-w-7xl mx-auto">
@@ -146,15 +163,17 @@
             <div class="flex justify-between items-start mb-6">
                 <h1 class="text-5xl font-black text-white">01</h1>
                 <div class="text-right">
-                    <h3 class="text-xl md:text-2xl font-bold text-white">Automated Transit</h3>
+                    <h3 class="text-xl md:text-2xl font-bold text-white translatable" data-th="ระบบจองตั๋วอัตโนมัติ" data-en="Automated Transit">Automated Transit</h3>
                     <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">System / n8n</p>
                 </div>
             </div>
             <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
                 <img src="image/bus.png" alt="Bus System" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
             </div>
-            <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
-            <p class="text-gray-400 text-sm leading-relaxed">
+            <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
+            <p class="text-gray-400 text-sm leading-relaxed translatable"
+               data-th="โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ที่ออกแบบมาเพื่อรองรับเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ระบบนี้ถูกสร้างขึ้นโดยประยุกต์ใช้แพลตฟอร์ม n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอจากผู้ใช้งานและดำเนินการส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที"
+               data-en="An online bus ticket reservation system developed to support the travel route between Mahasarakham and Khon Kaen. This system utilizes the n8n platform to manage automated workflows, allowing it to receive user requests and instantly send booking confirmations via LINE Notify.">
                 โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ที่ออกแบบมาเพื่อรองรับเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ระบบนี้ถูกสร้างขึ้นโดยประยุกต์ใช้แพลตฟอร์ม n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอจากผู้ใช้งานและดำเนินการส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที
             </p>
         </div>
@@ -170,8 +189,10 @@
             <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
                 <img src="image/product.png" alt="PureVeil" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
             </div>
-            <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
-            <p class="text-gray-400 text-sm leading-relaxed">
+            <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
+            <p class="text-gray-400 text-sm leading-relaxed translatable"
+               data-th="โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ งานออกแบบนี้ได้นำเสนอวิสัยทัศน์ใหม่ของบรรจุภัณฑ์ โดยเปลี่ยนจากการใช้ขวดแบบดั้งเดิมมาเป็นรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ ตอบโจทย์ทั้งความสวยงามและการใช้งานจริง"
+               data-en="An industrial design project focusing on product and packaging development for a skincare brand. This design introduces a new vision for packaging by shifting from traditional bottles to a tube format equipped with a metal rollerball, answering the need for both aesthetics and practical use.">
                 โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ งานออกแบบนี้ได้นำเสนอวิสัยทัศน์ใหม่ของบรรจุภัณฑ์ โดยเปลี่ยนจากการใช้ขวดแบบดั้งเดิมมาเป็นรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ ตอบโจทย์ทั้งความสวยงามและการใช้งานจริง
             </p>
         </div>
@@ -187,8 +208,10 @@
             <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
                 <img src="image/kpop.png" alt="Merch Store" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
             </div>
-            <h4 class="text-lg font-bold text-white mb-3">Project Overview</h4>
-            <p class="text-gray-400 text-sm leading-relaxed">
+            <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
+            <p class="text-gray-400 text-sm leading-relaxed translatable"
+               data-th="ออกแบบและพัฒนาเว็บไซต์ร้านค้าออนไลน์สำหรับจำหน่ายสินค้าของศิลปิน KPOP-TPOP พร้อมออกแบบฐานข้อมูลเชิงสัมพันธ์เพื่อจัดเก็บข้อมูลสินค้า หมวดหมู่ ผู้ใช้งาน และคำสั่งซื้อ รวมถึงพัฒนาฟังก์ชันการค้นหาสินค้า การจัดการแคตตาล็อก และระบบจัดการข้อมูลผ่านฐานข้อมูล เพื่อให้ระบบสามารถรองรับการใช้งานได้อย่างเป็นระเบียบ"
+               data-en="Designed and developed an online merchandise store for KPOP/TPOP artists. Created a relational database to efficiently store data on products, categories, users, and orders. Developed search functionalities, catalog management, and a comprehensive backend database administration system.">
                 ออกแบบและพัฒนาเว็บไซต์ร้านค้าออนไลน์สำหรับจำหน่ายสินค้าของศิลปิน KPOP-TPOP พร้อมออกแบบฐานข้อมูลเชิงสัมพันธ์เพื่อจัดเก็บข้อมูลสินค้า หมวดหมู่ ผู้ใช้งาน และคำสั่งซื้อ รวมถึงพัฒนาฟังก์ชันการค้นหาสินค้า การจัดการแคตตาล็อก และระบบจัดการข้อมูลผ่านฐานข้อมูล เพื่อให้ระบบสามารถรองรับการใช้งานได้อย่างเป็นระเบียบ
             </p>
         </div>
@@ -198,7 +221,7 @@
 
 <section id="certifications" class="py-24 px-6 relative z-10 pointer-events-none">
     <div class="max-w-6xl mx-auto pointer-events-auto">
-        <h2 class="text-3xl md:text-5xl font-black text-center mb-16 tracking-tighter text-white uppercase reveal">
+        <h2 class="text-3xl md:text-5xl font-black text-center mb-16 tracking-tighter text-white uppercase reveal translatable" data-th="ใบประกาศนียบัตร" data-en="CERTIFICATIONS">
             CERTIFICATIONS
         </h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto">
@@ -234,6 +257,38 @@
 
 <script>
     // --------------------------------------------------------
+    // LANGUAGE TOGGLE SYSTEM
+    // --------------------------------------------------------
+    let currentLanguage = 'th'; // เริ่มต้นที่ภาษาไทย
+
+    function toggleLanguage() {
+        // สลับภาษา
+        currentLanguage = currentLanguage === 'th' ? 'en' : 'th';
+        
+        // อัปเดตข้อความบนปุ่ม (แสดงภาษาถัดไปที่จะกดเปลี่ยนได้)
+        const btnText = document.getElementById('currentLangText');
+        if (btnText) {
+            btnText.innerText = currentLanguage === 'th' ? 'EN' : 'TH';
+        }
+
+        // ค้นหาทุก element ที่มี class 'translatable' และอัปเดตข้อความ
+        document.querySelectorAll('.translatable').forEach(el => {
+            if (currentLanguage === 'en') {
+                el.innerText = el.getAttribute('data-en');
+            } else {
+                el.innerText = el.getAttribute('data-th');
+            }
+        });
+    }
+
+    // Initialize Language Text on Load
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.translatable').forEach(el => {
+            el.innerText = el.getAttribute(`data-${currentLanguage}`);
+        });
+    });
+
+    // --------------------------------------------------------
     // 0. Force scroll to top on refresh (บังคับให้เลื่อนไปบนสุดเมื่อรีเฟรช)
     // --------------------------------------------------------
     if (history.scrollRestoration) {
@@ -249,15 +304,12 @@
     const canvas = document.getElementById('fluid-canvas');
     const ctx = canvas.getContext('2d');
     
-    // ตั้งค่าขนาดเริ่มต้น
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
     let particlesArray = [];
-    // โทนสีพาสเทล
     const colors = ['#f472b6', '#c084fc', '#38bdf8', '#4ade80'];
 
-    // ปรับขนาด Canvas เมื่อย่อขยายหน้าต่าง
     window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -268,7 +320,6 @@
         y: undefined
     }
 
-    // ตรวจจับการขยับเมาส์และสร้างอนุภาค
     canvas.addEventListener('mousemove', (event) => {
         mouse.x = event.x;
         mouse.y = event.y;
