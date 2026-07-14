@@ -152,131 +152,135 @@
     </div>
 </section>
 
-<section id="work" class="pt-32 pb-16 relative z-10 overflow-hidden pointer-events-none">
-    <div class="px-6 md:px-12 mb-12 reveal pointer-events-auto">
-        <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight translatable" data-th="ผลงานของฉัน" data-en="My Work">My Work</h2>
-    </div>
-
-    <div class="horizontal-scroll-wrapper pointer-events-auto lg:justify-start max-w-7xl mx-auto px-6 lg:px-0">
+<section id="work-container" class="relative z-10 w-full" style="height: 350vh;">
+    <div id="work" class="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden pointer-events-none">
         
-        <div class="project-card">
-            <div class="flex justify-between items-start mb-6">
-                <h1 class="text-5xl font-black text-white">01</h1>
-                <div class="text-right">
-                    <h3 class="text-xl md:text-2xl font-bold text-white translatable" data-th="ระบบจองตั๋วอัตโนมัติ" data-en="Automated Transit">Automated Transit</h3>
-                    <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">System / n8n</p>
-                </div>
-            </div>
-            <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
-                <img src="image/bus.png" alt="Bus System" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
-            </div>
-            <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
-            <p class="text-gray-400 text-sm leading-relaxed translatable"
-               data-th="โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ที่ออกแบบมาเพื่อรองรับเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ระบบนี้ถูกสร้างขึ้นโดยประยุกต์ใช้แพลตฟอร์ม n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอจากผู้ใช้งานและดำเนินการส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที"
-               data-en="An online bus ticket reservation system developed to support the travel route between Mahasarakham and Khon Kaen. This system utilizes the n8n platform to manage automated workflows, allowing it to receive user requests and instantly send booking confirmations via LINE Notify.">
-                โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ที่ออกแบบมาเพื่อรองรับเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ระบบนี้ถูกสร้างขึ้นโดยประยุกต์ใช้แพลตฟอร์ม n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอจากผู้ใช้งานและดำเนินการส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที
-            </p>
+        <div class="px-6 md:px-12 mb-8 reveal pointer-events-auto w-full">
+            <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight translatable" data-th="ผลงานของฉัน" data-en="My Work">My Work</h2>
         </div>
 
-        <div class="project-card">
-            <div class="flex justify-between items-start mb-6">
-                <h1 class="text-5xl font-black text-white">02</h1>
-                <div class="text-right">
-                    <h3 class="text-xl md:text-2xl font-bold text-white">PureVeil Design</h3>
-                    <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Product / Packaging</p>
+        <div class="w-full overflow-hidden pointer-events-auto">
+            <div id="horizontal-track" class="flex gap-6 md:gap-12 px-6 md:px-12 w-max ease-out" style="will-change: transform;">
+                
+                <div class="project-card">
+                    <div class="flex justify-between items-start mb-6">
+                        <h1 class="text-5xl font-black text-white">01</h1>
+                        <div class="text-right">
+                            <h3 class="text-xl md:text-2xl font-bold text-white translatable" data-th="ระบบจองตั๋วอัตโนมัติ" data-en="Automated Transit">Automated Transit</h3>
+                            <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">System / n8n</p>
+                        </div>
+                    </div>
+                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+                        <img src="image/bus.png" alt="Bus System" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed translatable"
+                       data-th="โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ที่ออกแบบมาเพื่อรองรับเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ระบบนี้ถูกสร้างขึ้นโดยประยุกต์ใช้แพลตฟอร์ม n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอจากผู้ใช้งานและดำเนินการส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที"
+                       data-en="An online bus ticket reservation system developed to support the travel route between Mahasarakham and Khon Kaen. This system utilizes the n8n platform to manage automated workflows, allowing it to receive user requests and instantly send booking confirmations via LINE Notify.">
+                        โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ที่ออกแบบมาเพื่อรองรับเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ระบบนี้ถูกสร้างขึ้นโดยประยุกต์ใช้แพลตฟอร์ม n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอจากผู้ใช้งานและดำเนินการส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที
+                    </p>
                 </div>
-            </div>
-            <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
-                <img src="image/product.png" alt="PureVeil" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
-            </div>
-            <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
-            <p class="text-gray-400 text-sm leading-relaxed translatable"
-               data-th="โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ งานออกแบบนี้ได้นำเสนอวิสัยทัศน์ใหม่ของบรรจุภัณฑ์ โดยเปลี่ยนจากการใช้ขวดแบบดั้งเดิมมาเป็นรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ ตอบโจทย์ทั้งความสวยงามและการใช้งานจริง"
-               data-en="An industrial design project focusing on product and packaging development for a skincare brand. This design introduces a new vision for packaging by shifting from traditional bottles to a tube format equipped with a metal rollerball, answering the need for both aesthetics and practical use.">
-                โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ งานออกแบบนี้ได้นำเสนอวิสัยทัศน์ใหม่ของบรรจุภัณฑ์ โดยเปลี่ยนจากการใช้ขวดแบบดั้งเดิมมาเป็นรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ ตอบโจทย์ทั้งความสวยงามและการใช้งานจริง
-            </p>
-        </div>
 
-        <div class="project-card">
-            <div class="flex justify-between items-start mb-6">
-                <h1 class="text-5xl font-black text-white">03</h1>
-                <div class="text-right">
-                    <h3 class="text-xl md:text-2xl font-bold text-white">Entertainment Merch</h3>
-                    <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Database / Store</p>
+                <div class="project-card">
+                    <div class="flex justify-between items-start mb-6">
+                        <h1 class="text-5xl font-black text-white">02</h1>
+                        <div class="text-right">
+                            <h3 class="text-xl md:text-2xl font-bold text-white">PureVeil Design</h3>
+                            <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Product / Packaging</p>
+                        </div>
+                    </div>
+                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+                        <img src="image/product.png" alt="PureVeil" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed translatable"
+                       data-th="โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ งานออกแบบนี้ได้นำเสนอวิสัยทัศน์ใหม่ของบรรจุภัณฑ์ โดยเปลี่ยนจากการใช้ขวดแบบดั้งเดิมมาเป็นรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ ตอบโจทย์ทั้งความสวยงามและการใช้งานจริง"
+                       data-en="An industrial design project focusing on product and packaging development for a skincare brand. This design introduces a new vision for packaging by shifting from traditional bottles to a tube format equipped with a metal rollerball, answering the need for both aesthetics and practical use.">
+                        โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ งานออกแบบนี้ได้นำเสนอวิสัยทัศน์ใหม่ของบรรจุภัณฑ์ โดยเปลี่ยนจากการใช้ขวดแบบดั้งเดิมมาเป็นรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ ตอบโจทย์ทั้งความสวยงามและการใช้งานจริง
+                    </p>
                 </div>
-            </div>
-            <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
-                <img src="image/kpop.png" alt="Merch Store" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
-            </div>
-            <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
-            <p class="text-gray-400 text-sm leading-relaxed translatable"
-               data-th="ออกแบบและพัฒนาเว็บไซต์ร้านค้าออนไลน์สำหรับจำหน่ายสินค้าของศิลปิน KPOP-TPOP พร้อมออกแบบฐานข้อมูลเชิงสัมพันธ์เพื่อจัดเก็บข้อมูลสินค้า หมวดหมู่ ผู้ใช้งาน และคำสั่งซื้อ รวมถึงพัฒนาฟังก์ชันการค้นหาสินค้า การจัดการแคตตาล็อก และระบบจัดการข้อมูลผ่านฐานข้อมูล เพื่อให้ระบบสามารถรองรับการใช้งานได้อย่างเป็นระเบียบ"
-               data-en="Designed and developed an online merchandise store for KPOP/TPOP artists. Created a relational database to efficiently store data on products, categories, users, and orders. Developed search functionalities, catalog management, and a comprehensive backend database administration system.">
-                ออกแบบและพัฒนาเว็บไซต์ร้านค้าออนไลน์สำหรับจำหน่ายสินค้าของศิลปิน KPOP-TPOP พร้อมออกแบบฐานข้อมูลเชิงสัมพันธ์เพื่อจัดเก็บข้อมูลสินค้า หมวดหมู่ ผู้ใช้งาน และคำสั่งซื้อ รวมถึงพัฒนาฟังก์ชันการค้นหาสินค้า การจัดการแคตตาล็อก และระบบจัดการข้อมูลผ่านฐานข้อมูล เพื่อให้ระบบสามารถรองรับการใช้งานได้อย่างเป็นระเบียบ
-            </p>
-        </div>
-        
-        <div class="project-card">
-            <div class="flex justify-between items-start mb-6">
-                <h1 class="text-5xl font-black text-white">04</h1>
-                <div class="text-right">
-                    <h3 class="text-xl md:text-2xl font-bold text-white translatable" data-th="ผลงานวิดีโอ" data-en="Video Project">Video Project</h3>
-                    <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Video / CapCut</p>
-                </div>
-            </div>
-            
-            <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
-                <iframe 
-                    class="w-full h-full" 
-                    src="https://www.youtube.com/embed/lqlzXZfes-s" 
-                    title="YouTube video player" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen>
-                </iframe>
-            </div>
-            
-            <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="รายละเอียดผลงาน" data-en="Project Details">Project Details</h4>
-            <p class="text-gray-400 text-sm leading-relaxed translatable"
-               data-th="[วิดิโอเสนอโปรเจควิชาการจัดการการผลิต]"
-               data-en="[Enter Video 1 Title Here]">
-                [พิมพ์ชื่อคลิปที่ 1 ]
-            </p>
-        </div>
 
-        <div class="project-card">
-            <div class="flex justify-between items-start mb-6">
-                <h1 class="text-5xl font-black text-white">05</h1>
-                <div class="text-right">
-                    <h3 class="text-xl md:text-2xl font-bold text-white translatable" data-th="ผลงานวิดีโอ" data-en="Video Project">Video Project</h3>
-                    <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Video / CapCut</p>
+                <div class="project-card">
+                    <div class="flex justify-between items-start mb-6">
+                        <h1 class="text-5xl font-black text-white">03</h1>
+                        <div class="text-right">
+                            <h3 class="text-xl md:text-2xl font-bold text-white">Entertainment Merch</h3>
+                            <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Database / Store</p>
+                        </div>
+                    </div>
+                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+                        <img src="image/kpop.png" alt="Merch Store" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed translatable"
+                       data-th="ออกแบบและพัฒนาเว็บไซต์ร้านค้าออนไลน์สำหรับจำหน่ายสินค้าของศิลปิน KPOP-TPOP พร้อมออกแบบฐานข้อมูลเชิงสัมพันธ์เพื่อจัดเก็บข้อมูลสินค้า หมวดหมู่ ผู้ใช้งาน และคำสั่งซื้อ รวมถึงพัฒนาฟังก์ชันการค้นหาสินค้า การจัดการแคตตาล็อก และระบบจัดการข้อมูลผ่านฐานข้อมูล เพื่อให้ระบบสามารถรองรับการใช้งานได้อย่างเป็นระเบียบ"
+                       data-en="Designed and developed an online merchandise store for KPOP/TPOP artists. Created a relational database to efficiently store data on products, categories, users, and orders. Developed search functionalities, catalog management, and a comprehensive backend database administration system.">
+                        ออกแบบและพัฒนาเว็บไซต์ร้านค้าออนไลน์สำหรับจำหน่ายสินค้าของศิลปิน KPOP-TPOP พร้อมออกแบบฐานข้อมูลเชิงสัมพันธ์เพื่อจัดเก็บข้อมูลสินค้า หมวดหมู่ ผู้ใช้งาน และคำสั่งซื้อ รวมถึงพัฒนาฟังก์ชันการค้นหาสินค้า การจัดการแคตตาล็อก และระบบจัดการข้อมูลผ่านฐานข้อมูล เพื่อให้ระบบสามารถรองรับการใช้งานได้อย่างเป็นระเบียบ
+                    </p>
                 </div>
+                
+                <div class="project-card">
+                    <div class="flex justify-between items-start mb-6">
+                        <h1 class="text-5xl font-black text-white">04</h1>
+                        <div class="text-right">
+                            <h3 class="text-xl md:text-2xl font-bold text-white translatable" data-th="ผลงานวิดีโอ" data-en="Video Project">Video Project</h3>
+                            <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Video / CapCut</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+                        <iframe 
+                            class="w-full h-full" 
+                            src="https://www.youtube.com/embed/lqlzXZfes-s" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    
+                    <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="รายละเอียดผลงาน" data-en="Project Details">Project Details</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed translatable"
+                       data-th="[วิดิโอเสนอโปรเจควิชาการจัดการการผลิต]"
+                       data-en="[Enter Video 1 Title Here]">
+                        [พิมพ์ชื่อคลิปที่ 1 ]
+                    </p>
+                </div>
+
+                <div class="project-card">
+                    <div class="flex justify-between items-start mb-6">
+                        <h1 class="text-5xl font-black text-white">05</h1>
+                        <div class="text-right">
+                            <h3 class="text-xl md:text-2xl font-bold text-white translatable" data-th="ผลงานวิดีโอ" data-en="Video Project">Video Project</h3>
+                            <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Video / CapCut</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+                        <iframe 
+                            class="w-full h-full" 
+                            src="https://www.youtube.com/embed/4KKfsdhwljk" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    
+                    <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="รายละเอียดผลงาน" data-en="Project Details">Project Details</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed translatable"
+                       data-th="[วิดิโอโปรเจควิชาวิทยาระเบียบวิธีวิจัยธุรกิจ]"
+                       data-en="[Enter Video 2 Title Here]">
+                        [พิมพ์ชื่อคลิปที่ 2 ของคุณที่นี่]
+                    </p>
+                </div>
+                
             </div>
-            
-            <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
-                <iframe 
-                    class="w-full h-full" 
-                    src="https://www.youtube.com/embed/4KKfsdhwljk" 
-                    title="YouTube video player" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen>
-                </iframe>
-            </div>
-            
-            <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="รายละเอียดผลงาน" data-en="Project Details">Project Details</h4>
-            <p class="text-gray-400 text-sm leading-relaxed translatable"
-               data-th="[วิดิโอโปรเจควิชาวิทยาระเบียบวิธีวิจัยธุรกิจ]"
-               data-en="[Enter Video 2 Title Here]">
-                [พิมพ์ชื่อคลิปที่ 2 ของคุณที่นี่]
-            </p>
         </div>
-        
     </div>
 </section>
-
 <section id="certifications" class="py-24 px-6 relative z-10 pointer-events-none">
     <div class="max-w-6xl mx-auto pointer-events-auto">
         <h2 class="text-3xl md:text-5xl font-black text-center mb-16 tracking-tighter text-white uppercase reveal translatable" data-th="ใบประกาศนียบัตร" data-en="CERTIFICATIONS">
@@ -543,6 +547,34 @@
             lightbox.classList.remove('flex');
         }, 300);
     }
+
+    // --------------------------------------------------------
+    // 6. Horizontal Scroll Hijacking สำหรับส่วนผลงาน (บังคับเลื่อนขวา)
+    // --------------------------------------------------------
+    window.addEventListener('scroll', () => {
+        const workContainer = document.getElementById('work-container');
+        const track = document.getElementById('horizontal-track');
+        
+        if (!workContainer || !track) return;
+
+        const rect = workContainer.getBoundingClientRect();
+        
+        if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
+            let progress = Math.abs(rect.top) / (rect.height - window.innerHeight);
+            progress = Math.max(0, Math.min(1, progress));
+            
+            const maxScroll = track.scrollWidth - window.innerWidth + 50; 
+            
+            track.style.transform = `translateX(-${progress * maxScroll}px)`;
+        } 
+        else if (rect.top > 0) {
+            track.style.transform = `translateX(0px)`;
+        } 
+        else if (rect.bottom < window.innerHeight) {
+            const maxScroll = track.scrollWidth - window.innerWidth + 50;
+            track.style.transform = `translateX(-${maxScroll}px)`;
+        }
+    });
 </script>
 </body>
 </html>
