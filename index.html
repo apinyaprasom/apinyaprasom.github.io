@@ -8,56 +8,125 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* === พื้นฐาน === */
+        body {
+            background-color: #050505;
+            color: white;
+            font-family: 'Inter', 'Prompt', sans-serif;
+            overflow-x: hidden;
+        }
+        #fluid-canvas { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
+        .bg-glow {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 100vw; height: 100vh;
+            background: radial-gradient(circle at center, rgba(147, 51, 234, 0.1) 0%, transparent 70%);
+            z-index: 0; pointer-events: none;
+        }
+
+        /* === Scroll Reveal === */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* === เอฟเฟกต์ตัวอักษรเลื่อน === */
+        @keyframes slide { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-slide { display: inline-block; animation: slide 15s linear infinite; }
+
+        /* === Timeline (หน้า Skills) - Mobile First === */
+        .timeline-container { position: relative; padding: 2rem 0; }
+        /* เส้นแกนกลาง (มือถือชิดซ้าย) */
+        .timeline-container::before {
+            content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.1);
+        }
+        .timeline-progress {
+            position: absolute; left: 24px; top: 0; width: 2px; background: #a855f7; height: 0; transition: height 0.1s ease;
+        }
+        .glow-dot {
+            position: absolute; left: 24px; top: 0; width: 16px; height: 16px; background: #a855f7;
+            border-radius: 50%; transform: translate(-7px, -50%); box-shadow: 0 0 15px #a855f7; transition: top 0.1s ease;
+        }
+        .timeline-item { width: 100%; padding-left: 60px; position: relative; margin-bottom: 3rem; }
+        .timeline-content { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+        .timeline-content.active { opacity: 1; transform: translateY(0); }
+
+        /* Desktop Timeline */
+        @media (min-width: 768px) {
+            .timeline-container::before { left: 50%; transform: translateX(-50%); }
+            .timeline-progress { left: 50%; transform: translateX(-50%); }
+            .glow-dot { left: 50%; transform: translate(-50%, -50%); }
+            .timeline-item { width: 50%; margin-bottom: 0; }
+            .timeline-item.left { padding-right: 50px; padding-left: 0; text-align: right; }
+            .timeline-item.right { margin-left: 50%; padding-left: 50px; text-align: left; margin-top: 6rem; }
+        }
+
+        /* === การ์ดผลงานแนวนอน === */
+        .project-card {
+            width: 85vw; /* ขนาดมือถือ */
+            max-width: 500px;
+            flex-shrink: 0;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+        @media (min-width: 768px) {
+            .project-card { width: 600px; padding: 2rem; }
+        }
+    </style>
 </head>
 <body class="antialiased selection:bg-purple-500 selection:text-white">
 
 <canvas id="fluid-canvas"></canvas>
+<div class="bg-glow"></div>
 
-<div id="moving-profile" class="fixed z-40 pointer-events-none" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
-    <div class="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 floating-avatar pointer-events-auto">
+<!-- Profile Image -->
+<div id="moving-profile" class="fixed z-40 pointer-events-none transition-transform duration-300" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <div class="relative w-40 h-40 md:w-64 md:h-64 lg:w-80 lg:h-80 floating-avatar pointer-events-auto">
         <div class="absolute inset-0 bg-purple-600 rounded-full blur-3xl opacity-50"></div>
         <img src="image/profile.png" alt="Profile" class="w-full h-full object-cover rounded-full border-4 border-gray-800 shadow-2xl relative z-10">
     </div>
 </div>
 
-<div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
-    <span class="absolute top-6 right-6 text-gray-500 hover:text-white text-5xl cursor-pointer transition-colors">&times;</span>
+<!-- Lightbox -->
+<div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0 bg-black/90" onclick="closeLightbox()">
+    <span class="absolute top-6 right-6 text-gray-400 hover:text-white text-5xl cursor-pointer transition-colors">&times;</span>
     <img id="lightbox-img" src="" alt="Certificate" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl scale-95 transition-transform duration-300 border border-white/10">
 </div>
 
-<div class="bg-glow"></div>
-
-<nav class="fixed top-0 w-full p-6 md:p-8 flex justify-between items-center z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5 pointer-events-none">
-    <div class="font-black text-xl tracking-widest text-white pointer-events-auto">AP</div>
-    <div class="flex items-center gap-3 md:gap-8 text-[10px] md:text-sm font-bold tracking-wider pointer-events-auto">
-        <a href="#about" class="hover:text-purple-400 transition-colors uppercase translatable" data-th="เกี่ยวกับ" data-en="About">About</a>
-        <a href="#skills" class="hover:text-purple-400 transition-colors uppercase translatable" data-th="ทักษะ" data-en="Skills">Skills</a>
-        <a href="#work" class="hover:text-purple-400 transition-colors uppercase translatable" data-th="ผลงาน" data-en="Work">Work</a>
-        <a href="#certifications" class="hover:text-purple-400 transition-colors uppercase translatable" data-th="ใบรับรอง" data-en="Certifications">Certifications</a>
+<!-- Navbar -->
+<nav class="fixed top-0 w-full p-4 md:p-8 flex justify-between items-center z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5 pointer-events-none">
+    <div class="font-black text-lg md:text-xl tracking-widest text-white pointer-events-auto">AP</div>
+    <div class="flex items-center gap-2 md:gap-8 text-[10px] md:text-sm font-bold tracking-wider pointer-events-auto">
+        <a href="#about" class="hover:text-purple-400 transition-colors uppercase translatable hidden sm:block" data-th="เกี่ยวกับ" data-en="About">About</a>
+        <a href="#skills" class="hover:text-purple-400 transition-colors uppercase translatable hidden sm:block" data-th="ทักษะ" data-en="Skills">Skills</a>
+        <a href="#work" class="hover:text-purple-400 transition-colors uppercase translatable hidden sm:block" data-th="ผลงาน" data-en="Work">Work</a>
+        <a href="#certifications" class="hover:text-purple-400 transition-colors uppercase translatable hidden sm:block" data-th="ใบรับรอง" data-en="Certifications">Certifications</a>
         
-        <button id="langToggleBtn" onclick="toggleLanguage()" class="ml-2 md:ml-4 px-3 py-1.5 md:px-4 md:py-2 bg-white/5 hover:bg-purple-500 border border-white/10 hover:border-purple-500 rounded-full text-white transition-all duration-300 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022h1.408z"/><path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.14-.183l-1.294.693zm1.442-2.316.035.051c.212.336.453.66.718.961a5.05 5.05 0 0 0-.715.918c-.22-.315-.42-.647-.597-.993l.56-.937z"/></svg>
+        <button id="langToggleBtn" onclick="toggleLanguage()" class="px-3 py-1.5 md:px-4 md:py-2 bg-white/5 hover:bg-purple-500 border border-white/10 hover:border-purple-500 rounded-full text-white transition-all duration-300 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022h1.408z"/><path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.14-.183l-1.294.693zm1.442-2.316.035.051c.212.336.453.66.718.961a5.05 5.05 0 0 0-.715.918c-.22-.315-.42-.647-.597-.993l.56-.937z"/></svg>
             <span id="currentLangText">EN</span>
         </button>
     </div>
 </nav>
 
+<!-- Social Sidebar (Hidden on Mobile) -->
 <div class="hidden lg:flex fixed left-8 top-1/2 -translate-y-1/2 flex-col gap-6 z-50 text-gray-500 pointer-events-auto">
     <a href="https://github.com/apinyaprasom" target="_blank" class="hover:text-white hover:scale-110 transition-all">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
     </a>
 </div>
 
-<section id="home" class="relative h-screen flex flex-col items-center justify-center overflow-hidden px-6 pointer-events-none">
-    <div class="absolute w-full flex justify-between px-6 md:px-24 lg:px-32 z-10 mt-20">
-        <div class="w-1/2 lg:w-1/3">
+<!-- Home Section -->
+<section id="home" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pointer-events-none pt-20">
+    <div class="absolute w-full flex flex-col md:flex-row justify-between px-6 md:px-24 lg:px-32 z-10 top-32 md:top-auto md:mt-20">
+        <div class="w-full md:w-1/2 lg:w-1/3 text-center md:text-left mb-10 md:mb-0">
             <p class="text-purple-400 font-medium text-sm md:text-lg mb-2 reveal translatable" data-th="สวัสดี! ฉันคือ" data-en="Hello! I'm">Hello! I'm</p>
-            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight uppercase reveal" style="transition-delay: 0.2s;">
-                APHINYA <br> PRASOM
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight uppercase reveal" style="transition-delay: 0.2s;">
+                APHINYA <br class="hidden md:block"> PRASOM
             </h1>
         </div>
-        <div class="w-1/2 lg:w-1/3 text-right">
+        <div class="w-full md:w-1/2 lg:w-1/3 text-center md:text-right hidden sm:block">
             <p class="text-purple-400 font-medium text-sm md:text-lg mb-2 reveal">Wan</p>
             <div class="text-2xl sm:text-4xl lg:text-5xl font-black text-gray-500/50 leading-tight uppercase tracking-tight overflow-hidden reveal" style="transition-delay: 0.2s;">
                 <div class="animate-slide whitespace-nowrap">
@@ -67,27 +136,30 @@
         </div>
     </div>
     
-    <div class="w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 opacity-0 mt-10"></div>
+    <!-- Placeholder for Home image -->
+    <div class="w-40 h-40 md:w-64 md:h-64 lg:w-80 lg:h-80 opacity-0 mt-32 md:mt-10"></div>
 </section>
 
-<section id="about" class="py-24 px-6 relative z-10 reveal pointer-events-none min-h-[80vh] flex items-center">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 pointer-events-auto w-full">
+<!-- About Section -->
+<section id="about" class="py-24 px-6 relative z-10 reveal pointer-events-none min-h-screen flex items-center justify-center">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 pointer-events-auto w-full text-center md:text-left pt-10">
         
-        <div class="w-full md:w-1/2 flex justify-center opacity-0">
-            <div class="w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80"></div>
+        <!-- Placeholder for About image -->
+        <div class="w-full md:w-1/2 flex justify-center opacity-0 order-1 md:order-none">
+            <div id="about-img-placeholder" class="w-40 h-40 md:w-64 md:h-64 lg:w-80 lg:h-80"></div>
         </div>
 
-        <div class="w-full md:w-1/2 text-center md:text-left">
-            <h1 class="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter uppercase translatable" data-th="เกี่ยวกับฉัน" data-en="ABOUT ME">
+        <div class="w-full md:w-1/2 order-2 md:order-none">
+            <h1 class="text-3xl md:text-6xl font-black text-white mb-6 md:mb-8 tracking-tighter uppercase translatable" data-th="เกี่ยวกับฉัน" data-en="ABOUT ME">
                 ABOUT ME
             </h1>
             <div class="text-gray-400 text-sm md:text-base leading-relaxed">
-                <p class="mb-6 translatable" 
+                <p class="mb-6 translatable text-justify md:text-left" 
                    data-th="ฉันคือ อภิญญา ประสม ปัจจุบันเป็นนิสิตชั้นปีที่ 4 คณะการบัญชีและการจัดการ สาขาธุรกิจดิจิทัลและระบบสารสนเทศ มหาวิทยาลัยมหาสารคาม ตลอดระยะเวลาที่ศึกษาในสาขานี้ ฉันได้พัฒนาความสนใจด้านการออกแบบกราฟิก การพัฒนาเว็บไซต์ และการประยุกต์ใช้เทคโนโลยีระบบอัตโนมัติเพื่อสนับสนุนการดำเนินงานทางธุรกิจ โดยมุ่งเน้นการออกแบบที่คำนึงถึงผู้ใช้งานเป็นสำคัญ ควบคู่กับการจัดการข้อมูลเพื่อให้เกิดประสิทธิภาพในการใช้งานจริง" 
                    data-en="I am Aphinya Prasom, a 4th-year student at Mahasarakham University, majoring in Digital Business and Information Systems. Throughout my studies, I have developed a strong interest in graphic design, web development, and the application of automation technologies to support business operations. My focus is on user-centered design coupled with efficient data management for practical efficiency.">
                     ฉันชื่อ อภิญญา ประสม ปัจจุบันเป็นนิสิตชั้นปีที่ 4 คณะการบัญชีและการจัดการ สาขาธุรกิจดิจิทัลและระบบสารสนเทศ มหาวิทยาลัยมหาสารคาม ตลอดระยะเวลาที่ศึกษาในสาขานี้ ฉันได้พัฒนาความสนใจด้านการออกแบบกราฟิก การพัฒนาเว็บไซต์ และการประยุกต์ใช้เทคโนโลยีระบบอัตโนมัติเพื่อสนับสนุนการดำเนินงานทางธุรกิจ โดยมุ่งเน้นการออกแบบที่คำนึงถึงผู้ใช้งานเป็นสำคัญ ควบคู่กับการจัดการข้อมูลเพื่อให้เกิดประสิทธิภาพในการใช้งานจริง
                 </p>
-                <p class="translatable"
+                <p class="translatable text-justify md:text-left"
                    data-th="ในด้านการทำงาน ฉันให้ความสำคัญกับการวางแผนอย่างเป็นระบบ การจัดลำดับความสำคัญของงาน และการทำงานร่วมกับผู้อื่นอย่างมีความรับผิดชอบ ฉันเชื่อว่าการได้เรียนรู้จากผู้มีประสบการณ์และการทำงานร่วมกับทีมจะช่วยพัฒนาทักษะ ความรู้ และมุมมองในการทำงาน พร้อมนำสิ่งที่เรียนรู้มาประยุกต์ใช้เพื่อสร้างผลงานที่มีคุณค่าและตอบโจทย์การใช้งานได้อย่างเหมาะสม"
                    data-en="Professionally, I value systematic planning, task prioritization, and responsible collaboration. I believe that learning from experienced professionals and working with a team enhances my skills, knowledge, and perspectives, enabling me to apply what I learn to create valuable and practical solutions.">
                     ในด้านการทำงาน ฉันให้ความสำคัญกับการวางแผนอย่างเป็นระบบ การจัดลำดับความสำคัญของงาน และการทำงานร่วมกับผู้อื่นอย่างมีความรับผิดชอบ ฉันเชื่อว่าการได้เรียนรู้จากผู้มีประสบการณ์และการทำงานร่วมกับทีมจะช่วยพัฒนาทักษะ ความรู้ และมุมมองในการทำงาน พร้อมนำสิ่งที่เรียนรู้มาประยุกต์ใช้เพื่อสร้างผลงานที่มีคุณค่าและตอบโจทย์การใช้งานได้อย่างเหมาะสม
@@ -98,181 +170,167 @@
     </div>
 </section>
 
-<section id="skills" class="py-32 px-6 relative z-10 pointer-events-none">
-    <div class="text-center mb-20 reveal pointer-events-auto">
-        <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight translatable" data-th="ทักษะและ" data-en="My skills &">My skills &</h2>
-        <h2 class="text-4xl md:text-6xl font-black text-purple-400 tracking-tight translatable" data-th="ความเชี่ยวชาญ" data-en="expertise">expertise</h2>
+<!-- Skills Section -->
+<section id="skills" class="py-20 md:py-32 px-6 relative z-10 pointer-events-none">
+    <div class="text-center mb-16 md:mb-20 reveal pointer-events-auto">
+        <h2 class="text-3xl md:text-6xl font-black text-white tracking-tight translatable" data-th="ทักษะและ" data-en="My skills &">My skills &</h2>
+        <h2 class="text-3xl md:text-6xl font-black text-purple-400 tracking-tight translatable" data-th="ความเชี่ยวชาญ" data-en="expertise">expertise</h2>
     </div>
 
-    <div class="timeline-container pointer-events-auto" id="timeline-container">
+    <div class="timeline-container max-w-4xl mx-auto pointer-events-auto" id="timeline-container">
         <div class="timeline-progress" id="timeline-progress"></div>
         <div class="glow-dot" id="glow-dot"></div>
         
         <div class="timeline-item left timeline-content">
-            <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Languages</h3>
-            <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">CORE PROGRAMMING</p>
-            <p class="text-gray-400 text-sm leading-relaxed translatable"
-               data-th="มีพื้นฐานด้านการเขียนโปรแกรมและการพัฒนาระบบ โดยสามารถใช้งานภาษา PHP, R, Python, SQL, Java และ JavaScript ในระดับพื้นฐานจากการเรียนและการทำโครงงาน พร้อมเรียนรู้และพัฒนาทักษะเพิ่มเติมเพื่อนำไปประยุกต์ใช้ในการพัฒนาระบบ"
-               data-en="Possess foundational programming and system development skills, utilizing PHP, R, Python, SQL, Java, and JavaScript from coursework and projects. Continuously eager to learn and apply these skills in real-world system development.">
-                มีพื้นฐานด้านการเขียนโปรแกรมและการพัฒนาระบบ โดยสามารถใช้งานภาษา PHP, R, Python, SQL, Java และ JavaScript ในระดับพื้นฐานจากการเรียนและการทำโครงงาน พร้อมเรียนรู้และพัฒนาทักษะเพิ่มเติมเพื่อนำไปประยุกต์ใช้ในการพัฒนาระบบ
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 uppercase tracking-tight">Languages</h3>
+            <p class="text-purple-400 text-xs md:text-sm mb-4 font-bold tracking-widest">CORE PROGRAMMING</p>
+            <p class="text-gray-400 text-sm leading-relaxed translatable text-justify md:text-right"
+               data-th="มีพื้นฐานด้านการเขียนโปรแกรมและการพัฒนาระบบ โดยสามารถใช้งานภาษา PHP, R, Python, SQL, Java และ JavaScript ในระดับพื้นฐานจากการเรียนและการทำโครงงาน"
+               data-en="Possess foundational programming and system development skills, utilizing PHP, R, Python, SQL, Java, and JavaScript from coursework and projects.">
+               มีพื้นฐานด้านการเขียนโปรแกรมและการพัฒนาระบบ โดยสามารถใช้งานภาษา PHP, R, Python, SQL, Java และ JavaScript ในระดับพื้นฐานจากการเรียนและการทำโครงงาน พร้อมเรียนรู้และพัฒนาทักษะเพิ่มเติมเพื่อนำไปประยุกต์ใช้ในการพัฒนาระบบ
             </p>
         </div>
 
-        <div class="timeline-item right mt-24 timeline-content">
-            <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Automation</h3>
-            <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">WORKFLOW & SYSTEMS</p>
-            <p class="text-gray-400 text-sm leading-relaxed translatable"
+        <div class="timeline-item right timeline-content">
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 uppercase tracking-tight">Automation</h3>
+            <p class="text-purple-400 text-xs md:text-sm mb-4 font-bold tracking-widest">WORKFLOW & SYSTEMS</p>
+            <p class="text-gray-400 text-sm leading-relaxed translatable text-justify md:text-left"
                data-th="มีประสบการณ์ในการใช้งานแพลตฟอร์ม n8n จากการพัฒนาโครงงาน สามารถออกแบบเวิร์กโฟลว์พื้นฐานเพื่อทำงานอัตโนมัติ ลดขั้นตอนที่ซ้ำซ้อน และเชื่อมต่อข้อมูลระหว่างบริการต่าง ๆ ได้"
-               data-en="Experienced in using the n8n platform from project development. Capable of designing basic workflows to automate tasks, reduce redundancies, and seamlessly connect data across various digital services.">
+               data-en="Experienced in using the n8n platform from project development. Capable of designing basic workflows to automate tasks and connect digital services.">
                มีประสบการณ์ในการใช้งานแพลตฟอร์ม n8n จากการพัฒนาโครงงาน สามารถออกแบบเวิร์กโฟลว์พื้นฐานเพื่อทำงานอัตโนมัติ ลดขั้นตอนที่ซ้ำซ้อน และเชื่อมต่อข้อมูลระหว่างบริการต่าง ๆ ได้
             </p>
         </div>
 
-        <div class="timeline-item left mt-24 timeline-content">
-            <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Prototyping</h3>
-            <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">UI/UX & DESIGN</p>
-            <p class="text-gray-400 text-sm leading-relaxed translatable"
-               data-th="การออกแบบส่วนต่อประสานผู้ใช้ (UI) โดยใช้ Figma ในการสร้างต้นแบบ (Prototype) และออกแบบหน้าจอสำหรับเว็บไซต์หรือแอปพลิเคชันจากการเรียนและการทำโครงงาน"
-               data-en="Proficient in User Interface (UI) design using Figma to create prototypes and design screen layouts for websites and applications, gained through academic studies and practical projects.">
-                การออกแบบส่วนต่อประสานผู้ใช้ (UI) โดยใช้ Figma ในการสร้างต้นแบบ (Prototype) และออกแบบหน้าจอสำหรับเว็บไซต์หรือแอปพลิเคชันจากการเรียนและการทำโครงงาน
+        <div class="timeline-item left timeline-content">
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 uppercase tracking-tight">Prototyping</h3>
+            <p class="text-purple-400 text-xs md:text-sm mb-4 font-bold tracking-widest">UI/UX & DESIGN</p>
+            <p class="text-gray-400 text-sm leading-relaxed translatable text-justify md:text-right"
+               data-th="การออกแบบส่วนต่อประสานผู้ใช้ (UI) โดยใช้ Figma ในการสร้างต้นแบบ (Prototype) และออกแบบหน้าจอสำหรับเว็บไซต์หรือแอปพลิเคชัน"
+               data-en="Proficient in User Interface (UI) design using Figma to create prototypes and design screen layouts for websites and applications.">
+               การออกแบบส่วนต่อประสานผู้ใช้ (UI) โดยใช้ Figma ในการสร้างต้นแบบ (Prototype) และออกแบบหน้าจอสำหรับเว็บไซต์หรือแอปพลิเคชันจากการเรียนและการทำโครงงาน
             </p>
         </div>
 
-        <div class="timeline-item right mt-24 timeline-content">
-            <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Software</h3>
-            <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest">TOOLS & UTILITIES</p>
-            <p class="text-gray-400 text-sm leading-relaxed translatable"
-               data-th="มีพื้นฐานการใช้งาน Microsoft Office, Power BI, Canva และ CapCut เพื่อสนับสนุนการจัดการข้อมูล การวิเคราะห์เบื้องต้น และการออกแบบสื่อสำหรับการนำเสนอ"
-               data-en="Skilled in using Microsoft Office, Power BI, Canva, and CapCut to support data management, perform basic analytics, and design engaging media for professional presentations.">
+        <div class="timeline-item right timeline-content">
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 uppercase tracking-tight">Software</h3>
+            <p class="text-purple-400 text-xs md:text-sm mb-4 font-bold tracking-widest">TOOLS & UTILITIES</p>
+            <p class="text-gray-400 text-sm leading-relaxed translatable text-justify md:text-left"
+               data-th="มีพื้นฐานการใช้งาน Microsoft Office, Power BI, Canva และ CapCut เพื่อสนับสนุนการจัดการข้อมูล การวิเคราะห์เบื้องต้น และการออกแบบสื่อ"
+               data-en="Skilled in using Microsoft Office, Power BI, Canva, and CapCut to support data management, perform basic analytics, and design engaging media.">
                มีพื้นฐานการใช้งาน Microsoft Office, Power BI, Canva และ CapCut เพื่อสนับสนุนการจัดการข้อมูล การวิเคราะห์เบื้องต้น และการออกแบบสื่อสำหรับการนำเสนอ
             </p>
         </div>
-
     </div>
 </section>
 
+<!-- Work Section -->
 <section id="work-container" class="relative z-10 w-full" style="height: 350vh;">
     <div id="work" class="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden pointer-events-none">
         
         <div class="px-6 md:px-12 mb-8 reveal pointer-events-auto w-full">
-            <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight translatable" data-th="ผลงานของฉัน" data-en="My Work">My Work</h2>
+            <h2 class="text-3xl md:text-6xl font-black text-white tracking-tight translatable" data-th="ผลงานของฉัน" data-en="My Work">My Work</h2>
         </div>
 
         <div class="w-full overflow-hidden pointer-events-auto">
-            <div id="horizontal-track" class="flex gap-6 md:gap-12 px-6 md:px-12 w-max ease-out" style="will-change: transform;">
+            <div id="horizontal-track" class="flex gap-4 md:gap-8 px-6 md:px-12 w-max ease-out" style="will-change: transform;">
                 
+                <!-- Project 1 -->
                 <div class="project-card">
-                    <div class="flex justify-between items-start mb-6">
-                        <h1 class="text-5xl font-black text-white">01</h1>
+                    <div class="flex justify-between items-start mb-4 md:mb-6">
+                        <h1 class="text-4xl md:text-5xl font-black text-white">01</h1>
                         <div class="text-right">
-                            <h3 class="text-xl md:text-2xl font-bold text-white translatable" data-th="ระบบจองตั๋วอัตโนมัติ" data-en="Automated Transit">Automated Transit</h3>
-                            <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">System / n8n</p>
+                            <h3 class="text-lg md:text-2xl font-bold text-white translatable" data-th="ระบบจองตั๋วอัตโนมัติ" data-en="Automated Transit">Automated Transit</h3>
+                            <p class="text-purple-400 text-[10px] md:text-xs tracking-widest uppercase">System / n8n</p>
                         </div>
                     </div>
-                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-4 md:mb-8 border border-white/5">
                         <img src="image/bus.png" alt="Bus System" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed translatable"
-                       data-th="โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ที่ออกแบบมาเพื่อรองรับเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ระบบนี้ถูกสร้างขึ้นโดยประยุกต์ใช้แพลตฟอร์ม n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอจากผู้ใช้งานและดำเนินการส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที"
-                       data-en="An online bus ticket reservation system developed to support the travel route between Mahasarakham and Khon Kaen. This system utilizes the n8n platform to manage automated workflows, allowing it to receive user requests and instantly send booking confirmations via LINE Notify.">
-                        โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ที่ออกแบบมาเพื่อรองรับเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ระบบนี้ถูกสร้างขึ้นโดยประยุกต์ใช้แพลตฟอร์ม n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอจากผู้ใช้งานและดำเนินการส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที
+                    <h4 class="text-base md:text-lg font-bold text-white mb-2 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed translatable text-justify"
+                       data-th="โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ ประยุกต์ใช้ n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอและส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที"
+                       data-en="An online bus ticket reservation system utilizing n8n to manage automated workflows, allowing instant booking confirmations via LINE Notify.">
+                       โครงการพัฒนาระบบจองตั๋วรถโดยสารออนไลน์ที่ออกแบบมาเพื่อรองรับเส้นทางการเดินทางระหว่างจังหวัดมหาสารคามและขอนแก่น ระบบนี้ถูกสร้างขึ้นโดยประยุกต์ใช้แพลตฟอร์ม n8n เพื่อจัดการเวิร์กโฟลว์แบบอัตโนมัติ ทำให้สามารถรับคำขอจากผู้ใช้งานและดำเนินการส่งข้อความยืนยันการจองผ่าน LINE Notify ได้ทันที
                     </p>
                 </div>
 
+                <!-- Project 2 -->
                 <div class="project-card">
-                    <div class="flex justify-between items-start mb-6">
-                        <h1 class="text-5xl font-black text-white">02</h1>
+                    <div class="flex justify-between items-start mb-4 md:mb-6">
+                        <h1 class="text-4xl md:text-5xl font-black text-white">02</h1>
                         <div class="text-right">
-                            <h3 class="text-xl md:text-2xl font-bold text-white">PureVeil Design</h3>
-                            <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Product / Packaging</p>
+                            <h3 class="text-lg md:text-2xl font-bold text-white">PureVeil Design</h3>
+                            <p class="text-purple-400 text-[10px] md:text-xs tracking-widest uppercase">Product / Packaging</p>
                         </div>
                     </div>
-                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-4 md:mb-8 border border-white/5">
                         <img src="image/product.png" alt="PureVeil" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed translatable"
-                       data-th="โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ งานออกแบบนี้ได้นำเสนอวิสัยทัศน์ใหม่ของบรรจุภัณฑ์ โดยเปลี่ยนจากการใช้ขวดแบบดั้งเดิมมาเป็นรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ ตอบโจทย์ทั้งความสวยงามและการใช้งานจริง"
-                       data-en="An industrial design project focusing on product and packaging development for a skincare brand. This design introduces a new vision for packaging by shifting from traditional bottles to a tube format equipped with a metal rollerball, answering the need for both aesthetics and practical use.">
-                        โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ งานออกแบบนี้ได้นำเสนอวิสัยทัศน์ใหม่ของบรรจุภัณฑ์ โดยเปลี่ยนจากการใช้ขวดแบบดั้งเดิมมาเป็นรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ ตอบโจทย์ทั้งความสวยงามและการใช้งานจริง
+                    <h4 class="text-base md:text-lg font-bold text-white mb-2 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed translatable text-justify"
+                       data-th="โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ เปลี่ยนจากการใช้ขวดมาเป็นรูปแบบหลอดหัวลูกกลิ้งโลหะ"
+                       data-en="An industrial design project introducing a new vision for packaging by shifting from traditional bottles to a tube format equipped with a metal rollerball.">
+                       โครงการการออกแบบอุตสาหกรรมที่เน้นการพัฒนาผลิตภัณฑ์และบรรจุภัณฑ์สำหรับแบรนด์สกินแคร์ งานออกแบบนี้ได้นำเสนอวิสัยทัศน์ใหม่ของบรรจุภัณฑ์ โดยเปลี่ยนจากการใช้ขวดแบบดั้งเดิมมาเป็นรูปแบบหลอดที่มาพร้อมกับหัวลูกกลิ้งโลหะ ตอบโจทย์ทั้งความสวยงามและการใช้งานจริง
                     </p>
                 </div>
 
+                <!-- Project 3 -->
                 <div class="project-card">
-                    <div class="flex justify-between items-start mb-6">
-                        <h1 class="text-5xl font-black text-white">03</h1>
+                    <div class="flex justify-between items-start mb-4 md:mb-6">
+                        <h1 class="text-4xl md:text-5xl font-black text-white">03</h1>
                         <div class="text-right">
-                            <h3 class="text-xl md:text-2xl font-bold text-white">Entertainment Merch</h3>
-                            <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Database / Store</p>
+                            <h3 class="text-lg md:text-2xl font-bold text-white">Ent. Merch</h3>
+                            <p class="text-purple-400 text-[10px] md:text-xs tracking-widest uppercase">Database / Store</p>
                         </div>
                     </div>
-                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
+                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-4 md:mb-8 border border-white/5">
                         <img src="image/kpop.png" alt="Merch Store" class="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-700">
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed translatable"
-                       data-th="ออกแบบและพัฒนาเว็บไซต์ร้านค้าออนไลน์สำหรับจำหน่ายสินค้าของศิลปิน KPOP-TPOP พร้อมออกแบบฐานข้อมูลเชิงสัมพันธ์เพื่อจัดเก็บข้อมูลสินค้า หมวดหมู่ ผู้ใช้งาน และคำสั่งซื้อ รวมถึงพัฒนาฟังก์ชันการค้นหาสินค้า การจัดการแคตตาล็อก และระบบจัดการข้อมูลผ่านฐานข้อมูล เพื่อให้ระบบสามารถรองรับการใช้งานได้อย่างเป็นระเบียบ"
-                       data-en="Designed and developed an online merchandise store for KPOP/TPOP artists. Created a relational database to efficiently store data on products, categories, users, and orders. Developed search functionalities, catalog management, and a comprehensive backend database administration system.">
-                        ออกแบบและพัฒนาเว็บไซต์ร้านค้าออนไลน์สำหรับจำหน่ายสินค้าของศิลปิน KPOP-TPOP พร้อมออกแบบฐานข้อมูลเชิงสัมพันธ์เพื่อจัดเก็บข้อมูลสินค้า หมวดหมู่ ผู้ใช้งาน และคำสั่งซื้อ รวมถึงพัฒนาฟังก์ชันการค้นหาสินค้า การจัดการแคตตาล็อก และระบบจัดการข้อมูลผ่านฐานข้อมูล เพื่อให้ระบบสามารถรองรับการใช้งานได้อย่างเป็นระเบียบ
+                    <h4 class="text-base md:text-lg font-bold text-white mb-2 translatable" data-th="ภาพรวมโครงการ" data-en="Project Overview">Project Overview</h4>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed translatable text-justify"
+                       data-th="ออกแบบและพัฒนาเว็บไซต์ร้านค้าออนไลน์สำหรับจำหน่ายสินค้าศิลปิน พร้อมออกแบบฐานข้อมูลเชิงสัมพันธ์เพื่อจัดเก็บข้อมูลและจัดการแคตตาล็อก"
+                       data-en="Designed an online merchandise store and relational database to efficiently store data on products, categories, users, and orders.">
+                       ออกแบบและพัฒนาเว็บไซต์ร้านค้าออนไลน์สำหรับจำหน่ายสินค้าของศิลปิน KPOP-TPOP พร้อมออกแบบฐานข้อมูลเชิงสัมพันธ์เพื่อจัดเก็บข้อมูลสินค้า หมวดหมู่ ผู้ใช้งาน และคำสั่งซื้อ รวมถึงพัฒนาฟังก์ชันการค้นหาสินค้า การจัดการแคตตาล็อก และระบบจัดการข้อมูลผ่านฐานข้อมูล เพื่อให้ระบบสามารถรองรับการใช้งานได้อย่างเป็นระเบียบ
                     </p>
                 </div>
                 
+                <!-- Project 4 -->
                 <div class="project-card">
-                    <div class="flex justify-between items-start mb-6">
-                        <h1 class="text-5xl font-black text-white">04</h1>
+                    <div class="flex justify-between items-start mb-4 md:mb-6">
+                        <h1 class="text-4xl md:text-5xl font-black text-white">04</h1>
                         <div class="text-right">
-                            <h3 class="text-xl md:text-2xl font-bold text-white translatable" data-th="ผลงานวิดีโอ" data-en="Video Project">Video Project</h3>
-                            <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Video / CapCut</p>
+                            <h3 class="text-lg md:text-2xl font-bold text-white translatable" data-th="ผลงานวิดีโอ" data-en="Video Project">Video Project</h3>
+                            <p class="text-purple-400 text-[10px] md:text-xs tracking-widest uppercase">Video / CapCut</p>
                         </div>
                     </div>
-                    
-                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
-                        <iframe 
-                            class="w-full h-full" 
-                            src="https://www.youtube.com/embed/lqlzXZfes-s" 
-                            title="YouTube video player" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            referrerpolicy="strict-origin-when-cross-origin"
-                            allowfullscreen>
-                        </iframe>
+                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-4 md:mb-8 border border-white/5">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/lqlzXZfes-s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
-                    
-                    <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="รายละเอียดผลงาน" data-en="Project Details">Project Details</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed translatable"
+                    <h4 class="text-base md:text-lg font-bold text-white mb-2 translatable" data-th="รายละเอียดผลงาน" data-en="Project Details">Project Details</h4>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed translatable text-justify"
                        data-th="[วิดิโอเสนอโปรเจควิชาการจัดการการผลิต]"
                        data-en="[Enter Video 1 Title Here]">
-                        [พิมพ์ชื่อคลิปที่ 1 ]
+                       [พิมพ์ชื่อคลิปที่ 1 ]
                     </p>
                 </div>
 
+                <!-- Project 5 -->
                 <div class="project-card">
-                    <div class="flex justify-between items-start mb-6">
-                        <h1 class="text-5xl font-black text-white">05</h1>
+                    <div class="flex justify-between items-start mb-4 md:mb-6">
+                        <h1 class="text-4xl md:text-5xl font-black text-white">05</h1>
                         <div class="text-right">
-                            <h3 class="text-xl md:text-2xl font-bold text-white translatable" data-th="ผลงานวิดีโอ" data-en="Video Project">Video Project</h3>
-                            <p class="text-purple-400 text-xs md:text-sm tracking-widest uppercase">Video / CapCut</p>
+                            <h3 class="text-lg md:text-2xl font-bold text-white translatable" data-th="ผลงานวิดีโอ" data-en="Video Project">Video Project</h3>
+                            <p class="text-purple-400 text-[10px] md:text-xs tracking-widest uppercase">Video / CapCut</p>
                         </div>
                     </div>
-                    
-                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-8 border border-white/5">
-                        <iframe 
-                            class="w-full h-full" 
-                            src="https://www.youtube.com/embed/4KKfsdhwljk" 
-                            title="YouTube video player" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            referrerpolicy="strict-origin-when-cross-origin"
-                            allowfullscreen>
-                        </iframe>
+                    <div class="relative aspect-video overflow-hidden bg-gray-900 rounded-xl mb-4 md:mb-8 border border-white/5">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/4KKfsdhwljk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
-                    
-                    <h4 class="text-lg font-bold text-white mb-3 translatable" data-th="รายละเอียดผลงาน" data-en="Project Details">Project Details</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed translatable"
+                    <h4 class="text-base md:text-lg font-bold text-white mb-2 translatable" data-th="รายละเอียดผลงาน" data-en="Project Details">Project Details</h4>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed translatable text-justify"
                        data-th="[วิดิโอโปรเจควิชาวิทยาระเบียบวิธีวิจัยธุรกิจ]"
                        data-en="[Enter Video 2 Title Here]">
-                        [พิมพ์ชื่อคลิปที่ 2 ของคุณที่นี่]
+                       [พิมพ์ชื่อคลิปที่ 2 ของคุณที่นี่]
                     </p>
                 </div>
                 
@@ -280,12 +338,15 @@
         </div>
     </div>
 </section>
-<section id="certifications" class="py-24 px-6 relative z-10 pointer-events-none">
+
+<!-- Certifications Section -->
+<section id="certifications" class="py-20 md:py-24 px-6 relative z-10 pointer-events-none">
     <div class="max-w-6xl mx-auto pointer-events-auto">
-        <h2 class="text-3xl md:text-5xl font-black text-center mb-16 tracking-tighter text-white uppercase reveal translatable" data-th="ใบประกาศนียบัตร" data-en="CERTIFICATIONS">
+        <h2 class="text-2xl md:text-5xl font-black text-center mb-10 md:mb-16 tracking-tighter text-white uppercase reveal translatable" data-th="ใบประกาศนียบัตร" data-en="CERTIFICATIONS">
             CERTIFICATIONS
         </h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8 max-w-5xl mx-auto">
+            <!-- (ใส่รูปใบประกาศนียบัตรของคุณ) -->
             <div class="relative aspect-[4/3] w-full bg-gray-900 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 border border-white/5 hover:border-purple-500 reveal" onclick="openLightbox('image/cert1.jpg')"> 
                 <img src="image/cert1.jpg" alt="Cert 1" class="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity">
             </div>
@@ -308,66 +369,42 @@
     </div>
 </section>
 
-<footer id="contact" class="py-12 border-t border-white/5 relative z-10 mt-12 bg-black/20 pointer-events-auto">
-    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+<!-- Footer -->
+<footer id="contact" class="py-8 md:py-12 border-t border-white/5 relative z-10 mt-12 bg-black/20 pointer-events-auto">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <div class="font-black text-xl tracking-widest text-white">AP</div>
-        <div class="text-gray-400 text-sm">aphinya.prasom@gmail.com | 083-461-8077</div>
-        <div class="text-gray-600 text-xs font-medium uppercase tracking-widest">&copy; 2026 Aphinya Prasom.</div>
+        <div class="text-gray-400 text-xs md:text-sm text-center">aphinya.prasom@gmail.com | 083-461-8077</div>
+        <div class="text-gray-600 text-[10px] md:text-xs font-medium uppercase tracking-widest text-center">&copy; 2026 Aphinya Prasom.</div>
     </div>
 </footer>
 
 <script>
-    // --------------------------------------------------------
-    // LANGUAGE TOGGLE SYSTEM
-    // --------------------------------------------------------
-    let currentLanguage = 'th'; // เริ่มต้นที่ภาษาไทย
-
+    // === 1. ระบบเปลี่ยนภาษา ===
+    let currentLanguage = 'th';
     function toggleLanguage() {
-        // สลับภาษา
         currentLanguage = currentLanguage === 'th' ? 'en' : 'th';
-        
-        // อัปเดตข้อความบนปุ่ม (แสดงภาษาถัดไปที่จะกดเปลี่ยนได้)
         const btnText = document.getElementById('currentLangText');
-        if (btnText) {
-            btnText.innerText = currentLanguage === 'th' ? 'EN' : 'TH';
-        }
+        if (btnText) btnText.innerText = currentLanguage === 'th' ? 'EN' : 'TH';
 
-        // ค้นหาทุก element ที่มี class 'translatable' และอัปเดตข้อความ
         document.querySelectorAll('.translatable').forEach(el => {
-            if (currentLanguage === 'en') {
-                el.innerText = el.getAttribute('data-en');
-            } else {
-                el.innerText = el.getAttribute('data-th');
-            }
+            el.innerText = el.getAttribute(`data-${currentLanguage}`);
         });
     }
-
-    // Initialize Language Text on Load
     document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll('.translatable').forEach(el => {
             el.innerText = el.getAttribute(`data-${currentLanguage}`);
         });
     });
 
-    // --------------------------------------------------------
-    // 0. Force scroll to top on refresh (บังคับให้เลื่อนไปบนสุดเมื่อรีเฟรช)
-    // --------------------------------------------------------
-    if (history.scrollRestoration) {
-        history.scrollRestoration = 'manual';
-    }
-    window.addEventListener('load', function () {
-        window.scrollTo(0, 0);
-    });
+    // === 2. บังคับเลื่อนไปบนสุดเมื่อรีเฟรช ===
+    if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
+    window.addEventListener('load', function () { window.scrollTo(0, 0); });
 
-    // --------------------------------------------------------
-    // 1. Mouse Particle Shatter Effect (สีแตกกระจายตามเมาส์)
-    // --------------------------------------------------------
+    // === 3. เอฟเฟกต์เมาส์ (Canvas) ===
     const canvas = document.getElementById('fluid-canvas');
     const ctx = canvas.getContext('2d');
-    
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
     let particlesArray = [];
     const colors = ['#f472b6', '#c084fc', '#38bdf8', '#4ade80'];
 
@@ -376,36 +413,29 @@
         canvas.height = window.innerHeight;
     });
 
-    const mouse = {
-        x: undefined,
-        y: undefined
-    }
+    const mouse = { x: undefined, y: undefined }
+    // รองรับการทัชบนหน้าจอมือถือ
+    canvas.addEventListener('mousemove', (event) => { mouse.x = event.x; mouse.y = event.y; createParticles(); });
+    canvas.addEventListener('touchmove', (event) => { mouse.x = event.touches[0].clientX; mouse.y = event.touches[0].clientY; createParticles(); });
 
-    canvas.addEventListener('mousemove', (event) => {
-        mouse.x = event.x;
-        mouse.y = event.y;
-        for (let i = 0; i < 6; i++) { 
-            particlesArray.push(new Particle());
-        }
-    });
+    function createParticles() {
+        for (let i = 0; i < 4; i++) { particlesArray.push(new Particle()); }
+    }
 
     class Particle {
         constructor() {
-            this.x = mouse.x;
-            this.y = mouse.y;
+            this.x = mouse.x; this.y = mouse.y;
             this.size = Math.random() * 8 + 4; 
-            this.speedX = (Math.random() * 12 - 6); 
-            this.speedY = (Math.random() * 12 - 6); 
+            this.speedX = (Math.random() * 8 - 4); 
+            this.speedY = (Math.random() * 8 - 4); 
             this.color = colors[Math.floor(Math.random() * colors.length)];
             this.life = 1; 
             this.rotation = Math.random() * 360;
             this.rotationSpeed = (Math.random() * 20 - 10);
         }
         update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            this.speedX *= 0.90;
-            this.speedY *= 0.90;
+            this.x += this.speedX; this.y += this.speedY;
+            this.speedX *= 0.90; this.speedY *= 0.90;
             this.life -= 0.02;
             this.rotation += this.rotationSpeed;
             if (this.size > 0.2) this.size -= 0.1;
@@ -421,7 +451,8 @@
         }
     }
 
-    function handleParticles() {
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); 
         for (let i = 0; i < particlesArray.length; i++) {
             particlesArray[i].update();
             particlesArray[i].draw();
@@ -430,23 +461,14 @@
                 i--;
             }
         }
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); 
-        handleParticles();
         requestAnimationFrame(animate);
     }
-    
     animate();
 
-    // --------------------------------------------------------
-    // 2. Profile Image Movement Animation
-    // --------------------------------------------------------
+    // === 4. แอนิเมชันเลื่อนรูป Profile (Responsive) ===
     window.addEventListener('scroll', () => {
         const profile = document.getElementById('moving-profile');
         const about = document.getElementById('about');
-
         if (!profile || !about) return;
 
         const scrollY = window.scrollY;
@@ -456,24 +478,21 @@
         let xProgress = scrollY / (aboutTop || 1); 
         xProgress = Math.max(0, Math.min(1, xProgress));
         
+        // บน Desktop ไปซ้าย 25% | บน มือถือ ให้อยู่ตรงกลาง (50%)
         let startLeft = 50;
         let endLeft = isDesktop ? 25 : 50; 
         profile.style.left = (startLeft - ((startLeft - endLeft) * xProgress)) + '%';
 
-        let endFixedScroll = aboutTop; 
-        
-        if (scrollY > endFixedScroll) {
-            let moveUp = scrollY - endFixedScroll;
+        // ปรับให้ตอนเลื่อนลงผ่าน About รูปเลื่อนขึ้นไป
+        if (scrollY > aboutTop) {
+            let moveUp = scrollY - aboutTop;
             profile.style.top = `calc(50% - ${moveUp}px)`;
         } else {
             profile.style.top = '50%';
         }
     });
 
-    // --------------------------------------------------------
-    // 3. Scroll Reveal แอนิเมชันตอนเลื่อนหน้าจอ
-    // --------------------------------------------------------
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+    // === 5. Scroll Reveal ===
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -481,46 +500,30 @@
                 observer.unobserve(entry.target); 
             }
         });
-    }, observerOptions);
-    document.querySelectorAll('.reveal').forEach((element) => { observer.observe(element); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal, .timeline-content').forEach(el => observer.observe(el));
 
-    // --------------------------------------------------------
-    // 4. Timeline Scroll Animation (แสงไฟวิ่งตามการเลื่อน)
-    // --------------------------------------------------------
+    // === 6. Timeline Scroll Animation ===
     window.addEventListener('scroll', () => {
         const container = document.getElementById('timeline-container');
         const progress = document.getElementById('timeline-progress');
         const dot = document.getElementById('glow-dot');
-        const items = document.querySelectorAll('.timeline-content');
-        
         if (!container || !progress || !dot) return;
 
         const rect = container.getBoundingClientRect();
-        const containerTop = rect.top;
-        const containerHeight = rect.height;
         const windowHeight = window.innerHeight;
-
-        if (containerTop < windowHeight / 2 && containerTop > -containerHeight) {
-            let scrolled = (windowHeight / 2 - containerTop) / containerHeight;
+        
+        // คำนวณความสูงตามขนาดหน้าจอแบบ Dynamic
+        if (rect.top < windowHeight * 0.8 && rect.bottom > 0) {
+            let scrolled = (windowHeight * 0.8 - rect.top) / rect.height;
             scrolled = Math.max(0, Math.min(1, scrolled)); 
             
             progress.style.height = (scrolled * 100) + '%';
             dot.style.top = (scrolled * 100) + '%';
-
-            items.forEach(item => {
-                const itemTop = item.getBoundingClientRect().top;
-                if (itemTop < windowHeight / 2 + 50) {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
-            });
         }
     });
 
-    // --------------------------------------------------------
-    // 5. Lightbox สำหรับ Certifications
-    // --------------------------------------------------------
+    // === 7. Lightbox สำหรับใบประกาศฯ ===
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     
@@ -547,30 +550,25 @@
         }, 300);
     }
 
-    // --------------------------------------------------------
-    // 6. Horizontal Scroll Hijacking สำหรับส่วนผลงาน (บังคับเลื่อนขวา)
-    // --------------------------------------------------------
+    // === 8. Horizontal Scroll (แก้ให้สมูทขึ้นบนมือถือ) ===
     window.addEventListener('scroll', () => {
         const workContainer = document.getElementById('work-container');
         const track = document.getElementById('horizontal-track');
-        
         if (!workContainer || !track) return;
 
         const rect = workContainer.getBoundingClientRect();
-        
         if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
             let progress = Math.abs(rect.top) / (rect.height - window.innerHeight);
             progress = Math.max(0, Math.min(1, progress));
             
-            const maxScroll = track.scrollWidth - window.innerWidth + 50; 
-            
+            const maxScroll = track.scrollWidth - window.innerWidth + (window.innerWidth >= 768 ? 100 : 30); 
             track.style.transform = `translateX(-${progress * maxScroll}px)`;
         } 
         else if (rect.top > 0) {
             track.style.transform = `translateX(0px)`;
         } 
         else if (rect.bottom < window.innerHeight) {
-            const maxScroll = track.scrollWidth - window.innerWidth + 50;
+            const maxScroll = track.scrollWidth - window.innerWidth + (window.innerWidth >= 768 ? 100 : 30);
             track.style.transform = `translateX(-${maxScroll}px)`;
         }
     });
